@@ -1,16 +1,13 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-const Post = () => {
+const Track = () => {
   const router = useRouter();
   const { id } = router.query;
 
   return (
-    <p>
-      Post:
-      {id}
-    </p>
+    <p>{`Track: ${id}`}</p>
   );
 };
 
-export default Post;
+export default Track;

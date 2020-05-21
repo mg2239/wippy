@@ -42,3 +42,15 @@
   color: $inputDefault;
   margin: 0;
 }
+
+@media (max-width: 1024px) {
+  #subtext {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  #uploadContainer {
+    padding: 1rem 2rem;
+  }
+}

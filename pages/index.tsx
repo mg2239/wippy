@@ -1,18 +1,18 @@
 import React from 'react';
-import Link from 'next/link';
-import { v4 as uuidv4 } from 'uuid';
 import Page from '../components/Page/Page';
 import Upload from '../components/Upload/Upload';
+import LandingText from '../components/LandingText/LandingText';
 
 export default function Home() {
-  const id = uuidv4();
+  function handleUpload() {
+    return 1;
+  }
+
   return (
     <Page>
       <div className='container'>
-        <Link href={`/${id}`}>
-          <a>{id}</a>
-        </Link>
-        <Upload />
+        <LandingText />
+        <Upload onUpload={handleUpload} />
       </div>
     </Page>
   );

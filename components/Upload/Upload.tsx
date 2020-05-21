@@ -1,5 +1,9 @@
 import React from 'react';
 
-export default function Upload() {
-  return <p>Upload</p>;
+type Props = {
+  onUpload: () => number
+}
+
+export default function Upload({ onUpload }: Props) {
+  return <p>{onUpload()}</p>;
 }

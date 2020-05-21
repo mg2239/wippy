@@ -9,3 +9,8 @@
 #headerContainer {
   margin: 36px; 
 }
+
+.icon {
+  height: 16px;
+  width: auto;
+}

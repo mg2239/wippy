@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styles from './upload.module.scss';
 
 type Props = {
-  onUpload: () => number
+  onUpload: () => void
 }
 
-function UploadText() {
+function InfoText() {
   return (
-    <div id={styles.uploadText}>
+    <div id={styles.textContainer}>
       <p id={styles.main}>click to upload audio</p>
       <p id={styles.subtext}>or drag and drop your file here</p>
       <p id={styles.files}>mp3, wav, and flac ok</p>
@@ -16,9 +16,19 @@ function UploadText() {
   );
 }
 
+function UploadText() {
+  return (
+    <div id={styles.textContainer}>
+      <p id={styles.main}>uploading...</p>
+    </div>
+  );
+}
+
 export default function Upload({ onUpload }: Props) {
+  const [accepted, setAccepted] = useState(false);
   function onDropAccepted(acceptedFiles: any) {
     onUpload();
+    setAccepted(true);
     console.log(acceptedFiles);
   }
   function onDropRejected() {
@@ -30,11 +40,20 @@ export default function Upload({ onUpload }: Props) {
     accept: ['.mp3', '.wav', '.flac', '.ogg'],
   });
   return (
-    <div {...getRootProps({
-      id: styles.uploadContainer,
-    })}>
-      <input {...getInputProps()} />
-      <UploadText />
-    </div>
+    <>
+      {!accepted && (
+        <div {...getRootProps({
+          id: styles.infoContainer,
+        })}>
+          <input {...getInputProps()} />
+          <InfoText />
+        </div >
+      )}
+      {accepted && (
+        <div id={styles.uploadContainer}>
+          <UploadText />
+        </div>
+      )}
+    </>
   );
 }

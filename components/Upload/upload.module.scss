@@ -1,6 +1,6 @@
 @import '../../public/variables';
 
-#uploadContainer {
+#infoContainer {
   padding: 2rem 4rem;
   border: 0.25rem solid $base;
   box-sizing: border-box;
@@ -9,22 +9,20 @@
   transition: $transition;
 }
 
-#uploadContainer:hover {
-  border: 0.25rem solid $hover;
+#infoContainer:hover {
+  transform: scale(1.02);
   transition: $transition;
 }
 
-#uploadContainer:hover #main, #uploadContainer:hover #subtext {
-  color: $hover;
-  transition: $transition;
+#uploadContainer {
+  padding: 2rem 4rem;
+  border: 0.25rem solid $base;
+  box-sizing: border-box;
+  border-radius: 1rem;
 }
 
-#uploadText {
+#textContainer {
   text-align: center;
-}
-
-#uploadText p {
-  transition: $transition;
 }
 
 #main {
@@ -50,7 +48,7 @@
 }
 
 @media (max-width: 450px) {
-  #uploadContainer {
+  #infoContainer {
     padding: 1rem 2rem;
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
-import styles from './upload.module.css';
+import styles from './upload.module.scss';
 
 type Props = {
   onUpload: () => number

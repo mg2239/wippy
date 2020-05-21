@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './landingtext.module.css';
+import styles from './landingtext.module.scss';
 
 export default function LandingText() {
   return (

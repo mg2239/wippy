@@ -1,20 +1,30 @@
+@import '../../public/variables';
+
 #uploadContainer {
   padding: 2rem 4rem;
-  border: 0.25rem solid #2A2C30;
+  border: 0.25rem solid $base;
   box-sizing: border-box;
   border-radius: 1rem;
+  cursor: pointer;
+  transition: $transition;
 }
 
 #uploadContainer:hover {
-  border: 0.25rem solid #626876;
+  border: 0.25rem solid $hover;
+  transition: $transition;
 }
 
 #uploadContainer:hover #main, #uploadContainer:hover #subtext {
-  color: #626876;
+  color: $hover;
+  transition: $transition;
 }
 
 #uploadText {
   text-align: center;
+}
+
+#uploadText p {
+  transition: $transition;
 }
 
 #main {
@@ -29,6 +39,6 @@
 
 #files {
   font-size: 1rem;
-  color: #8D919A;
+  color: $inputDefault;
   margin: 0;
 }

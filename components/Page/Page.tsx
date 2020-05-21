@@ -1,7 +1,7 @@
 import React from 'react';
 import github from './github.svg';
 import soundcloud from './soundcloud.svg';
-import styles from './page.module.css';
+import styles from './page.module.scss';
 
 type Props = {
   children: JSX.Element
@@ -10,7 +10,7 @@ type Props = {
 function Header() {
   return (
     <div id={styles.headerContainer}>
-      <h1 id={styles.header}>wippy</h1>
+      <a href='/' id={styles.header}>wippy</a>
     </div>
   );
 }

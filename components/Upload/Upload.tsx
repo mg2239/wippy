@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styles from './upload.module.scss';
 
+
 type Props = {
   onUpload: () => void
 }
@@ -26,10 +27,19 @@ function UploadText() {
 
 export default function Upload({ onUpload }: Props) {
   const [accepted, setAccepted] = useState(false);
-  function onDropAccepted(acceptedFiles: any) {
+  function onDropAccepted(files: any[]) {
     onUpload();
     setAccepted(true);
-    console.log(acceptedFiles);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onabort = () => console.log('file reading was aborted');
+      reader.onerror = () => console.log('file reading has failed');
+      reader.onload = () => {
+        const fileBinary = reader.result;
+        const storageRef = 
+      };
+      reader.readAsArrayBuffer(file);
+    });
   }
   function onDropRejected() {
     console.log('incorrect');

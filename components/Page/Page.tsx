@@ -18,11 +18,8 @@ function Header() {
 function Footer() {
   return (
     <div id={styles.footerContainer}>
-      <p>created by matt (polarr)</p>
-      <div id={styles.footerIcons}>
-        <img src={github} className={styles.icon} />
-        <img src={soundcloud} className={styles.icon} />
-      </div>
+      <img src={github} className={styles.icon} />
+      <img src={soundcloud} className={styles.icon} />
     </div>
   );
 }

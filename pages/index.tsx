@@ -10,10 +10,29 @@ export default function Home() {
 
   return (
     <Page>
-      <div className='container'>
-        <LandingText />
-        <Upload onUpload={handleUpload} />
-      </div>
+      <>
+        <div id='home'>
+          <div id='homeInner'>
+            <LandingText />
+            <Upload onUpload={handleUpload} />
+          </div>
+        </div>
+        <style jsx>{`
+        #home {
+          flex: 1 0 auto;
+          min-height: auto;
+          margin: 0 2rem;
+        }
+
+        #homeInner {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-evenly;
+        }
+      `}</style>
+      </>
     </Page>
   );
 }

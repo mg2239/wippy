@@ -17,9 +17,9 @@ function Header() {
 
 function Footer() {
   return (
-    <div>
+    <div id={styles.footerContainer}>
       <p>created by matt (polarr)</p>
-      <div>
+      <div id={styles.footerIcons}>
         <img src={github} className={styles.icon} />
         <img src={soundcloud} className={styles.icon} />
       </div>

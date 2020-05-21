@@ -3,14 +3,26 @@
   font-weight: 800;
   font-size: 3rem;
   letter-spacing: -0.05em;
-  color: #2A2C30;
 }
 
 #headerContainer {
-  margin: 36px; 
+  margin: 2rem; 
+}
+
+#footerContainer {
+  margin: 2rem; 
+  text-align: center; 
+  flex-shrink: 0;
+}
+
+#footerIcons {
+  display: flex;
+  justify-content: center;
 }
 
 .icon {
-  height: 16px;
+  height: 1rem;
   width: auto;
+  margin: 0 0.25rem;
+  fill: #2A2C30;
 }

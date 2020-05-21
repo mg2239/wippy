@@ -1,0 +1,34 @@
+#uploadContainer {
+  padding: 2rem 4rem;
+  border: 0.25rem solid #2A2C30;
+  box-sizing: border-box;
+  border-radius: 1rem;
+}
+
+#uploadContainer:hover {
+  border: 0.25rem solid #626876;
+}
+
+#uploadContainer:hover #main, #uploadContainer:hover #subtext {
+  color: #626876;
+}
+
+#uploadText {
+  text-align: center;
+}
+
+#main {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+#subtext {
+  font-size: 1rem;
+}
+
+#files {
+  font-size: 1rem;
+  color: #8D919A;
+  margin: 0;
+}

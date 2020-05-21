@@ -1,0 +1,11 @@
+#header {
+  margin: 0;
+  font-weight: 800;
+  font-size: 3rem;
+  letter-spacing: -0.05em;
+  color: #2A2C30;
+}
+
+#headerContainer {
+  margin: 36px; 
+}

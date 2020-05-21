@@ -1,23 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
-import short from 'short-uuid';
-import Nav from '../components/Header/Header';
+import { v4 as uuidv4 } from 'uuid';
+import Page from '../components/Page/Page';
 import Upload from '../components/Upload/Upload';
 
-const uuid = short();
-
-const IndexPage = () => {
-  const id = uuid.new();
+export default function Home() {
+  const id = uuidv4();
   return (
-    <>
-      <Nav />
-      <p>visit a random page lol</p>
-      <Link href={`/track/${id}`}>
-        <a>{id}</a>
-      </Link>
-      <Upload />
-    </>
+    <Page>
+      <div className='container'>
+        <Link href={`/${id}`}>
+          <a>{id}</a>
+        </Link>
+        <Upload />
+      </div>
+    </Page>
   );
-};
-
-export default IndexPage;
+}

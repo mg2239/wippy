@@ -1,14 +1,21 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Page from '../components/Page/Page';
-import TrackPage from '../components/TrackPage/TrackPage';
+import TrackPageContent from '../components/TrackPageContent/TrackPageContent';
 
-export default function Track() {
+export default function TrackPage() {
   const router = useRouter();
   const { id } = router.query;
+  const title = 'Example Title';
   return (
-    <Page>
-      <TrackPage trackID={id as string} />
-    </Page>
+    <>
+      <Head>
+        <title>{`${title} - wippy`}</title>
+      </Head>
+      <Page>
+        <TrackPageContent trackID={id as string} />
+      </Page>
+    </>
   );
 }

@@ -1,11 +1,17 @@
 import React from 'react';
+import Head from 'next/head';
 import Page from '../components/Page/Page';
-import HomePage from '../components/HomePage/HomePage';
+import HomePageContent from '../components/HomePageContent/HomePageContent';
 
 export default function Home() {
   return (
-    <Page>
-      <HomePage />
-    </Page>
+    <>
+      <Head>
+        <title>home - wippy</title>
+      </Head>
+      <Page>
+        <HomePageContent />
+      </Page>
+    </>
   );
 }

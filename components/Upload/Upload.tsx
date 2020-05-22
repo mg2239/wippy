@@ -7,22 +7,12 @@ import styles from './upload.module.scss';
 
 const storage = firebase.storage();
 
-type InfoProps = {
-  acceptedFiles: string[]
-}
-
-function InfoText({ acceptedFiles }: InfoProps) {
-  const filetypes = acceptedFiles.reduce((acc, curr, i) => {
-    if (i !== acceptedFiles.length - 1) {
-      return `${acc}${curr}, `;
-    }
-    return `${acc}and ${curr} ok`;
-  }, '');
+function InfoText() {
   return (
     <div id={styles.textContainer}>
       <p id={styles.main}>click to upload audio</p>
       <p id={styles.subtext}>or drag and drop your file here</p>
-      <p id={styles.files}>{filetypes}</p>
+      <p id={styles.files}>mp3 only</p>
     </div>
   );
 }
@@ -41,12 +31,11 @@ function UploadText({ progress }: UploadProps) {
 }
 
 type Props = {
-  acceptedFiles: string[]
   onUpload: () => void
   onSuccess: (filename: string) => void
 }
 
-export default function Upload({ acceptedFiles, onUpload, onSuccess }: Props) {
+export default function Upload({ onUpload, onSuccess }: Props) {
   const [accepted, setAccepted] = useState(false);
   const [progress, setProgress] = useState(0);
   function onDropAccepted(files: File[]) {
@@ -64,7 +53,7 @@ export default function Upload({ acceptedFiles, onUpload, onSuccess }: Props) {
   }
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted,
-    accept: acceptedFiles,
+    accept: '.mp3',
     multiple: false,
   });
   return (
@@ -74,7 +63,7 @@ export default function Upload({ acceptedFiles, onUpload, onSuccess }: Props) {
           id: styles.infoContainer,
         })}>
           <input {...getInputProps()} />
-          <InfoText acceptedFiles={acceptedFiles} />
+          <InfoText />
         </div >
       )}
       {accepted && (

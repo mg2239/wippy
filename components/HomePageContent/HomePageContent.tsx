@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { v4 as uuid } from 'uuid';
 import Upload from '../Upload/Upload';
 import LandingText from '../LandingText/LandingText';
-import styles from './homepage.module.scss';
+import styles from './homepagecontent.module.scss';
 
-export default function Home() {
+export default function HomePageContent() {
   const [uploaded, setUploaded] = useState(false);
   const router = useRouter();
   function handleUpload() {
@@ -19,11 +19,7 @@ export default function Home() {
     <div id={styles.home}>
       <div id={styles.homeInner}>
         {!uploaded && <LandingText />}
-        <Upload
-          acceptedFiles={['.mp3', '.wav', '.flac']}
-          onUpload={handleUpload}
-          onSuccess={handleSuccess}
-        />
+        <Upload onUpload={handleUpload} onSuccess={handleSuccess} />
       </div>
     </div>
   );

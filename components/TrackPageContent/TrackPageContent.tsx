@@ -4,7 +4,7 @@ type Props = {
   trackID: string
 }
 
-export default function TrackPage({ trackID }: Props) {
+export default function TrackPageContent({ trackID }: Props) {
   return (
     <div>
       <p>{`Track: ${trackID}`}</p>

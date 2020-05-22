@@ -34,6 +34,7 @@
             }
         ],
         "linebreak-style": "off",
-        "object-curly-newline": "off"
+        "object-curly-newline": "off",
+        "no-unused-vars": "warn"
     }
 }

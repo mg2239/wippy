@@ -1,53 +1,71 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { Line } from 'rc-progress';
+import firebase from '../../utils/initFirebase';
+import 'firebase/storage';
 import styles from './upload.module.scss';
 
+const storage = firebase.storage();
 
-type Props = {
-  onUpload: () => void
+type InfoProps = {
+  acceptedFiles: string[]
 }
 
-function InfoText() {
+function InfoText({ acceptedFiles }: InfoProps) {
+  const filetypes = acceptedFiles.reduce((acc, curr, i) => {
+    if (i !== acceptedFiles.length - 1) {
+      return `${acc}${curr}, `;
+    }
+    return `${acc}and ${curr} ok`;
+  }, '');
   return (
     <div id={styles.textContainer}>
       <p id={styles.main}>click to upload audio</p>
       <p id={styles.subtext}>or drag and drop your file here</p>
-      <p id={styles.files}>mp3, wav, and flac ok</p>
+      <p id={styles.files}>{filetypes}</p>
     </div>
   );
 }
 
-function UploadText() {
+type UploadProps = {
+  progress: number
+}
+
+function UploadText({ progress }: UploadProps) {
   return (
     <div id={styles.textContainer}>
       <p id={styles.main}>uploading...</p>
+      <Line percent={progress} strokeWidth={4} strokeColor='#2A2C30' />
     </div>
   );
 }
 
-export default function Upload({ onUpload }: Props) {
+type Props = {
+  acceptedFiles: string[]
+  onUpload: () => void
+  onSuccess: (filename: string) => void
+}
+
+export default function Upload({ acceptedFiles, onUpload, onSuccess }: Props) {
   const [accepted, setAccepted] = useState(false);
-  function onDropAccepted(files: any[]) {
+  const [progress, setProgress] = useState(0);
+  function onDropAccepted(files: File[]) {
     onUpload();
     setAccepted(true);
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onabort = () => console.log('file reading was aborted');
-      reader.onerror = () => console.log('file reading has failed');
-      reader.onload = () => {
-        const fileBinary = reader.result;
-        const storageRef = 
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }
-  function onDropRejected() {
-    console.log('incorrect');
+    const file = files[0]; // only one file allowed
+    const uploadTask = storage.ref().child(file.name).put(file);
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        const newProgress = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        setProgress(newProgress);
+      },
+      (err) => console.log(err),
+      () => onSuccess(file.name));
   }
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted,
-    onDropRejected,
-    accept: ['.mp3', '.wav', '.flac', '.ogg'],
+    accept: acceptedFiles,
+    multiple: false,
   });
   return (
     <>
@@ -56,12 +74,12 @@ export default function Upload({ onUpload }: Props) {
           id: styles.infoContainer,
         })}>
           <input {...getInputProps()} />
-          <InfoText />
+          <InfoText acceptedFiles={acceptedFiles} />
         </div >
       )}
       {accepted && (
         <div id={styles.uploadContainer}>
-          <UploadText />
+          <UploadText progress={progress} />
         </div>
       )}
     </>

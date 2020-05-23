@@ -11,9 +11,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <script src="https://unpkg.com/wavesurfer.js"></script>
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />

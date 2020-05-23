@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import * as WaveSurfer from './wavesurfer';
+import React from 'react';
+import WaveSurfer from 'wavesurfer.js';
 
-export default function Chat() {
-  useEffect(() => {
-    const wavesurfer = WaveSurfer.create({
-      container: '#waveform',
-    });
-  }, []);
+type Props = {
+  src: string
+}
 
+export default function Track({ src }: Props) {
   return (
     <div id='waveform'>
+      <audio controls src={src}>
+      </audio>
     </div>
   );
 }

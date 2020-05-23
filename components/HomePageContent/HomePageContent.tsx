@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { v4 as uuid } from 'uuid';
+import { Store } from 'react-stores';
 import Upload from '../Upload/Upload';
 import LandingText from '../LandingText/LandingText';
 import styles from './homepagecontent.module.scss';
+
+type FileStoreType = {
+  mp3?: File;
+}
+
+export const fileStore = new Store<FileStoreType>({});
 
 export default function HomePageContent() {
   const [uploaded, setUploaded] = useState(false);
@@ -11,9 +17,9 @@ export default function HomePageContent() {
   function handleUpload() {
     setUploaded(true);
   }
-  function handleSuccess(filename: string) {
-    console.log(filename);
-    router.push(`/${uuid()}`);
+  function handleSuccess(mp3: File, id: string) {
+    fileStore.setState({ mp3 });
+    router.push(`/${id}`);
   }
   return (
     <div id={styles.home}>

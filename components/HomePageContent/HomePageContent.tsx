@@ -24,4 +24,4 @@ function HomePageContent() {
   );
 }
 
-export default inject('dataStore')(HomePageContent);
+export default HomePageContent;

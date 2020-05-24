@@ -6,7 +6,6 @@ import { initializeStore } from '../utils/FileStore';
 import '../public/index.scss';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const { fileStore } = pageProps.initialStoreState;
   return (
     <Component {...pageProps} />
   );

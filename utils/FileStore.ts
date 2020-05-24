@@ -1,15 +1,27 @@
-import { observable, action } from 'mobx';
+import { observable } from 'mobx';
+import { useStaticRendering } from 'mobx-react';
 
-class FileStore {
-  @observable file: File | undefined = undefined;
+const isServer = typeof window === 'undefined';
+useStaticRendering(isServer);
 
-  constructor(data: { file?: File }) {
-    this.file = data.file;
+type SerializedStore = {
+  file: File,
+};
+
+export class FileStore {
+  @observable file: File | undefined;
+
+  hydrate(store: SerializedStore) {
+    this.file = store.file != null ? store.file : undefined;
   }
 
-  @action setFile(file: File) {
+  setFile(file: File) {
     this.file = file;
   }
 }
 
-export default FileStore;
+export function initializeStore() {
+  return {
+    fileStore: new FileStore(),
+  };
+}

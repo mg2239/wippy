@@ -1,11 +1,14 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import Page from '../components/Page/Page';
 import { storageAdmin } from '../utils/initFirebase';
 import TrackPageContent from '../components/TrackPageContent/TrackPageContent';
+// eslint-disable-next-line no-unused-vars
+import { FileStore } from '../utils/FileStore';
 
-export default function TrackPage() {
+function TrackPage() {
   const router = useRouter();
   const { id } = router.query;
   const title = 'Example Title';
@@ -21,6 +24,4 @@ export default function TrackPage() {
   );
 }
 
-export async function getServerSideProps() {
-
-}
+export default TrackPage;

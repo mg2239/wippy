@@ -5,18 +5,18 @@ const isServer = typeof window === 'undefined';
 useStaticRendering(isServer);
 
 type SerializedStore = {
-  file: File,
+  mp3: File,
 };
 
 export class FileStore {
-  @observable file: File | undefined;
+  @observable mp3: File | undefined;
 
   hydrate(store: SerializedStore) {
-    this.file = store.file != null ? store.file : undefined;
+    this.mp3 = store.mp3 != null ? store.mp3 : undefined;
   }
 
   setFile(file: File) {
-    this.file = file;
+    this.mp3 = file;
   }
 }
 

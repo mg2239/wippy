@@ -8,22 +8,20 @@ import '../public/index.scss';
 export default function MyApp({ Component, pageProps }: AppProps) {
   const { fileStore } = pageProps.initialStoreState;
   return (
-    <Provider fileStore={fileStore}>
-      <Component {...pageProps} />
-    </Provider>
+    <Component {...pageProps} />
   );
 }
 
-MyApp.getStaticProps = async (appContext: any) => {
-  const appProps = await App.getInitialProps(appContext);
-  const initialStoreState = initializeStore();
-  return {
-    ...appProps,
-    initialStoreState,
-  };
-};
+// MyApp.getStaticProps = async (appContext: any) => {
+//   const appProps = await App.getInitialProps(appContext);
+//   const initialStoreState = initializeStore();
+//   return {
+//     ...appProps,
+//     initialStoreState,
+//   };
+// };
 
-MyApp.getDerivedStateFromProps = (props: any, state: any) => {
-  state.fileStore.hydrate(props.initialStoreState);
-  return state;
-};
+// MyApp.getDerivedStateFromProps = (props: any, state: any) => {
+//   state.fileStore.hydrate(props.initialStoreState);
+//   return state;
+// };

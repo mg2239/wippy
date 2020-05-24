@@ -3,8 +3,8 @@ import { observable, action } from 'mobx';
 class FileStore {
   @observable file: File | undefined = undefined;
 
-  constructor(initialData: { file?: File }) {
-    this.file = initialData.file;
+  constructor(data: { file?: File }) {
+    this.file = data.file;
   }
 
   @action setFile(file: File) {

@@ -5,19 +5,17 @@ import FileStore from './FileStore';
 const isServer = typeof window === 'undefined';
 useStaticRendering(isServer);
 
-let store = null;
+let store: { fileStore: FileStore; } | null = null;
 
-export default function initializeStore(initialData = { postStore: {} }) {
+export default function initializeStore(data = { fileStore: {} }) {
   if (isServer) {
     return {
-      postStore: new FileStore(initialData.postStore),
-      uiStore: new UIStore(),
+      fileStore: new FileStore(data.fileStore),
     };
   }
   if (store === null) {
     store = {
-      postStore: new PostStore(initialData.postStore),
-      uiStore: new UIStore(),
+      fileStore: new FileStore(data.fileStore),
     };
   }
 

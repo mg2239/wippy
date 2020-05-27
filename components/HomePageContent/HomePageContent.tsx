@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 import Upload from '../Upload/Upload';
 import LandingText from '../LandingText/LandingText';
 import styles from './homepagecontent.module.scss';

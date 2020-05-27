@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Page from '../components/Page/Page';
 import Edit from '../components/TrackEdit/TrackEdit';
-import Info from '../components/TrackInfo/TrackInfo';
 
 function HomePage() {
   const [title, setTitle] = useState('');

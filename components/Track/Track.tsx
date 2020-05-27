@@ -18,6 +18,11 @@ function Track({ mp3 }: Props) {
     return `${min}:${sec.toString().padStart(2, '0')}`;
   }
 
+  function updateCurrentTime() {
+    const current = formatSeconds(wavesurfer.getCurrentTime());
+    setCurrentTime(current);
+  }
+
   useEffect(() => {
     wavesurfer = WaveSurfer.create({
       container: '#waveform',
@@ -36,11 +41,12 @@ function Track({ mp3 }: Props) {
       setLoaded(true);
       setCurrentTime('0:00');
       setDuration(formatSeconds(wavesurfer.getDuration()));
-      wavesurfer.play();
     });
     wavesurfer.on('audioprocess', () => {
-      const current = formatSeconds(wavesurfer.getCurrentTime());
-      setCurrentTime(current);
+      updateCurrentTime();
+    });
+    wavesurfer.on('interaction', () => {
+      updateCurrentTime();
     });
   }, []);
 

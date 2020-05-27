@@ -1,8 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
-import App, { AppProps } from 'next/app';
-import { Provider } from 'mobx-react';
-import { initializeStore } from '../utils/FileStore';
+import { AppProps } from 'next/app';
 import '../public/index.scss';
 
 function CustomApp({ Component, pageProps }: AppProps) {

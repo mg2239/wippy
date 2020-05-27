@@ -11,6 +11,7 @@ function HomePageContent() {
     setUploaded(true);
   }
   function handleSuccess(mp3: File, id: string) {
+    console.log(mp3);
     router.push(`/${id}`);
   }
   return (

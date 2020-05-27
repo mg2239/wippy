@@ -5,8 +5,6 @@ import Upload from '../Upload/Upload';
 import LandingText from '../LandingText/LandingText';
 import styles from './homepagecontent.module.scss';
 
-const Login = dynamic(() => import('../Login/Login'), { ssr: false });
-
 function HomePageContent() {
   const [uploaded, setUploaded] = useState(false);
   const router = useRouter();

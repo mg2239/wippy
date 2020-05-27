@@ -35,6 +35,7 @@
         ],
         "linebreak-style": "off",
         "object-curly-newline": "off",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "quotes": "error"
     }
 }

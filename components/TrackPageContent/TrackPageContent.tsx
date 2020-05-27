@@ -8,14 +8,14 @@ type Props = {
 }
 
 function TrackPageContent({ trackID }: Props) {
-  const [blob, setBlob] = useState(new Blob());
+  const [mp3, setMp3] = useState(new Blob());
   useEffect(() => {
     storage.ref(`${trackID}.mp3`).getDownloadURL()
       .then((url) => {
         fetch(url)
           .then((res) => res.blob())
-          .then((mp3Blob) => {
-            setBlob(mp3Blob);
+          .then((blob) => {
+            setMp3(blob);
           })
           .catch((err) => console.log(err));
       })
@@ -24,9 +24,7 @@ function TrackPageContent({ trackID }: Props) {
 
   return (
     <div>
-
-      <Track blob={blob} />
-
+      {mp3.size !== 0 && <Track mp3={mp3} />}
     </div>
   );
 }

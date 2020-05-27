@@ -17,8 +17,11 @@ function TrackEdit(
   { onTitleChange, onDescChange, onExpireChange, onColorChange, onSubmit }: Props,
 ) {
   function validateInfo(event: React.FormEvent<HTMLFormElement>) {
-
+    console.log(event);
   }
+  onExpireChange('', 0);
+  onColorChange('');
+  onSubmit();
 
   return (
     <div>

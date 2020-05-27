@@ -8,7 +8,13 @@ type Props = {
 }
 
 function TrackInfo({ title, desc, expireType, expireValue }: Props) {
-  return <div></div>;
+  return (
+    <div>
+      <p>{title}</p>
+      <p>{desc}</p>
+      <p>{`expires: ${expireValue} ${expireType}`}</p>
+    </div>
+  );
 }
 
 export default TrackInfo;

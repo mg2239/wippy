@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './landingtext.module.scss';
 
-export default function LandingText() {
+function LandingText() {
   return (
     <div id={styles.textContainer}>
       <p id={styles.main}>
@@ -13,3 +13,5 @@ export default function LandingText() {
     </div>
   );
 }
+
+export default LandingText;

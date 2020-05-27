@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react';
 import { initializeStore } from '../utils/FileStore';
 import '../public/index.scss';
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <Component {...pageProps} />
   );
@@ -24,3 +24,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 //   state.fileStore.hydrate(props.initialStoreState);
 //   return state;
 // };
+
+export default CustomApp;

@@ -2,7 +2,7 @@ import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from '../../utils/initFirebase';
 
-export default function Login() {
+function Login() {
   const uiConfig = {
     signInFlow: 'popup',
     signInSuccessUrl: '/signedIn',
@@ -12,3 +12,5 @@ export default function Login() {
   };
   return <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />;
 }
+
+export default Login;

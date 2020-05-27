@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Page from '../components/Page/Page';
 import HomePageContent from '../components/HomePageContent/HomePageContent';
 
-export default function Home() {
+function HomePage() {
   return (
     <>
       <Head>
@@ -15,3 +15,5 @@ export default function Home() {
     </>
   );
 }
+
+export default HomePage;

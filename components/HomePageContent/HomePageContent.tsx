@@ -20,7 +20,6 @@ function HomePageContent() {
     <div id={styles.home}>
       <div id={styles.homeInner}>
         {!uploaded && <LandingText />}
-        <Login />
         <Upload onUpload={handleUpload} onSuccess={handleSuccess} />
       </div>
     </div>

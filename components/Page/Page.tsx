@@ -24,7 +24,7 @@ function Footer() {
   );
 }
 
-export default function Page({ children }: Props) {
+function Page({ children }: Props) {
   return (
     <>
       <Header />
@@ -33,3 +33,5 @@ export default function Page({ children }: Props) {
     </>
   );
 }
+
+export default Page;

@@ -17,6 +17,14 @@ import 'firebase/firestore';
 //   messagingSenderId: process.env.MESSAGING_SENDER_ID,
 // };
 
+// if (!admin.apps.length) {
+//   admin.initializeApp(adminConfig);
+// }
+
+// export const storageAdmin = admin.storage();
+
+// export const firestoreAdmin = admin.firestore();
+
 const config = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
@@ -26,18 +34,12 @@ const config = {
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
 };
 
-// if (!admin.apps.length) {
-//   admin.initializeApp(adminConfig);
-// }
-
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
 
-// export const storageAdmin = admin.storage();
+export default firebase;
 
 export const storage = firebase.storage();
-
-// export const firestoreAdmin = admin.firestore();
 
 export const firestore = firebase.firestore();

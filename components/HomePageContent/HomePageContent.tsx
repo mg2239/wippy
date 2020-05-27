@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { inject } from 'mobx-react';
+import dynamic from 'next/dynamic';
 import Upload from '../Upload/Upload';
 import LandingText from '../LandingText/LandingText';
 import styles from './homepagecontent.module.scss';
+
+const Login = dynamic(() => import('../Login/Login'), { ssr: false });
 
 function HomePageContent() {
   const [uploaded, setUploaded] = useState(false);
@@ -18,6 +20,7 @@ function HomePageContent() {
     <div id={styles.home}>
       <div id={styles.homeInner}>
         {!uploaded && <LandingText />}
+        <Login />
         <Upload onUpload={handleUpload} onSuccess={handleSuccess} />
       </div>
     </div>

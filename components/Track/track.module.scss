@@ -1,9 +1,11 @@
 @import '../../public/variables';
 
+$btnSize: 5.5rem;
+
 #track {
     display: flex;
-    padding: 1rem 2rem;
-    margin: 0 -2rem;
+    padding: 1rem $border;
+    margin: 0 (-$border);
     justify-content: space-between;
     align-items: center;
 }
@@ -52,16 +54,22 @@
     flex: 1;
 }
 
-.trackSide {
-    width: 8rem;
+.trackLHS {
+    min-width: 3rem;
+    margin-right: $border;
+}
+
+.trackRHS {
+    min-width: 3rem;
+    margin-left: $border;
 }
 
 #playButton {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 5.5rem;
-    width: 5.5rem;
+    height: $btnSize;
+    width: $btnSize;
     border: white solid 2px;
     border-radius: 50%;
     cursor: pointer;
@@ -74,7 +82,7 @@
 }
 
 #icon {
-    height: 4.5rem;
+    height: $btnSize * 0.8;
 }
 
 #progressTime {
@@ -88,4 +96,56 @@
 #volumeSlider {
     height: 4rem;
     width: 1rem;
+}
+
+@media (max-width: $mobile) {
+    $btnSize: 4.5rem;
+    
+    #playButton {
+        height: $btnSize;
+        width: $btnSize;
+    }
+
+    #icon {
+        height: $btnSize * 0.8;
+    }
+
+    #track {
+        padding: 1rem $sm-border;
+        margin: 0 (-$sm-border);
+    }
+
+    .trackLHS {
+        margin-right: $sm-border;
+    }
+    
+    .trackRHS {
+        margin-left: $sm-border;
+    }
+}
+
+@media (max-width: $sm-mobile) {
+    $btnSize: 3.5rem;
+    
+    #playButton {
+        height: $btnSize;
+        width: $btnSize;
+    }
+
+    #icon {
+        height: $btnSize * 0.8;
+    }
+
+    #track {
+        padding: $xs-border $xs-border;
+        margin: 0 (-$xs-border);
+    }
+
+    .trackLHS {
+        margin-right: $xs-border;
+    }
+    
+    .trackRHS {
+        margin-left: $xs-border;
+    }
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useWindowWidth } from '@react-hook/window-size';
 import WaveSurfer from 'wavesurfer.js';
 import play from './play.svg';
 import pause from './pause.svg';
@@ -53,11 +54,22 @@ type Props = {
   mp3: Blob
 }
 
-function Track(this: any, { mp3 }: Props) {
+function Track({ mp3 }: Props) {
   const [wavesurfer, setWavesurfer] = useState(undefined as any as WaveSurfer);
   const [isLoaded, setLoaded] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
+  const width = useWindowWidth();
+
+  if (isLoaded) {
+    if (width < 768) {
+      wavesurfer.setHeight(100);
+    } else if (width < 992) {
+      wavesurfer.setHeight(120);
+    } else {
+      wavesurfer.setHeight(140);
+    }
+  }
 
   function formatSeconds(time: number) {
     const sec = Math.floor(time % 60);
@@ -90,7 +102,6 @@ function Track(this: any, { mp3 }: Props) {
       barWidth: 2,
       barRadius: 1,
       cursorWidth: 0,
-      height: 150,
       hideScrollbar: true,
     });
     wave.loadBlob(mp3);
@@ -104,19 +115,22 @@ function Track(this: any, { mp3 }: Props) {
     wave.on('interaction', () => {
       updateCurrentTime(wave);
     });
+    wave.on('finish', () => {
+      setPlaying(false);
+    });
     setWavesurfer(wave);
   }, []);
 
   return (
     <div id={styles.track} className={styles.blue}>
       {isLoaded && (
-        <div className={styles.trackSide} id={styles.playWrapper}>
+        <div className={styles.trackLHS} id={styles.playWrapper}>
           <PlayButton onClick={playPause} isPlaying={isPlaying} />
         </div>
       )}
       <div id='waveform' className={styles.waveform} />
       {isLoaded && (
-        <div className={styles.trackSide}>
+        <div className={styles.trackRHS}>
           <Progress currentTime={currentTime} />
           <Volume onChange={handleVolumeChange} />
         </div>

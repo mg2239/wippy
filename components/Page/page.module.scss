@@ -8,11 +8,11 @@
 }
 
 #headerWrapper {
-  margin: 2rem; 
+  margin: $border; 
 }
 
 #footerWrapper {
-  margin: 2rem; 
+  margin: $border; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,4 +27,14 @@
 
 #footerWrapper svg path {
   fill: $base;
+}
+
+@media (max-width: $sm-mobile) {
+  #headerWrapper, #footerWrapper {
+    margin: $sm-border;
+  }
+
+  #header {
+    font-size: 2rem;
+  }
 }

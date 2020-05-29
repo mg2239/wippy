@@ -1,7 +1,9 @@
+@import '../../public/variables';
+
 #container {
     flex: 1 0 auto;
     min-height: auto;
-    margin: 0 2rem;
+    margin: 0 $border;
 }
 
 #inner {
@@ -10,4 +12,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: $sm-mobile) {
+    #container {
+        margin: 0 $sm-border;
+    }
 }

@@ -24,10 +24,8 @@ function TrackPageContent({ trackID }: Props) {
   }, []);
 
   return (
-    <div>
-      <div id={styles.container}>
-        {mp3.size !== 0 && <Track mp3={mp3} />}
-      </div>
+    <div id={styles.container}>
+      {mp3.size !== 0 && <Track mp3={mp3} />}
     </div>
   );
 }

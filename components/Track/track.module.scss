@@ -62,6 +62,8 @@ $btnSize: 5.5rem;
 .trackRHS {
     min-width: 3rem;
     margin-left: $border;
+    display: flex;
+    align-items: center;
 }
 
 #playButton {
@@ -94,8 +96,7 @@ $btnSize: 5.5rem;
 }
 
 #volumeSlider {
-    height: 4rem;
-    width: 1rem;
+    margin: 0;
 }
 
 @media (max-width: $mobile) {

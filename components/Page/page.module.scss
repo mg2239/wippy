@@ -7,11 +7,11 @@
   letter-spacing: -0.05em;
 }
 
-#headerContainer {
+#headerWrapper {
   margin: 2rem; 
 }
 
-#footerContainer {
+#footerWrapper {
   margin: 2rem; 
   display: flex;
   justify-content: center;
@@ -19,12 +19,12 @@
   flex-shrink: 0;
 }
 
-#footerContainer svg {
+#footerWrapper svg {
   height: 1rem;
   width: auto;
   margin: 0 0.5rem;
 }
 
-#footerContainer svg path {
+#footerWrapper svg path {
   fill: $base;
 }

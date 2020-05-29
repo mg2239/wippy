@@ -3,7 +3,7 @@ import styles from './landingtext.module.scss';
 
 function LandingText() {
   return (
-    <div id={styles.textContainer}>
+    <div id={styles.textWrapper}>
       <p id={styles.main}>
         keep your unreleased and unfinished songs <b>safe</b>
       </p>

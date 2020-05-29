@@ -1,11 +1,91 @@
+@import '../../public/variables';
+
 #track {
-    background-color: #EF626C;
     display: flex;
     padding: 1rem 2rem;
+    margin: 0 -2rem;
     justify-content: space-between;
     align-items: center;
 }
 
+.red {
+    background-color: $red;
+}
+
+.orange {
+    background-color: $orange;
+}
+
+.yellow {
+    background-color: $yellow;
+}
+
+.green {
+    background-color: $green;
+}
+
+.blue {
+    background-color: $blue;
+}
+
+.purple {
+    background-color: $purple;
+}
+
+.pink {
+    background-color: $pink;
+}
+
+.lgray {
+    background-color: $lgray;
+}
+
+.dgray {
+    background-color: $dgray;
+}
+
+.black {
+    background-color: $black;
+}
+
 .waveform {
-    width: 80%;
+    flex: 1;
+}
+
+.trackSide {
+    width: 8rem;
+}
+
+#playButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5.5rem;
+    width: 5.5rem;
+    border: white solid 2px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: $transition;
+}
+
+#playButton:hover {
+    transform: scale(1.1);
+    transition: $transition;
+}
+
+#icon {
+    height: 4.5rem;
+}
+
+#progressTime {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    font-size: 1rem;
+    text-align: right;
+}
+
+#volumeSlider {
+    height: 4rem;
+    width: 1rem;
 }

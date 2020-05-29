@@ -7,7 +7,7 @@ type Props = {
 
 function Header() {
   return (
-    <div id={styles.headerContainer}>
+    <div id={styles.headerWrapper}>
       <a href='/' id={styles.header}>wippy</a>
     </div>
   );
@@ -15,7 +15,7 @@ function Header() {
 
 function Footer() {
   return (
-    <div id={styles.footerContainer} />
+    <div id={styles.footerWrapper} />
   );
 }
 

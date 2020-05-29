@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { storage } from '../../utils/initFirebase';
 import Track from '../Track/Track';
+import styles from './trackpagecontent.module.scss';
 
 type Props = {
   trackID: string
@@ -24,7 +25,9 @@ function TrackPageContent({ trackID }: Props) {
 
   return (
     <div>
-      {mp3.size !== 0 && <Track mp3={mp3} />}
+      <div id={styles.container}>
+        {mp3.size !== 0 && <Track mp3={mp3} />}
+      </div>
     </div>
   );
 }

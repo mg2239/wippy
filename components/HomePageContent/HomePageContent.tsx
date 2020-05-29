@@ -15,8 +15,8 @@ function HomePageContent() {
     router.push(`/${id}`);
   }
   return (
-    <div id={styles.home}>
-      <div id={styles.homeInner}>
+    <div id={styles.container}>
+      <div id={styles.inner}>
         {!uploaded && <LandingText />}
         <Upload onUpload={handleUpload} onSuccess={handleSuccess} />
       </div>

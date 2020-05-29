@@ -8,7 +8,7 @@ import styles from './upload.module.scss';
 
 function InfoText() {
   return (
-    <div id={styles.textContainer}>
+    <div id={styles.textWrapper}>
       <p id={styles.main}>click to upload audio</p>
       <p id={styles.subtext}>or drag and drop your file here</p>
       <p id={styles.files}>mp3 only</p>
@@ -22,7 +22,7 @@ type UploadProps = {
 
 function UploadText({ progress }: UploadProps) {
   return (
-    <div id={styles.textContainer}>
+    <div id={styles.textWrapper}>
       <p id={styles.main}>uploading...</p>
       <Line percent={progress} strokeWidth={4} strokeColor='#2A2C30' />
     </div>
@@ -60,14 +60,14 @@ export default function Upload({ onUpload, onSuccess }: Props) {
     <>
       {!accepted && (
         <div {...getRootProps({
-          id: styles.infoContainer,
+          id: styles.infoWrapper,
         })}>
           <input {...getInputProps()} />
           <InfoText />
         </div >
       )}
       {accepted && (
-        <div id={styles.uploadContainer}>
+        <div id={styles.uploadWrapper}>
           <UploadText progress={progress} />
         </div>
       )}

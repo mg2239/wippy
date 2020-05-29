@@ -1,8 +1,6 @@
-const withSvg = require('next-react-svg');
-const path = require('path');
+const withImages = require('next-images');
 
-module.exports = withSvg({
-  include: path.resolve(__dirname, 'components/Page'),
+module.exports = withImages({
   env: {
     API_KEY: process.env.API_KEY,
     AUTH_DOMAIN: process.env.AUTH_DOMAIN,

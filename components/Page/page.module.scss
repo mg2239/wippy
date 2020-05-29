@@ -1,3 +1,5 @@
+@import '../../public/variables';
+
 #header {
   margin: 0;
   font-weight: 800;
@@ -17,9 +19,12 @@
   flex-shrink: 0;
 }
 
-.icon {
+#footerContainer svg {
   height: 1rem;
   width: auto;
-  fill: #2A2C30;
   margin: 0 0.5rem;
+}
+
+#footerContainer svg path {
+  fill: $base;
 }

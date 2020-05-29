@@ -1,8 +1,11 @@
 #track {
     background-color: #EF626C;
     display: flex;
+    padding: 1rem 2rem;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .waveform {
-    width: 70%;
+    width: 80%;
 }

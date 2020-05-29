@@ -1,6 +1,8 @@
-const withAssetsImport = require('next-assets-import');
+const withSvg = require('next-react-svg');
+const path = require('path');
 
-module.exports = withAssetsImport({
+module.exports = withSvg({
+  include: path.resolve(__dirname, 'components/Page'),
   env: {
     API_KEY: process.env.API_KEY,
     AUTH_DOMAIN: process.env.AUTH_DOMAIN,

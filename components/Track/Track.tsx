@@ -6,11 +6,10 @@ type Props = {
   mp3: Blob
 }
 
-function Track({ mp3 }: Props) {
-  const [loaded, setLoaded] = useState(false);
+function Track(this: any, { mp3 }: Props) {
+  const [wavesurfer, setWavesurfer] = useState(undefined as any as WaveSurfer);
   const [currentTime, setCurrentTime] = useState('');
   const [duration, setDuration] = useState('');
-  let wavesurfer: WaveSurfer;
 
   function formatSeconds(time: number) {
     const sec = Math.floor(time % 60);
@@ -18,13 +17,13 @@ function Track({ mp3 }: Props) {
     return `${min}:${sec.toString().padStart(2, '0')}`;
   }
 
-  function updateCurrentTime() {
-    const current = formatSeconds(wavesurfer.getCurrentTime());
+  function updateCurrentTime(wave: WaveSurfer) {
+    const current = formatSeconds(wave.getCurrentTime());
     setCurrentTime(current);
   }
 
   useEffect(() => {
-    wavesurfer = WaveSurfer.create({
+    const wave = WaveSurfer.create({
       container: '#waveform',
       waveColor: '#FFFFFFBB',
       progressColor: 'white',
@@ -35,26 +34,31 @@ function Track({ mp3 }: Props) {
       barRadius: 1,
       cursorWidth: 0,
       height: 150,
+      hideScrollbar: true,
     });
-    wavesurfer.loadBlob(mp3);
-    wavesurfer.on('ready', () => {
-      setLoaded(true);
+    wave.loadBlob(mp3);
+    wave.on('ready', () => {
       setCurrentTime('0:00');
-      setDuration(formatSeconds(wavesurfer.getDuration()));
+      setDuration(formatSeconds(wave.getDuration()));
     });
-    wavesurfer.on('audioprocess', () => {
-      updateCurrentTime();
+    wave.on('audioprocess', () => {
+      updateCurrentTime(wave);
     });
-    wavesurfer.on('interaction', () => {
-      updateCurrentTime();
+    wave.on('interaction', () => {
+      updateCurrentTime(wave);
     });
+    setWavesurfer(wave);
   }, []);
 
   return (
     <div id={styles.track}>
-      {loaded && <button onClick={() => wavesurfer.playPause()}>play/pause</button>}
+      <div id={styles.playContainer}>
+        <button id={styles.playButton} onClick={() => wavesurfer.playPause()}>play/pause</button>
+      </div>
       <div id='waveform' className={styles.waveform} />
-      <p>{`${currentTime} / ${duration}`}</p>
+      <div id={styles.progressContainer}>
+        <p id={styles.progressTime}>{`${currentTime} / ${duration}`}</p>
+      </div>
     </div>
   );
 }

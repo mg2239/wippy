@@ -1,6 +1,4 @@
 import React from 'react';
-import github from './github.svg';
-import soundcloud from './soundcloud.svg';
 import styles from './page.module.scss';
 
 type Props = {
@@ -17,10 +15,7 @@ function Header() {
 
 function Footer() {
   return (
-    <div id={styles.footerContainer}>
-      <img src={github} className={styles.icon} />
-      <img src={soundcloud} className={styles.icon} />
-    </div>
+    <div id={styles.footerContainer} />
   );
 }
 

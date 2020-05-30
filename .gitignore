@@ -3,4 +3,6 @@ node_modules
 .env
 .env.build
 .firebaserc
+
 preview.tsx
+FileStore.ts

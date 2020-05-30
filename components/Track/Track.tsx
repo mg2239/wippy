@@ -31,24 +31,24 @@ function Progress({ currentTime }: ProgressProps) {
   );
 }
 
-type VolumeProps = {
-  onChange: (volume: string) => void
-}
+// type VolumeProps = {
+//   onChange: (volume: string) => void
+// }
 
-function Volume({ onChange }: VolumeProps) {
-  return (
-    <div id={styles.volumeWrapper}>
-      <input
-        id={styles.volumeSlider}
-        type='range'
-        onChange={(e) => onChange(e.target.value)}
-        min='0'
-        max='1'
-        step='0.01'
-      />
-    </div>
-  );
-}
+// function Volume({ onChange }: VolumeProps) {
+//   return (
+//     <div id={styles.volumeWrapper}>
+//       <input
+//         id={styles.volumeSlider}
+//         type='range'
+//         onChange={(e) => onChange(e.target.value)}
+//         min='0'
+//         max='1'
+//         step='0.01'
+//       />
+//     </div>
+//   );
+// }
 
 type Props = {
   mp3: Blob
@@ -88,9 +88,9 @@ function Track({ mp3 }: Props) {
     setPlaying(wavesurfer.isPlaying());
   }
 
-  function handleVolumeChange(volume: string) {
-    wavesurfer.setVolume(Number(volume));
-  }
+  // function handleVolumeChange(volume: string) {
+  //   wavesurfer.setVolume(Number(volume));
+  // }
 
   useEffect(() => {
     if (mp3.size !== 0) {

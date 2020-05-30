@@ -6,7 +6,6 @@ $btnSize: 5.5rem;
     display: flex;
     padding: 1rem $border;
     margin: 0 (-$border);
-    justify-content: space-between;
     align-items: center;
     height: 140px;
 }
@@ -54,6 +53,7 @@ $btnSize: 5.5rem;
 #loadingText {
     color: white;
     font-weight: bold;
+    margin: 0;
 }
 
 .waveform {
@@ -62,15 +62,7 @@ $btnSize: 5.5rem;
 }
 
 .trackLHS {
-    min-width: 3rem;
     margin-right: $border;
-}
-
-.trackRHS {
-    min-width: 3rem;
-    margin-left: $border;
-    display: flex;
-    align-items: center;
 }
 
 #playButton {
@@ -86,12 +78,23 @@ $btnSize: 5.5rem;
 }
 
 #playButton:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     transition: $transition;
 }
 
 #icon {
     height: $btnSize * 0.8;
+}
+
+.trackRHS {
+    width: 2.5rem;
+    margin-left: $border;
+    display: flex;
+    align-items: center;
+}
+
+#progressWrapper {
+    margin: auto;
 }
 
 #progressTime {

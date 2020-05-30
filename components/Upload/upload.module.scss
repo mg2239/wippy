@@ -35,20 +35,28 @@
   font-size: 1rem;
 }
 
-#files {
+#fileLimits {
   font-size: 1rem;
   color: $inputDefault;
   margin: 0;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: $mobile) {
   #subtext {
     display: none;
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: $sm-mobile) {
   #infoWrapper {
     padding: 1rem 2rem;
+  }
+
+  #main {
+    font-size: 1.2rem;
+  }
+
+  #fileLimits {
+    font-size: 0.8rem;
   }
 }

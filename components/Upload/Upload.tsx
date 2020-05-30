@@ -11,7 +11,7 @@ function InfoText() {
     <div id={styles.textWrapper}>
       <p id={styles.main}>click to upload audio</p>
       <p id={styles.subtext}>or drag and drop your file here</p>
-      <p id={styles.files}>mp3 only</p>
+      <p id={styles.fileLimits}>mp3 only, limit 15MB</p>
     </div>
   );
 }
@@ -54,6 +54,7 @@ export default function Upload({ onUpload, onSuccess }: Props) {
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted,
     accept: '.mp3',
+    maxSize: 15728640,
     multiple: false,
   });
   return (

@@ -10,6 +10,7 @@ type Props = {
 
 function TrackPageContent({ trackID }: Props) {
   const [mp3, setMp3] = useState(new Blob());
+
   useEffect(() => {
     storage.ref(`${trackID}.mp3`).getDownloadURL()
       .then((url) => {

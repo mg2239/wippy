@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useWindowWidth } from '@react-hook/window-size/throttled';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { useWindowWidth } from '@react-hook/window-size';
 import WaveSurfer from 'wavesurfer.js';
 import play from './play.svg';
 import pause from './pause.svg';
@@ -127,7 +128,7 @@ function Track({ mp3 }: Props) {
   }, [mp3]);
 
   return (
-    <div id={styles.track} className={styles.blue}>
+    <div id={styles.track} className={styles.black}>
       <div className={styles.trackLHS} id={styles.playWrapper}>
         {isReady && <PlayButton onClick={playPause} isPlaying={isPlaying} />}
       </div>
@@ -142,6 +143,7 @@ function Track({ mp3 }: Props) {
           </>
         )}
       </div>
+      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={() => playPause()} />
     </div>
   );
 }

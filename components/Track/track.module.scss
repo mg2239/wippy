@@ -107,6 +107,10 @@ $btnSize: 5.5rem;
         width: $btnSize;
     }
 
+    #playButton:hover {
+        transform: none;
+    }
+
     #icon {
         height: $btnSize * 0.8;
     }

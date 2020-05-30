@@ -62,11 +62,11 @@ function Track({ mp3 }: Props) {
   const width = useWindowWidth();
 
   if (isLoaded) {
-    if (width < 768 && wavesurfer.getHeight() !== 100) {
+    if (width <= 768 && wavesurfer.getHeight() !== 100) {
       wavesurfer.setHeight(100);
-    } else if (width < 992 && wavesurfer.getHeight() !== 120) {
+    } else if (width > 768 && width <= 992 && wavesurfer.getHeight() !== 120) {
       wavesurfer.setHeight(120);
-    } else if (wavesurfer.getHeight() !== 140) {
+    } else if (width > 992 && wavesurfer.getHeight() !== 140) {
       wavesurfer.setHeight(140);
     }
   }
@@ -132,7 +132,7 @@ function Track({ mp3 }: Props) {
         {isLoaded && (
           <>
             <Progress currentTime={currentTime} />
-            <Volume onChange={handleVolumeChange} />
+            {/* <Volume onChange={handleVolumeChange} /> */}
           </>
         )}
       </div>

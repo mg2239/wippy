@@ -62,13 +62,15 @@ function Track({ mp3 }: Props) {
   const [isPlaying, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
   const width = useWindowWidth();
+  const mobile = 1024;
+  const smMobile = 768;
 
   if (isLoaded) {
-    if (width <= 768 && wavesurfer.getHeight() !== 100) {
+    if (width <= smMobile && wavesurfer.getHeight() !== 100) {
       wavesurfer.setHeight(100);
-    } else if (width > 768 && width <= 992 && wavesurfer.getHeight() !== 120) {
+    } else if (width > smMobile && width <= mobile && wavesurfer.getHeight() !== 120) {
       wavesurfer.setHeight(120);
-    } else if (width > 992 && wavesurfer.getHeight() !== 140) {
+    } else if (width > mobile && wavesurfer.getHeight() !== 140) {
       wavesurfer.setHeight(140);
     }
   }

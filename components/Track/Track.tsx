@@ -57,6 +57,7 @@ type Props = {
 function Track({ mp3 }: Props) {
   const [wavesurfer, setWavesurfer] = useState(undefined as any as WaveSurfer);
   const [isLoaded, setLoaded] = useState(false);
+  const [isReady, setReady] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
   const width = useWindowWidth();
@@ -92,44 +93,49 @@ function Track({ mp3 }: Props) {
   }
 
   useEffect(() => {
-    const wave = WaveSurfer.create({
-      container: '#waveform',
-      waveColor: '#FFFFFFBB',
-      progressColor: 'white',
-      responsive: true,
-      barGap: 2,
-      barMinHeight: 1,
-      barWidth: 2,
-      barRadius: 1,
-      cursorWidth: 0,
-      hideScrollbar: true,
-      height: 140,
-    });
-    wave.loadBlob(mp3);
-    wave.on('ready', () => {
-      setCurrentTime('0:00');
+    if (mp3.size !== 0) {
+      const wave = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: '#FFFFFFBB',
+        progressColor: 'white',
+        responsive: true,
+        barGap: 2,
+        barMinHeight: 1,
+        barWidth: 2,
+        barRadius: 1,
+        cursorWidth: 0,
+        hideScrollbar: true,
+        height: 140,
+      });
+      wave.loadBlob(mp3);
+      wave.on('ready', () => {
+        setCurrentTime('0:00');
+        setReady(true);
+      });
+      wave.on('audioprocess', () => {
+        updateCurrentTime(wave);
+      });
+      wave.on('interaction', () => {
+        updateCurrentTime(wave);
+      });
+      wave.on('finish', () => {
+        setPlaying(false);
+      });
+      setWavesurfer(wave);
       setLoaded(true);
-    });
-    wave.on('audioprocess', () => {
-      updateCurrentTime(wave);
-    });
-    wave.on('interaction', () => {
-      updateCurrentTime(wave);
-    });
-    wave.on('finish', () => {
-      setPlaying(false);
-    });
-    setWavesurfer(wave);
-  }, []);
+    }
+  }, [mp3]);
 
   return (
     <div id={styles.track} className={styles.blue}>
       <div className={styles.trackLHS} id={styles.playWrapper}>
-        {isLoaded && <PlayButton onClick={playPause} isPlaying={isPlaying} />}
+        {isReady && <PlayButton onClick={playPause} isPlaying={isPlaying} />}
       </div>
-      <div id='waveform' className={styles.waveform} />
+      <div id='waveform' className={styles.waveform}>
+        {!isLoaded && <p id={styles.loadingText}>loading...</p>}
+      </div>
       <div className={styles.trackRHS}>
-        {isLoaded && (
+        {isReady && (
           <>
             <Progress currentTime={currentTime} />
             {/* <Volume onChange={handleVolumeChange} /> */}

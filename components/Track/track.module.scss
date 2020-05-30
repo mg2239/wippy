@@ -8,6 +8,7 @@ $btnSize: 5.5rem;
     margin: 0 (-$border);
     justify-content: space-between;
     align-items: center;
+    height: 140px;
 }
 
 .red {
@@ -50,8 +51,14 @@ $btnSize: 5.5rem;
     background-color: $black;
 }
 
+#loadingText {
+    color: white;
+    font-weight: bold;
+}
+
 .waveform {
     flex: 1;
+    text-align: center;
 }
 
 .trackLHS {
@@ -118,6 +125,7 @@ $btnSize: 5.5rem;
     #track {
         padding: 1rem $sm-border;
         margin: 0 (-$sm-border);
+        height: 120px;
     }
 
     .trackLHS {
@@ -144,6 +152,7 @@ $btnSize: 5.5rem;
     #track {
         padding: $xs-border $xs-border;
         margin: 0 (-$xs-border);
+        height: 100px;
     }
 
     .trackLHS {

@@ -56,8 +56,11 @@ $btnSize: 5.5rem;
     margin: 0;
 }
 
+#waveformWrapper {
+    flex-grow: 1;
+}
+
 .waveform {
-    flex: 1;
     text-align: center;
 }
 
@@ -93,16 +96,11 @@ $btnSize: 5.5rem;
     align-items: center;
 }
 
-#progressWrapper {
-    margin: auto;
-}
-
 #progressTime {
     color: white;
     font-weight: bold;
     margin: 0;
     font-size: 1rem;
-    text-align: right;
 }
 
 #volumeSlider {

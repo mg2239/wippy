@@ -4,5 +4,5 @@ node_modules
 .env.build
 .firebaserc
 
-preview.tsx
+demo.tsx
 FileStore.ts

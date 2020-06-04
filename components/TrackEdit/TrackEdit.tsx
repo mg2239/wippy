@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styles from './trackedit.module.scss';
 
 // enum ExpireTypes {
 //   M = 'minutes',
@@ -8,33 +9,41 @@ import React from 'react';
 type Props = {
   onTitleChange: (title: string) => void
   onDescChange: (desc: string) => void
-  onExpireChange: (type: string, value: number) => void
+  onExpTypeChange: (type: string) => void
+  onExpValChange: (value: number) => void
   onColorChange: (color: string) => void
-  onSubmit: () => void
+  onSubmit: (
+    title: string,
+    desc: string,
+    expireType: string,
+    expireValue: number,
+    color: string,
+  ) => void
 }
 
 function TrackEdit(
-  { onTitleChange, onDescChange, onExpireChange, onColorChange, onSubmit }: Props,
+  { onTitleChange, onDescChange, onExpTypeChange, onExpValChange, onColorChange, onSubmit }: Props,
 ) {
   function validateInfo(event: React.FormEvent<HTMLFormElement>) {
-    console.log(event);
+    event.preventDefault();
   }
-  onExpireChange('', 0);
-  onColorChange('');
-  onSubmit();
 
   return (
     <div>
-      <form onSubmit={(e) => validateInfo(e)}>
-        <input type='text' onChange={(e) => onTitleChange(e.target.value)} />
-        <input type='text' onChange={(e) => onDescChange(e.target.value)} />
-        <div>
-          <label htmlFor='expires'></label>
-        </div>
-        <div>
-          <label htmlFor='color'></label>
-        </div>
-        <button type='submit'>submit</button>
+      <form onSubmit={validateInfo}>
+        <input
+          type='text'
+          name='title'
+          id={styles.title}
+          placeholder='enter a title'
+          onChange={(e) => onTitleChange(e.target.value)}
+        />
+        <textarea
+          name='desc'
+          id={styles.desc}
+          placeholder='enter a description'
+          onChange={(e) => onDescChange(e.target.value)}
+        />
       </form>
     </div>
   );

@@ -58,7 +58,6 @@ type Props = {
 function Track({ mp3 }: Props) {
   const [wavesurfer, setWavesurfer] = useState(undefined as any as WaveSurfer);
   const [isLoaded, setLoaded] = useState(false);
-  const [isReady, setReady] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
   const width = useWindowWidth();
@@ -113,7 +112,6 @@ function Track({ mp3 }: Props) {
       wave.loadBlob(mp3);
       wave.on('ready', () => {
         setCurrentTime('0:00');
-        setReady(true);
       });
       wave.on('audioprocess', () => {
         updateCurrentTime(wave);
@@ -131,22 +129,24 @@ function Track({ mp3 }: Props) {
 
   return (
     <div id={styles.track} className={styles.black}>
-      <div className={styles.trackLHS} id={styles.playWrapper}>
-        {isReady && <PlayButton onClick={playPause} isPlaying={isPlaying} />}
+      {isLoaded && (
+        <div className={styles.trackLHS} id={styles.playWrapper}>
+          <PlayButton onClick={playPause} isPlaying={isPlaying} />
+        </div>
+      )}
+      <div id={styles.waveformWrapper}>
+        <div id='waveform' className={styles.waveform}>
+          {!isLoaded && <p id={styles.loadingText}>loading...</p>}
+        </div>
       </div>
-      <div id='waveform' className={styles.waveform}>
-        {!isLoaded && <p id={styles.loadingText}>loading...</p>}
-      </div>
-      <div className={styles.trackRHS}>
-        {isReady && (
-          <>
-            <Progress currentTime={currentTime} />
-            {/* <Volume onChange={handleVolumeChange} /> */}
-          </>
-        )}
-      </div>
+      {isLoaded && (
+        <div className={styles.trackRHS}>
+          <Progress currentTime={currentTime} />
+          {/* <Volume onChange={handleVolumeChange} /> */}
+        </div>
+      )}
       <KeyboardEventHandler handleKeys={['space']} onKeyEvent={() => playPause()} />
-    </div>
+    </div >
   );
 }
 

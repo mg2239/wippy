@@ -10,3 +10,4 @@ declare module '*.mp3' {
   export default src;
 }
 declare module 'react-keyboard-event-handler';
+declare module 'node-blob';

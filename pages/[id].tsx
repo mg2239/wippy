@@ -1,12 +1,10 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Page from '../components/Page/Page';
+import TrackPageContent from '../components/TrackPageContent/TrackPageContent';
 // import { storageAdmin } from '../utils/initFirebase';
 // eslint-disable-next-line no-unused-vars
-
-const TrackPageContent = dynamic(() => import('../components/TrackPageContent/TrackPageContent'), { ssr: false });
 
 function TrackPage() {
   const router = useRouter();

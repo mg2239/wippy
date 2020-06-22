@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useFile } from '../../utils/FileContext';
 import Upload from '../Upload/Upload';
 import styles from './homepagecontent.module.scss';
 
@@ -19,11 +20,12 @@ function LandingText() {
 function HomePageContent() {
   const [uploaded, setUploaded] = useState(false);
   const router = useRouter();
+  const file = useFile();
   function handleUpload() {
     setUploaded(true);
   }
   function handleSuccess(mp3: File, id: string) {
-    console.log(mp3);
+    file.setMp3(mp3);
     router.push(`/${id}`);
   }
   return (

@@ -1,26 +1,15 @@
-import React from 'react';
-// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react';
 import { AppProps } from 'next/app';
+import FileContext from '../utils/FileContext';
 import '../public/index.scss';
 
 function CustomApp({ Component, pageProps }: AppProps) {
+  const [mp3, setMP3] = useState(undefined as unknown as File);
   return (
-    <Component {...pageProps} />
+    <FileContext.Provider value={{ mp3, setMP3 }}>
+      <Component {...pageProps} />
+    </FileContext.Provider>
   );
 }
-
-// MyApp.getStaticProps = async (appContext: any) => {
-//   const appProps = await App.getInitialProps(appContext);
-//   const initialStoreState = initializeStore();
-//   return {
-//     ...appProps,
-//     initialStoreState,
-//   };
-// };
-
-// MyApp.getDerivedStateFromProps = (props: any, state: any) => {
-//   state.fileStore.hydrate(props.initialStoreState);
-//   return state;
-// };
 
 export default CustomApp;

@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import Blob from 'node-blob';
 import { storage } from '../../utils/initFirebase';
 import styles from './trackpagecontent.module.scss';
+import { useFile } from '../../utils/FileContext';
 
 const Track = dynamic(() => import('../Track/Track'), { ssr: false });
 
@@ -12,10 +13,11 @@ type Props = {
 }
 
 function TrackPageContent({ trackID }: Props) {
-  const [mp3, setMp3] = useState(new Blob());
+  const [mp3, setMp3] = useState(new Blob() as Blob);
   const [DNE, setDNE] = useState(false);
+  const file = useFile();
 
-  useEffect(() => {
+  function getMp3() {
     storage.ref(`${trackID}.mp3`).getDownloadURL()
       .then((url) => {
         fetch(url)
@@ -25,11 +27,16 @@ function TrackPageContent({ trackID }: Props) {
           })
           .catch((err) => console.log(err));
       })
-      .catch(() => {
-        if (trackID !== undefined) {
-          setDNE(true);
-        }
-      });
+      .catch(() => setDNE(true));
+  }
+
+  useEffect(() => {
+    const contextMp3 = file.mp3;
+    if (trackID && contextMp3 && contextMp3.name === `${trackID}.mp3`) {
+      setMp3(contextMp3);
+    } else if (trackID) {
+      getMp3();
+    }
   }, [trackID]);
 
   return (

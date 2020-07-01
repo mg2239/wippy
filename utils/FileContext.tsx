@@ -12,17 +12,15 @@ const initialState: FileState = {
 
 const FileContext = React.createContext(initialState);
 
-export const useFile = () => useContext(FileContext);
+export function FileProvider({ children }: { children: JSX.Element }) {
+  const [mp3, setMp3] = useState(undefined as unknown as File);
+  return (
+    <FileContext.Provider value={{ mp3, setMp3 }}>
+      {children}
+    </FileContext.Provider>
+  );
+}
 
-export default FileContext;
-
-// type Props = {
-//   children: JSX.Element
-// }
-
-// export function FileProvider({ children }: Props) {
-//   const [mp3, setMP3] = useState(undefined as unknown as File);
-//   return (
-//     <FileContext.Provider value={{ mp3, setMP3 }}>{children}</FileContext.Provider>
-//   );
-// }
+export function useFile() {
+  return useContext(FileContext);
+}

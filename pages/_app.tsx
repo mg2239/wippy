@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AppProps } from 'next/app';
-import FileContext from '../utils/FileContext';
+import { FileProvider } from '../utils/FileContext';
 import '../public/index.scss';
 
 function CustomApp({ Component, pageProps }: AppProps) {
-  const [mp3, setMp3] = useState(undefined as unknown as File);
   return (
-    <FileContext.Provider value={{ mp3, setMp3 }}>
+    <FileProvider>
       <Component {...pageProps} />
-    </FileContext.Provider>
+    </FileProvider>
   );
 }
 

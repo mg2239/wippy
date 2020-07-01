@@ -23,7 +23,7 @@ function HomePageContent() {
   const file = useFile();
 
   const handleUpload = () => setUploaded(true);
-  
+
   const handleSuccess = (mp3: File, id: string) => {
     file.setMp3(mp3);
     router.push(`/${id}`);

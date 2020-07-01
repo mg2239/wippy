@@ -4,9 +4,9 @@ import FileContext from '../utils/FileContext';
 import '../public/index.scss';
 
 function CustomApp({ Component, pageProps }: AppProps) {
-  const [mp3, setMP3] = useState(undefined as unknown as File);
+  const [mp3, setMp3] = useState(undefined as unknown as File);
   return (
-    <FileContext.Provider value={{ mp3, setMP3 }}>
+    <FileContext.Provider value={{ mp3, setMp3 }}>
       <Component {...pageProps} />
     </FileContext.Provider>
   );

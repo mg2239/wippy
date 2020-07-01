@@ -13,24 +13,23 @@ type Props = {
 }
 
 function TrackPageContent({ trackID }: Props) {
-  const [mp3, setMp3] = useState(new Blob() as Blob);
+  const [mp3, setMp3] = useState(new Blob());
   const [DNE, setDNE] = useState(false);
   const file = useFile();
 
-  function getMp3() {
+  const getMp3 = () => {
     storage.ref(`${trackID}.mp3`).getDownloadURL()
       .then((url) => {
         fetch(url)
           .then((res) => res.blob())
-          .then((blob) => {
-            setMp3(blob);
-          })
+          .then((blob) => setMp3(blob))
           .catch((err) => console.log(err));
       })
       .catch(() => setDNE(true));
-  }
+  };
 
   useEffect(() => {
+    console.log(file);
     const contextMp3 = file.mp3;
     if (trackID && contextMp3 && contextMp3.name === `${trackID}.mp3`) {
       setMp3(contextMp3);

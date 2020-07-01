@@ -12,9 +12,7 @@ const initialState: FileState = {
 
 const FileContext = React.createContext(initialState);
 
-export function useFile() {
-  return useContext(FileContext);
-}
+export const useFile = () => useContext(FileContext);
 
 export default FileContext;
 

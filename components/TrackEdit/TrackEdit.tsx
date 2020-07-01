@@ -24,9 +24,9 @@ type Props = {
 function TrackEdit(
   { onTitleChange, onDescChange, onExpTypeChange, onExpValChange, onColorChange, onSubmit }: Props,
 ) {
-  function validateInfo(event: React.FormEvent<HTMLFormElement>) {
+  const validateInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  }
+  };
 
   return (
     <div>

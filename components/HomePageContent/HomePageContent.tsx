@@ -21,17 +21,17 @@ function HomePageContent() {
   const [uploaded, setUploaded] = useState(false);
   const router = useRouter();
   const file = useFile();
-  function handleUpload() {
-    setUploaded(true);
-  }
-  function handleSuccess(mp3: File, id: string) {
+
+  const handleUpload = () => setUploaded(true);
+  
+  const handleSuccess = (mp3: File, id: string) => {
     file.setMp3(mp3);
     router.push(`/${id}`);
-  }
+  };
+
   return (
     <div id={styles.container}>
       <div id={styles.inner}>
-        {!uploaded && <LandingText />}
         <Upload onUpload={handleUpload} onSuccess={handleSuccess} />
       </div>
     </div>

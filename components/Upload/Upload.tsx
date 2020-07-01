@@ -37,26 +37,34 @@ type Props = {
 export default function Upload({ onUpload, onSuccess }: Props) {
   const [accepted, setAccepted] = useState(false);
   const [progress, setProgress] = useState(0);
-  function onDropAccepted(files: File[]) {
+
+  const onDropAccepted = (files: File[]) => {
     onUpload();
     setAccepted(true);
+
     const mp3 = files[0]; // only one file allowed
     const id = uuid();
     const uploadTask = storage.ref().child(`${id}.mp3`).put(mp3);
-    uploadTask.on('state_changed',
-      (snapshot) => {
-        const newProgress = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        setProgress(newProgress);
-      },
-      (err) => console.log(err),
-      () => onSuccess(mp3, id));
-  }
+
+    const whileUpload = (snapshot: firebase.storage.UploadTaskSnapshot) => {
+      const newProgress = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      setProgress(newProgress);
+    };
+
+    const onError = (err: Error) => console.log(err);
+
+    const onComplete = () => onSuccess(mp3, id);
+
+    uploadTask.on('state_changed', whileUpload, onError, onComplete);
+  };
+
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted,
     accept: '.mp3',
     maxSize: 15728640,
     multiple: false,
   });
+
   return (
     <>
       {!accepted && (

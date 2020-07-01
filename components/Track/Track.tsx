@@ -74,21 +74,21 @@ function Track({ mp3 }: Props) {
     }
   }
 
-  function formatSeconds(time: number) {
+  const formatSeconds = (time: number) => {
     const sec = Math.floor(time % 60);
     const min = Math.floor(time / 60);
     return `${min}:${sec.toString().padStart(2, '0')}`;
-  }
+  };
 
-  function updateCurrentTime(wave: WaveSurfer) {
+  const updateCurrentTime = (wave: WaveSurfer) => {
     const current = formatSeconds(wave.getCurrentTime());
     setCurrentTime(current);
-  }
+  };
 
-  function playPause() {
+  const playPause = () => {
     wavesurfer.playPause();
     setPlaying(wavesurfer.isPlaying());
-  }
+  };
 
   // function handleVolumeChange(volume: string) {
   //   wavesurfer.setVolume(Number(volume));

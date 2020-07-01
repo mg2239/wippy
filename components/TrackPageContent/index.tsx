@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Blob from 'node-blob';
 import { storage } from '../../utils/initFirebase';
-import styles from './trackpagecontent.module.scss';
 import { useFile } from '../../utils/FileContext';
+import styles from './index.module.scss';
 
-const Track = dynamic(() => import('../Track/Track'), { ssr: false });
+const Track = dynamic(() => import('../Track'), { ssr: false });
 
 type Props = {
   trackID: string

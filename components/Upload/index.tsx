@@ -4,7 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import { Line } from 'rc-progress';
 import { v4 as uuid } from 'uuid';
 import { storage } from '../../utils/initFirebase';
-import styles from './upload.module.scss';
+import styles from './index.module.scss';
 
 function InfoText() {
   return (

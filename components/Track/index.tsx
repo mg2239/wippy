@@ -4,7 +4,7 @@ import { useWindowWidth } from '@react-hook/window-size';
 import WaveSurfer from 'wavesurfer.js';
 import play from './play.svg';
 import pause from './pause.svg';
-import styles from './track.module.scss';
+import styles from './index.module.scss';
 
 type PlayProps = {
   onClick: () => void

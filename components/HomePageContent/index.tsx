@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFile } from '../../utils/FileContext';
-import Upload from '../Upload/Upload';
-import styles from './homepagecontent.module.scss';
+import Upload from '../Upload';
+import styles from './index.module.scss';
 
 function LandingText() {
   return (

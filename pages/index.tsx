@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import Page from '../components/Page/Page';
-import HomePageContent from '../components/HomePageContent/HomePageContent';
+import Page from '../components/Page';
+import HomePageContent from '../components/HomePageContent';
 
 function HomePage() {
   return (

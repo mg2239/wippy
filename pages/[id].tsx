@@ -16,7 +16,7 @@ function TrackPage() {
         <title>{`${title} - wippy`}</title>
       </Head>
       <Page>
-        <TrackPageContent trackID={id as string} src='src' />
+        <TrackPageContent trackID={id as string} src="src" />
       </Page>
     </>
   );

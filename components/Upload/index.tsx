@@ -17,22 +17,22 @@ function InfoText() {
 }
 
 type UploadProps = {
-  progress: number
-}
+  progress: number;
+};
 
 function UploadText({ progress }: UploadProps) {
   return (
     <div id={styles.textWrapper}>
       <p id={styles.main}>uploading...</p>
-      <Line percent={progress} strokeWidth={4} strokeColor='#2A2C30' />
+      <Line percent={progress} strokeWidth={4} strokeColor="#2A2C30" />
     </div>
   );
 }
 
 type Props = {
-  onUpload: () => void
-  onSuccess: (mp3: File, id: string) => void
-}
+  onUpload: () => void;
+  onSuccess: (mp3: File, id: string) => void;
+};
 
 export default function Upload({ onUpload, onSuccess }: Props) {
   const [accepted, setAccepted] = useState(false);
@@ -47,7 +47,9 @@ export default function Upload({ onUpload, onSuccess }: Props) {
     const uploadTask = storage.ref().child(`${id}.mp3`).put(mp3);
 
     const whileUpload = (snapshot: firebase.storage.UploadTaskSnapshot) => {
-      const newProgress = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      const newProgress = Math.floor(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+      );
       setProgress(newProgress);
     };
 
@@ -68,12 +70,14 @@ export default function Upload({ onUpload, onSuccess }: Props) {
   return (
     <>
       {!accepted && (
-        <div {...getRootProps({
-          id: styles.infoWrapper,
-        })}>
+        <div
+          {...getRootProps({
+            id: styles.infoWrapper,
+          })}
+        >
           <input {...getInputProps()} />
           <InfoText />
-        </div >
+        </div>
       )}
       {accepted && (
         <div id={styles.uploadWrapper}>

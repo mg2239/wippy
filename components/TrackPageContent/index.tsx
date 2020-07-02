@@ -8,9 +8,9 @@ import styles from './index.module.scss';
 const Track = dynamic(() => import('../Track'), { ssr: false });
 
 type Props = {
-  trackID: string
-  src: string
-}
+  trackID: string;
+  src: string;
+};
 
 function TrackPageContent({ trackID }: Props) {
   const [mp3, setMp3] = useState(new Blob());
@@ -18,7 +18,9 @@ function TrackPageContent({ trackID }: Props) {
   const file = useFile();
 
   const getMp3 = () => {
-    storage.ref(`${trackID}.mp3`).getDownloadURL()
+    storage
+      .ref(`${trackID}.mp3`)
+      .getDownloadURL()
       .then((url) => {
         fetch(url)
           .then((res) => res.blob())

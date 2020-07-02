@@ -2,21 +2,21 @@ import React from 'react';
 import styles from './index.module.scss';
 
 type Props = {
-  children: JSX.Element
+  children: JSX.Element;
 };
 
 function Header() {
   return (
     <div id={styles.headerWrapper}>
-      <a href='/' id={styles.header}>wippy</a>
+      <a href="/" id={styles.header}>
+        wippy
+      </a>
     </div>
   );
 }
 
 function Footer() {
-  return (
-    <div id={styles.footerWrapper} />
-  );
+  return <div id={styles.footerWrapper} />;
 }
 
 function Page({ children }: Props) {

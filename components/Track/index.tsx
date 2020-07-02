@@ -7,9 +7,9 @@ import pause from './pause.svg';
 import styles from './index.module.scss';
 
 type PlayProps = {
-  onClick: () => void
-  isPlaying: boolean
-}
+  onClick: () => void;
+  isPlaying: boolean;
+};
 
 function PlayButton({ onClick, isPlaying }: PlayProps) {
   return (
@@ -21,8 +21,8 @@ function PlayButton({ onClick, isPlaying }: PlayProps) {
 }
 
 type ProgressProps = {
-  currentTime: string
-}
+  currentTime: string;
+};
 
 function Progress({ currentTime }: ProgressProps) {
   return (
@@ -52,11 +52,13 @@ function Progress({ currentTime }: ProgressProps) {
 // }
 
 type Props = {
-  mp3: Blob
-}
+  mp3: Blob;
+};
 
 function Track({ mp3 }: Props) {
-  const [wavesurfer, setWavesurfer] = useState(undefined as any as WaveSurfer);
+  const [wavesurfer, setWavesurfer] = useState(
+    (undefined as any) as WaveSurfer,
+  );
   const [isLoaded, setLoaded] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
@@ -67,7 +69,11 @@ function Track({ mp3 }: Props) {
   if (isLoaded) {
     if (width <= smMobile && wavesurfer.getHeight() !== 100) {
       wavesurfer.setHeight(100);
-    } else if (width > smMobile && width <= mobile && wavesurfer.getHeight() !== 120) {
+    } else if (
+      width > smMobile &&
+      width <= mobile &&
+      wavesurfer.getHeight() !== 120
+    ) {
       wavesurfer.setHeight(120);
     } else if (width > mobile && wavesurfer.getHeight() !== 140) {
       wavesurfer.setHeight(140);
@@ -110,18 +116,10 @@ function Track({ mp3 }: Props) {
         height: 140,
       });
       wave.loadBlob(mp3);
-      wave.on('ready', () => {
-        setCurrentTime('0:00');
-      });
-      wave.on('audioprocess', () => {
-        updateCurrentTime(wave);
-      });
-      wave.on('interaction', () => {
-        updateCurrentTime(wave);
-      });
-      wave.on('finish', () => {
-        setPlaying(false);
-      });
+      wave.on('ready', () => setCurrentTime('0:00'));
+      wave.on('audioprocess', () => updateCurrentTime(wave));
+      wave.on('interaction', () => updateCurrentTime(wave));
+      wave.on('finish', () => setPlaying(false));
       setWavesurfer(wave);
       setLoaded(true);
     }
@@ -135,7 +133,7 @@ function Track({ mp3 }: Props) {
         </div>
       )}
       <div id={styles.waveformWrapper}>
-        <div id='waveform' className={styles.waveform}>
+        <div id="waveform" className={styles.waveform}>
           {!isLoaded && <p id={styles.loadingText}>loading...</p>}
         </div>
       </div>
@@ -145,8 +143,11 @@ function Track({ mp3 }: Props) {
           {/* <Volume onChange={handleVolumeChange} /> */}
         </div>
       )}
-      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={() => playPause()} />
-    </div >
+      <KeyboardEventHandler
+        handleKeys={['space']}
+        onKeyEvent={() => playPause()}
+      />
+    </div>
   );
 }
 

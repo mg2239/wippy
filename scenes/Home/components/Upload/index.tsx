@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
+import { Line } from 'rc-progress';
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Line } from 'rc-progress';
 import { v4 as uuid } from 'uuid';
-import { storage } from '../../utils/initFirebase';
+
+import { storage } from '../../../../util/initFirebase';
 import styles from './index.module.scss';
 
 function InfoText() {
@@ -63,7 +63,7 @@ export default function Upload({ onUpload, onSuccess }: Props) {
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted,
     accept: '.mp3',
-    maxSize: 15728640,
+    maxSize: 15728640, // 15 MB
     multiple: false,
   });
 

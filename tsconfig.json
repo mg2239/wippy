@@ -2,6 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "allowJs": true,
+    "baseUrl": ".",
     "alwaysStrict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,6 +18,20 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ],
+      "@scenes/*": [
+        "scenes/*"
+      ],
+      "@util/*": [
+        "util/*"
+      ]
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
@@ -27,6 +42,7 @@
   ],
   "include": [
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "**/*.js"
   ]
 }

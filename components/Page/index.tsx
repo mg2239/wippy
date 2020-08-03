@@ -1,9 +1,6 @@
 import React from 'react';
-import styles from './index.module.scss';
 
-type Props = {
-  children: JSX.Element;
-};
+import styles from './index.module.scss';
 
 function Header() {
   return (
@@ -19,7 +16,11 @@ function Footer() {
   return <div id={styles.footerWrapper} />;
 }
 
-function Page({ children }: Props) {
+type Props = {
+  children: JSX.Element;
+};
+
+export default function Page({ children }: Props) {
   return (
     <>
       <Header />
@@ -28,5 +29,3 @@ function Page({ children }: Props) {
     </>
   );
 }
-
-export default Page;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import { useWindowWidth } from '@react-hook/window-size';
 import WaveSurfer from 'wavesurfer.js';
-import play from './play.svg';
-import pause from './pause.svg';
+
 import styles from './index.module.scss';
+import pause from './pause.svg';
+import play from './play.svg';
 
 type PlayProps = {
   onClick: () => void;
@@ -13,10 +13,10 @@ type PlayProps = {
 
 function PlayButton({ onClick, isPlaying }: PlayProps) {
   return (
-    <div id={styles.playButton} onClick={onClick}>
-      {!isPlaying && <img id={styles.icon} src={play} />}
-      {isPlaying && <img id={styles.icon} src={pause} />}
-    </div>
+    <button type="button" id={styles.playButton} onClick={onClick}>
+      {!isPlaying && <img id={styles.icon} alt="Play Icon" src={play} />}
+      {isPlaying && <img id={styles.icon} alt="Pause Icon" src={pause} />}
+    </button>
   );
 }
 
@@ -67,15 +67,12 @@ function Track({ mp3 }: Props) {
   const smMobile = 768;
 
   if (isLoaded) {
-    if (width <= smMobile && wavesurfer.getHeight() !== 100) {
+    const waveHeight = wavesurfer.getHeight();
+    if (width <= smMobile && waveHeight !== 100) {
       wavesurfer.setHeight(100);
-    } else if (
-      width > smMobile &&
-      width <= mobile &&
-      wavesurfer.getHeight() !== 120
-    ) {
+    } else if (width > smMobile && width <= mobile && waveHeight !== 120) {
       wavesurfer.setHeight(120);
-    } else if (width > mobile && wavesurfer.getHeight() !== 140) {
+    } else if (width > mobile && waveHeight !== 140) {
       wavesurfer.setHeight(140);
     }
   }

@@ -1,14 +1,13 @@
-import React from 'react';
 import { AppProps } from 'next/app';
-import { FileProvider } from '../utils/FileContext';
-import '../public/index.scss';
+import React from 'react';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+import { FileProvider } from '@util/FileContext';
+import '@styles/index.scss';
+
+export default function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <FileProvider>
       <Component {...pageProps} />
     </FileProvider>
   );
 }
-
-export default CustomApp;

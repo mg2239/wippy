@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Blob from 'node-blob';
-import { storage } from '../../utils/initFirebase';
-import { useFile } from '../../utils/FileContext';
+import React, { useEffect, useState } from 'react';
+
+import { useFile } from '../../util/FileContext';
+import { storage } from '../../util/initFirebase';
 import styles from './index.module.scss';
 
-const Track = dynamic(() => import('../Track'), { ssr: false });
+const Track = dynamic(() => import('./components/Player'), { ssr: false });
 
 type Props = {
   trackID: string;
   src: string;
 };
 
-function TrackPageContent({ trackID }: Props) {
+export default function TrackPageContent({ trackID }: Props) {
   const [mp3, setMp3] = useState(new Blob());
   const [DNE, setDNE] = useState(false);
-  const file = useFile();
+  const { mp3: contextMp3 } = useFile();
 
   const getMp3 = () => {
     storage
@@ -31,8 +32,6 @@ function TrackPageContent({ trackID }: Props) {
   };
 
   useEffect(() => {
-    console.log(file);
-    const contextMp3 = file.mp3;
     if (trackID && contextMp3 && contextMp3.name === `${trackID}.mp3`) {
       setMp3(contextMp3);
     } else if (trackID) {
@@ -47,5 +46,3 @@ function TrackPageContent({ trackID }: Props) {
     </div>
   );
 }
-
-export default TrackPageContent;

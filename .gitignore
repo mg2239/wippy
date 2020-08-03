@@ -1,8 +1,5 @@
 node_modules
 .next
 .env
-.env.build
 .firebaserc
-
-demo.tsx
-FileStore.ts
+build

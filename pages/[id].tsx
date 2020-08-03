@@ -1,10 +1,9 @@
-import React from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Page from '../components/Page';
-import TrackPageContent from '../components/TrackPageContent';
-// import { storageAdmin } from '../utils/initFirebase';
-// eslint-disable-next-line no-unused-vars
+import { useRouter } from 'next/router';
+import React from 'react';
+
+import Page from '@components/Page';
+import TrackPageContent from '@scenes/Track';
 
 function TrackPage() {
   const router = useRouter();

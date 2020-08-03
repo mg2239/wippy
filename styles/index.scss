@@ -1,23 +1,5 @@
 @import 'variables';
 
-@font-face {
-    font-family: 'Inter';
-    src: url('./inter/Inter-Regular.woff') format('woff');
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('./inter/Inter-Bold.woff') format('woff');
-    font-weight: 700;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('./inter/Inter-ExtraBold.woff') format('woff');
-    font-weight: 800;
-}
-
 html, body {
     height: 100%;
 }

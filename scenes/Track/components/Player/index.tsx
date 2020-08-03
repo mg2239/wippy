@@ -5,6 +5,7 @@ import WaveSurfer from 'wavesurfer.js';
 import styles from './index.module.scss';
 import pause from './pause.svg';
 import play from './play.svg';
+import { useScreen } from '@util/ScreenContext';
 
 type PlayProps = {
   onClick: () => void;
@@ -62,29 +63,16 @@ function Track({ mp3 }: Props) {
   const [isLoaded, setLoaded] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
-  const width = useWindowWidth();
-  const mobile = 1024;
-  const smMobile = 768;
+  const { isWindow } = useScreen();
 
-  if (isLoaded) {
-    const waveHeight = wavesurfer.getHeight();
-    if (width <= smMobile && waveHeight !== 100) {
-      wavesurfer.setHeight(100);
-    } else if (width > smMobile && width <= mobile && waveHeight !== 120) {
-      wavesurfer.setHeight(120);
-    } else if (width > mobile && waveHeight !== 140) {
-      wavesurfer.setHeight(140);
-    }
-  }
-
-  const formatSeconds = (time: number) => {
+  const formatTrackTime = (time: number) => {
     const sec = Math.floor(time % 60);
     const min = Math.floor(time / 60);
     return `${min}:${sec.toString().padStart(2, '0')}`;
   };
 
   const updateCurrentTime = (wave: WaveSurfer) => {
-    const current = formatSeconds(wave.getCurrentTime());
+    const current = formatTrackTime(wave.getCurrentTime());
     setCurrentTime(current);
   };
 
@@ -96,6 +84,15 @@ function Track({ mp3 }: Props) {
   // function handleVolumeChange(volume: string) {
   //   wavesurfer.setVolume(Number(volume));
   // }
+
+  useEffect(() => {
+    const mobileHeight = 100;
+    const tabletHeight = 120;
+    const desktopHeight = 140;
+    if (isWindow('M')) wavesurfer.setHeight(mobileHeight);
+    else if (isWindow('T')) wavesurfer.setHeight(tabletHeight);
+    else wavesurfer.setHeight(desktopHeight);
+  }, [isLoaded]);
 
   useEffect(() => {
     if (mp3.size !== 0) {

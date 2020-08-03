@@ -4,9 +4,10 @@ type Breakpoint = 'D' | 'T' | 'M';
 
 type ScreenState = {
   breakpoint: Breakpoint;
+  isWindow: (width: Breakpoint) => boolean;
 };
 
-const initialState: ScreenState = { breakpoint: 'D' };
+const initialState: ScreenState = { breakpoint: 'D', isWindow: () => false };
 
 const ScreenContext = React.createContext(initialState);
 
@@ -14,12 +15,13 @@ export function useScreen() {
   return useContext(ScreenContext);
 }
 
-export const ScreenProvider = ({ children }: { children: JSX.Element }) => {
+export function ScreenProvider({ children }: { children: JSX.Element }) {
   const [breakpoint, setBreakpoint] = useState<Breakpoint>('D');
+
+  const isWindow = (width: Breakpoint) => breakpoint === width;
 
   const onWindowResize = () => {
     const { innerWidth } = window;
-
     if (innerWidth > 1025) setBreakpoint('D');
     else if (innerWidth <= 1024 && innerWidth >= 576) setBreakpoint('T');
     else setBreakpoint('M');
@@ -32,8 +34,8 @@ export const ScreenProvider = ({ children }: { children: JSX.Element }) => {
   }, []);
 
   return (
-    <ScreenContext.Provider value={{ breakpoint }}>
+    <ScreenContext.Provider value={{ breakpoint, isWindow }}>
       {children}
     </ScreenContext.Provider>
   );
-};
+}

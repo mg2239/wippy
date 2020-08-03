@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { useFile } from '../../util/FileContext';
@@ -21,13 +22,13 @@ function LandingText() {
 export default function HomePageContent() {
   const [uploaded, setUploaded] = useState(false);
   const { setMp3 } = useFile();
+  const { push } = useRouter();
 
   const handleUpload = () => setUploaded(true);
 
   const handleSuccess = (mp3: File, id: string) => {
-    console.log(id);
-    console.log(mp3);
     setMp3(mp3);
+    push(`/${id}`, undefined, { shallow: true });
   };
 
   return (

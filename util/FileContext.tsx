@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, createContext } from 'react';
 
 type FileState = {
   mp3?: File;
@@ -7,13 +7,17 @@ type FileState = {
 
 const initialState: FileState = { setMp3: () => {} };
 
-const FileContext = React.createContext(initialState);
+const FileContext = createContext(initialState);
 
 export function useFile() {
   return useContext(FileContext);
 }
 
-export function FileProvider({ children }: { children: JSX.Element }) {
+type ProviderProps = {
+  children: JSX.Element;
+};
+
+export function FileProvider({ children }: ProviderProps) {
   const [mp3, setMp3] = useState((undefined as unknown) as File);
   console.log(mp3);
   return (

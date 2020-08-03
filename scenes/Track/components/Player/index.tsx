@@ -54,9 +54,10 @@ function Progress({ currentTime }: ProgressProps) {
 
 type Props = {
   mp3: Blob;
+  bgColor: string;
 };
 
-function Track({ mp3 }: Props) {
+function Track({ mp3, bgColor }: Props) {
   const [wavesurfer, setWavesurfer] = useState(
     (undefined as any) as WaveSurfer,
   );
@@ -85,14 +86,14 @@ function Track({ mp3 }: Props) {
   //   wavesurfer.setVolume(Number(volume));
   // }
 
-  useEffect(() => {
+  if (isLoaded) {
     const mobileHeight = 100;
     const tabletHeight = 120;
     const desktopHeight = 140;
     if (isWindow('M')) wavesurfer.setHeight(mobileHeight);
     else if (isWindow('T')) wavesurfer.setHeight(tabletHeight);
     else wavesurfer.setHeight(desktopHeight);
-  }, [isLoaded]);
+  }
 
   useEffect(() => {
     if (mp3.size !== 0) {
@@ -120,7 +121,7 @@ function Track({ mp3 }: Props) {
   }, [mp3]);
 
   return (
-    <div id={styles.track} className={styles.black}>
+    <div id={styles.track} className={styles[bgColor]}>
       {isLoaded && (
         <div className={styles.trackLHS} id={styles.playWrapper}>
           <PlayButton onClick={playPause} isPlaying={isPlaying} />

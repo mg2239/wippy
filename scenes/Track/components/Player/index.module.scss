@@ -1,4 +1,4 @@
-@import '../../public/variables';
+@import '../../../../styles/variables';
 
 $btnSize: 5.5rem;
 
@@ -38,12 +38,8 @@ $btnSize: 5.5rem;
     background-color: $pink;
 }
 
-.lgray {
-    background-color: $lgray;
-}
-
-.dgray {
-    background-color: $dgray;
+.gray {
+    background-color: $gray;
 }
 
 .black {
@@ -72,6 +68,8 @@ $btnSize: 5.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: none;
+    outline: none;
     height: $btnSize;
     width: $btnSize;
     border: white solid 2px;

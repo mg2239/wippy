@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-import { useFile } from '../../util/FileContext';
 import Upload from './components/Upload';
 import styles from './index.module.scss';
 
@@ -19,17 +18,13 @@ function LandingText() {
   );
 }
 
-export default function HomePageContent() {
+export default function Home() {
   const [uploaded, setUploaded] = useState(false);
-  const { setMp3 } = useFile();
   const { push } = useRouter();
 
   const handleUpload = () => setUploaded(true);
 
-  const handleSuccess = (mp3: File, id: string) => {
-    setMp3(mp3);
-    push(`/${id}`, undefined, { shallow: true });
-  };
+  const handleSuccess = (id: string) => push(`/${id}`);
 
   return (
     <div id={styles.container}>

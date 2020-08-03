@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { v4 as uuid } from 'uuid';
 
-import { storage } from '../../../../util/initFirebase';
 import styles from './index.module.scss';
+import { storage } from '@util/initFirebase';
 
 function InfoText() {
   return (
@@ -31,7 +31,7 @@ function UploadText({ progress }: UploadProps) {
 
 type Props = {
   onUpload: () => void;
-  onSuccess: (mp3: File, id: string) => void;
+  onSuccess: (id: string) => void;
 };
 
 export default function Upload({ onUpload, onSuccess }: Props) {
@@ -55,7 +55,7 @@ export default function Upload({ onUpload, onSuccess }: Props) {
 
     const onError = (err: Error) => console.log(err);
 
-    const onComplete = () => onSuccess(mp3, id);
+    const onComplete = () => onSuccess(id);
 
     uploadTask.on('state_changed', whileUpload, onError, onComplete);
   };

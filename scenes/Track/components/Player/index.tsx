@@ -1,3 +1,4 @@
+import Slider from 'rc-slider';
 import React, { useState, useEffect } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import WaveSurfer from 'wavesurfer.js';
@@ -26,31 +27,25 @@ type ProgressProps = {
 };
 
 function Progress({ currentTime }: ProgressProps) {
-  return (
-    <div id={styles.progressWrapper}>
-      <p id={styles.progressTime}>{currentTime}</p>
-    </div>
-  );
+  return <p id={styles.progressTime}>{currentTime}</p>;
 }
 
-// type VolumeProps = {
-//   onChange: (volume: string) => void
-// }
+type VolumeProps = {
+  onChange: (volume: number) => void;
+};
 
-// function Volume({ onChange }: VolumeProps) {
-//   return (
-//     <div id={styles.volumeWrapper}>
-//       <input
-//         id={styles.volumeSlider}
-//         type='range'
-//         onChange={(e) => onChange(e.target.value)}
-//         min='0'
-//         max='1'
-//         step='0.01'
-//       />
-//     </div>
-//   );
-// }
+function Volume({ onChange }: VolumeProps) {
+  return (
+    <Slider
+      className={styles.volumeSlider}
+      min={0}
+      max={100}
+      value={1}
+      step={1}
+      onChange={(newVol) => onChange(newVol / 100)}
+    />
+  );
+}
 
 type Props = {
   mp3: Blob;
@@ -82,9 +77,9 @@ function Track({ mp3, bgColor }: Props) {
     setPlaying(wavesurfer.isPlaying());
   };
 
-  // function handleVolumeChange(volume: string) {
-  //   wavesurfer.setVolume(Number(volume));
-  // }
+  const handleVolumeChange = (volume: number) => {
+    wavesurfer.setVolume(volume);
+  };
 
   if (isLoaded) {
     const mobileHeight = 100;
@@ -135,7 +130,6 @@ function Track({ mp3, bgColor }: Props) {
       {isLoaded && (
         <div className={styles.trackRHS}>
           <Progress currentTime={currentTime} />
-          {/* <Volume onChange={handleVolumeChange} /> */}
         </div>
       )}
       <KeyboardEventHandler

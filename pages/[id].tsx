@@ -1,22 +1,56 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React from 'react';
+import Blob from 'node-blob';
+import React, { useState, useEffect } from 'react';
 
 import Page from '@components/Page';
-import TrackPageContent from '@scenes/Track';
+import Page404 from '@scenes/404';
+import Track from '@scenes/Track';
+import { storage } from '@util/initFirebase';
 
 function TrackPage() {
+  const [title, setTitle] = useState('wippy');
+  const [mp3, setMp3] = useState(new Blob());
+  const [loading, setLoading] = useState(true);
+  const [DNE, setDNE] = useState(false);
   const router = useRouter();
+
   const { id } = router.query;
-  const title = 'Example Title';
+
+  useEffect(() => {
+    if (id) {
+      storage
+        .ref(`${id}.mp3`)
+        .getDownloadURL()
+        .then((url) => {
+          setLoading(false);
+          setTitle('Example Title - wippy');
+          fetch(url)
+            .then((res) => res.blob())
+            .then((blob) => {
+              setMp3(blob);
+            })
+            .catch((err) => console.log(err));
+        })
+        .catch(() => {
+          setLoading(false);
+          setTitle('404 - wippy');
+          setDNE(true);
+        });
+    }
+  }, [id]);
+
   return (
     <>
       <Head>
-        <title>{`${title} - wippy`}</title>
+        <title>{title}</title>
       </Head>
-      <Page>
-        <TrackPageContent trackID={id as string} src="src" />
-      </Page>
+      {!loading && DNE && <Page404 />}
+      {!loading && !DNE && (
+        <Page>
+          <Track mp3={mp3} />
+        </Page>
+      )}
     </>
   );
 }

@@ -19,7 +19,6 @@ type ProviderProps = {
 
 export function FileProvider({ children }: ProviderProps) {
   const [mp3, setMp3] = useState((undefined as unknown) as File);
-  console.log(mp3);
   return (
     <FileContext.Provider value={{ mp3, setMp3 }}>
       {children}

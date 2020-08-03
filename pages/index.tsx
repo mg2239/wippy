@@ -2,7 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 
 import Page from '@components/Page';
-import HomePageContent from '@scenes/Home';
+import Home from '@scenes/Home';
 
 function HomePage() {
   return (
@@ -11,7 +11,7 @@ function HomePage() {
         <title>home - wippy</title>
       </Head>
       <Page>
-        <HomePageContent />
+        <Home />
       </Page>
     </>
   );

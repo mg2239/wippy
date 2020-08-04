@@ -1,8 +1,7 @@
-import Head from 'next/head';
 import React from 'react';
 
-import Page from '@components/Page';
-import Home from '@scenes/Home';
+import Page from 'src/components/Page';
+import Home from 'src/scenes/Home';
 
 function HomePage() {
   return (

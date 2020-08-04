@@ -1,12 +1,10 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Blob from 'node-blob';
 import React, { useState, useEffect } from 'react';
 
-import Page from '@components/Page';
-import Page404 from '@scenes/404';
-import Track from '@scenes/Track';
-import { storage } from '@util/initFirebase';
+import Page from 'src/components/Page';
+import Page404 from 'src/scenes/404';
+import Track from 'src/scenes/Track';
+import { storage } from 'src/util/initFirebase';
 
 function TrackPage() {
   const [title, setTitle] = useState('wippy');

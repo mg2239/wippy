@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import Upload from './components/Upload';
 import styles from './index.module.scss';
-import { useUpload } from '@context/upload';
+import Page from 'src/components/Page';
+import { useUpload } from 'src/context/upload';
 
 function LandingText() {
   return (
@@ -19,10 +19,9 @@ function LandingText() {
   );
 }
 
-export default function Home() {
+function Home() {
   const [uploaded, setUploaded] = useState(false);
   const { setIsNew } = useUpload();
-  const router = useRouter();
 
   const handleUpload = () => setUploaded(true);
 
@@ -38,5 +37,18 @@ export default function Home() {
         <Upload onUpload={handleUpload} onSuccess={handleSuccess} />
       </div>
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <>
+      <Head>
+        <title>wippy</title>
+      </Head>
+      <Page>
+        <Home />
+      </Page>
+    </>
   );
 }

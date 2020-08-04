@@ -19,19 +19,19 @@
     "noUnusedParameters": true,
     "paths": {
       "@components/*": [
-        "components/*"
+        "src/components/*"
       ],
       "@context/*": [
-        "context/*"
+        "src/context/*"
       ],
       "@styles/*": [
-        "styles/*"
+        "src/styles/*"
       ],
       "@scenes/*": [
-        "scenes/*"
+        "src/scenes/*"
       ],
       "@util/*": [
-        "util/*"
+        "src/util/*"
       ]
     },
     "resolveJsonModule": true,

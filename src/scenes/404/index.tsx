@@ -1,8 +1,7 @@
-import { useRouter } from 'next/router';
 import React from 'react';
 
 import styles from './index.module.scss';
-import Button from '@components/Button/index';
+import Button from 'src/components/Button/index';
 
 export default function ErrorPage() {
   const { push } = useRouter();

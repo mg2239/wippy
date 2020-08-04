@@ -30,7 +30,7 @@ function TrackPage() {
             .then((blob) => {
               setMp3(blob);
             })
-            .catch((err) => console.log(err));
+            .catch(() => {});
         })
         .catch(() => {
           setLoading(false);

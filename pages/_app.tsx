@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app';
 import React from 'react';
 
-import { ScreenProvider } from '@util/ScreenContext';
+import { ScreenProvider } from '@context/ScreenContext';
 import '@styles/index.scss';
 
 export default function CustomApp({ Component, pageProps }: AppProps) {

@@ -9,8 +9,8 @@ import { storage } from '@util/initFirebase';
 function InfoText() {
   return (
     <div id={styles.textWrapper}>
-      <p id={styles.main}>click to upload audio</p>
-      <p id={styles.subtext}>or drag and drop your file here</p>
+      <p id={styles.mainText}>click to upload audio</p>
+      <p id={styles.subText}>or drag and drop your file here</p>
       <p id={styles.fileLimits}>mp3 only, limit 15MB</p>
     </div>
   );
@@ -23,7 +23,7 @@ type UploadProps = {
 function UploadText({ progress }: UploadProps) {
   return (
     <div id={styles.textWrapper}>
-      <p id={styles.main}>uploading...</p>
+      <p id={styles.mainText}>uploading...</p>
       <Line percent={progress} strokeWidth={4} strokeColor="#2A2C30" />
     </div>
   );

@@ -7,6 +7,7 @@
   border-radius: 1rem;
   cursor: pointer;
   transition: $transition;
+  outline: none;
 }
 
 #infoWrapper:hover {
@@ -25,13 +26,13 @@
   text-align: center;
 }
 
-#main {
+#mainText {
   font-weight: bold;
   font-size: 1.5rem;
   margin-bottom: 0.25rem;
 }
 
-#subtext {
+#subText {
   font-size: 1rem;
 }
 
@@ -41,13 +42,13 @@
   margin: 0;
 }
 
-@media (max-width: $mobile) {
+@media (max-width: $tablet) {
   #subtext {
     display: none;
   }
 }
 
-@media (max-width: $sm-mobile) {
+@media (max-width: $mobile) {
   #infoWrapper {
     padding: 1rem 2rem;
   }

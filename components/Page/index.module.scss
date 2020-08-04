@@ -29,7 +29,7 @@
   fill: $base;
 }
 
-@media (max-width: $sm-mobile) {
+@media (max-width: $mobile) {
   #headerWrapper, #footerWrapper {
     margin: $sm-border;
   }

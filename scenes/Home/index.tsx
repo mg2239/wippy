@@ -7,10 +7,10 @@ import styles from './index.module.scss';
 function LandingText() {
   return (
     <div id={styles.textWrapper}>
-      <p id={styles.main}>
+      <p id={styles.mainText}>
         keep your unreleased and unfinished songs <b>safe</b>
       </p>
-      <p id={styles.subtext}>
+      <p id={styles.subText}>
         <b>upload</b> and <b>share</b> audio quickly and securely with expiring
         links
       </p>

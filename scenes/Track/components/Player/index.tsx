@@ -1,4 +1,3 @@
-import Slider from 'rc-slider';
 import React, { useState, useEffect } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import WaveSurfer from 'wavesurfer.js';
@@ -6,7 +5,7 @@ import WaveSurfer from 'wavesurfer.js';
 import styles from './index.module.scss';
 import pause from './pause.svg';
 import play from './play.svg';
-import { useScreen } from '@util/ScreenContext';
+import { useScreen } from '@context/ScreenContext';
 
 type PlayProps = {
   onClick: () => void;
@@ -28,23 +27,6 @@ type ProgressProps = {
 
 function Progress({ currentTime }: ProgressProps) {
   return <p id={styles.progressTime}>{currentTime}</p>;
-}
-
-type VolumeProps = {
-  onChange: (volume: number) => void;
-};
-
-function Volume({ onChange }: VolumeProps) {
-  return (
-    <Slider
-      className={styles.volumeSlider}
-      min={0}
-      max={100}
-      value={1}
-      step={1}
-      onChange={(newVol) => onChange(newVol / 100)}
-    />
-  );
 }
 
 type Props = {
@@ -77,9 +59,9 @@ function Track({ mp3, bgColor }: Props) {
     setPlaying(wavesurfer.isPlaying());
   };
 
-  const handleVolumeChange = (volume: number) => {
-    wavesurfer.setVolume(volume);
-  };
+  // const handleVolumeChange = (volume: number) => {
+  //   wavesurfer.setVolume(volume);
+  // };
 
   if (isLoaded) {
     const mobileHeight = 100;

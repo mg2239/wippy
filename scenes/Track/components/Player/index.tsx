@@ -5,7 +5,7 @@ import WaveSurfer from 'wavesurfer.js';
 import styles from './index.module.scss';
 import pause from './pause.svg';
 import play from './play.svg';
-import { useScreen } from '@context/ScreenContext';
+import { useScreen } from '@context/screen';
 
 type PlayProps = {
   onClick: () => void;

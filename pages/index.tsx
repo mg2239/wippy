@@ -8,7 +8,7 @@ function HomePage() {
   return (
     <>
       <Head>
-        <title>home - wippy</title>
+        <title>wippy</title>
       </Head>
       <Page>
         <Home />

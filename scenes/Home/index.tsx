@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import Upload from './components/Upload';
 import styles from './index.module.scss';
+import { useUpload } from '@context/upload';
 
 function LandingText() {
   return (
@@ -20,11 +21,15 @@ function LandingText() {
 
 export default function Home() {
   const [uploaded, setUploaded] = useState(false);
-  const { push } = useRouter();
+  const { setIsNew } = useUpload();
+  const router = useRouter();
 
   const handleUpload = () => setUploaded(true);
 
-  const handleSuccess = (id: string) => push(`/${id}`);
+  const handleSuccess = (id: string) => {
+    setIsNew(true);
+    router.push(`/${id}`);
+  };
 
   return (
     <div id={styles.container}>

@@ -1,19 +1,14 @@
 {
     "presets": [
-        "next/babel"
-    ],
-    "plugins": [
         [
-            "@babel/plugin-proposal-decorators",
+            "@babel/preset-env",
             {
-                "legacy": true
+                "modules": "false"
             }
         ],
-        [
-            "@babel/plugin-proposal-class-properties",
-            {
-                "loose": true
-            }
-        ]
+        "@babel/preset-react"
+    ],
+    "plugins": [
+        "react-hot-loader/babel"
     ]
 }

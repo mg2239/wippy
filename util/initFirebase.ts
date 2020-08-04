@@ -2,12 +2,12 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 
 const config = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: process.env.DATABASE_URL,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  apiKey: 'AIzaSyDM102a4b-QkR-B4gdmELtUA6S5HcmJ0Y8',
+  authDomain: 'wippy-5d6a6.firebaseapp.com',
+  databaseURL: 'https://wippy-5d6a6.firebaseio.com',
+  projectId: 'wippy-5d6a6',
+  storageBucket: 'wippy-5d6a6.appspot.com',
+  messagingSenderId: '579514767533',
 };
 
 if (!firebase.apps.length) {

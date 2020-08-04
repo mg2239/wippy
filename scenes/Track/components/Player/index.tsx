@@ -35,13 +35,15 @@ type Props = {
 };
 
 function Track({ mp3, bgColor }: Props) {
-  const [wavesurfer, setWavesurfer] = useState(
-    (undefined as any) as WaveSurfer,
-  );
+  const [wavesurfer, setWavesurfer] = useState<WaveSurfer>(undefined as any);
   const [isLoaded, setLoaded] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
-  const { isWindow } = useScreen();
+  const { breakpoint, isWindow } = useScreen();
+
+  const MOBILE_HEIGHT = 100;
+  const TABLET_HEIGHT = 120;
+  const DESKTOP_HEIGHT = 140;
 
   const formatTrackTime = (time: number) => {
     const sec = Math.floor(time % 60);
@@ -63,14 +65,13 @@ function Track({ mp3, bgColor }: Props) {
   //   wavesurfer.setVolume(volume);
   // };
 
-  if (isLoaded) {
-    const mobileHeight = 100;
-    const tabletHeight = 120;
-    const desktopHeight = 140;
-    if (isWindow('M')) wavesurfer.setHeight(mobileHeight);
-    else if (isWindow('T')) wavesurfer.setHeight(tabletHeight);
-    else wavesurfer.setHeight(desktopHeight);
-  }
+  useEffect(() => {
+    if (isLoaded) {
+      if (isWindow('M')) wavesurfer.setHeight(MOBILE_HEIGHT);
+      else if (isWindow('T')) wavesurfer.setHeight(TABLET_HEIGHT);
+      else wavesurfer.setHeight(DESKTOP_HEIGHT);
+    }
+  }, [isLoaded, breakpoint]);
 
   useEffect(() => {
     if (mp3.size !== 0) {

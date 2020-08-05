@@ -17,23 +17,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "paths": {
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@context/*": [
-        "src/context/*"
-      ],
-      "@styles/*": [
-        "src/styles/*"
-      ],
-      "@scenes/*": [
-        "src/scenes/*"
-      ],
-      "@util/*": [
-        "src/util/*"
-      ]
-    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,

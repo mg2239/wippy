@@ -1,13 +1,17 @@
 @import '../../../../styles/variables';
 
 #infoWrapper {
-  padding: 2rem 4rem;
   border: 0.25rem solid $base;
-  box-sizing: border-box;
   border-radius: 1rem;
+  box-sizing: border-box;
   cursor: pointer;
-  transition: $transition;
   outline: none;
+  padding: 2rem 4rem;
+  transition: $transition;
+
+  @include T {
+    padding: 1rem 2rem;
+  }
 }
 
 #infoWrapper:hover {
@@ -16,10 +20,10 @@
 }
 
 #uploadWrapper {
-  padding: 2rem 4rem;
   border: 0.25rem solid $base;
-  box-sizing: border-box;
   border-radius: 1rem;
+  box-sizing: border-box;
+  padding: 2rem 4rem;
 }
 
 #textWrapper {
@@ -27,37 +31,29 @@
 }
 
 #mainText {
-  font-weight: bold;
   font-size: 1.5rem;
+  font-weight: bold;
   margin-bottom: 0.25rem;
+
+  @include T {
+    font-size: 1.2rem;
+  }
 }
 
 #subText {
   font-size: 1rem;
-}
 
-#fileLimits {
-  font-size: 1rem;
-  color: $inputDefault;
-  margin: 0;
-}
-
-@media (max-width: $tablet) {
-  #subtext {
+  @include T {
     display: none;
   }
 }
 
-@media (max-width: $mobile) {
-  #infoWrapper {
-    padding: 1rem 2rem;
-  }
+#fileLimits {
+  color: $inputDefault;
+  font-size: 1rem;
+  margin: 0;
 
-  #main {
-    font-size: 1.2rem;
-  }
-
-  #fileLimits {
+  @include T {
     font-size: 0.8rem;
   }
 }

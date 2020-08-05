@@ -3,160 +3,160 @@
 $btnSize: 5.5rem;
 
 #track {
-    display: flex;
-    padding: 1rem $border;
-    margin: 0 (-$border);
-    align-items: center;
-    height: 140px;
+  align-items: center;
+  display: flex;
+  height: 140px;
+  margin: 0 (-$border);
+  padding: 1rem $border;
+
+  @include T {
+    height: 120px;
+  }
+
+  @include M {
+    height: 100px;
+    margin: 0 (-$sm-border);
+    padding: $sm-border $sm-border;
+  }
 }
 
 .red {
-    background-color: $red;
+  background-color: $red;
 }
 
 .orange {
-    background-color: $orange;
+  background-color: $orange;
 }
 
 .yellow {
-    background-color: $yellow;
+  background-color: $yellow;
 }
 
 .green {
-    background-color: $green;
+  background-color: $green;
 }
 
 .blue {
-    background-color: $blue;
+  background-color: $blue;
 }
 
 .purple {
-    background-color: $purple;
+  background-color: $purple;
 }
 
 .pink {
-    background-color: $pink;
+  background-color: $pink;
 }
 
 .gray {
-    background-color: $gray;
+  background-color: $gray;
 }
 
 .black {
-    background-color: $black;
+  background-color: $black;
 }
 
 #loadingText {
-    color: white;
-    font-weight: bold;
-    margin: 0;
+  color: white;
+  font-weight: bold;
+  margin: 0;
 }
 
 #waveformWrapper {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .waveform {
-    text-align: center;
+  text-align: center;
 }
 
 .trackLHS {
-    margin-right: $border;
+  margin-right: $border;
+
+  @include T {
+    margin-right: $sm-border;
+  }
+
+  @include M {
+    margin-right: $xs-border;
+  }
 }
 
 #playButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: none;
-    outline: none;
-    height: $btnSize;
-    width: $btnSize;
-    border: white solid 2px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: $transition;
+  align-items: center;
+  background: none;
+  border: white solid 2px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: $btnSize;
+  justify-content: center;
+  outline: none;
+  transition: $transition;
+  width: $btnSize;
 }
 
 #playButton:hover {
-    transform: scale(1.05);
-    transition: $transition;
+  transform: scale(1.05);
+  transition: $transition;
+
+  @include T {
+    transform: none;
+  }
 }
 
 #icon {
-    height: $btnSize * 0.8;
+  height: $btnSize * 0.8;
 }
 
 .trackRHS {
-    width: 2.5rem;
-    margin-left: $border;
-    display: flex;
-    align-items: center;
+  align-items: center;
+  display: flex;
+  margin-left: $border;
+  width: 2.5rem;
+
+  @include T {
+    margin-left: $sm-border;
+  }
+
+  @include M {
+    margin-left: $xs-border;
+  }
 }
 
 #progressTime {
-    color: white;
-    font-weight: bold;
-    margin: 0;
-    font-size: 1rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
 }
 
 .volumeSlider {
-    margin: 0;
+  margin: 0;
 }
 
-@media (max-width: $tablet) {
-    $btnSize: 4.5rem;
-    
-    #playButton {
-        height: $btnSize;
-        width: $btnSize;
-    }
+@include T {
+  $btnSize: 4.5rem;
 
-    #playButton:hover {
-        transform: none;
-    }
+  #playButton {
+    height: $btnSize;
+    width: $btnSize;
+  }
 
-    #icon {
-        height: $btnSize * 0.8;
-    }
-
-    #track {
-        height: 120px;
-    }
-
-    .trackLHS {
-        margin-right: $sm-border;
-    }
-    
-    .trackRHS {
-        margin-left: $sm-border;
-    }
+  #icon {
+    height: $btnSize * 0.8;
+  }
 }
 
-@media (max-width: $mobile) {
-    $btnSize: 3.5rem;
-    
-    #playButton {
-        height: $btnSize;
-        width: $btnSize;
-    }
+@include M {
+  $btnSize: 3.5rem;
 
-    #icon {
-        height: $btnSize * 0.8;
-    }
+  #playButton {
+    height: $btnSize;
+    width: $btnSize;
+  }
 
-    #track {
-        padding: $sm-border $sm-border;
-        margin: 0 (-$sm-border);
-        height: 100px;
-    }
-
-    .trackLHS {
-        margin-right: $xs-border;
-    }
-    
-    .trackRHS {
-        margin-left: $xs-border;
-    }
+  #icon {
+    height: $btnSize * 0.8;
+  }
 }

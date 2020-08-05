@@ -7,7 +7,7 @@ import styles from './index.module.scss';
 import { useTrack } from './index.state';
 import Page from 'src/components/Page';
 import { useUpload } from 'src/context/upload';
-import Page404 from 'src/scenes/404';
+import ErrorPage from 'src/scenes/404';
 import { storage } from 'src/util/initFirebase';
 
 type Props = {
@@ -35,7 +35,6 @@ export default function TrackPage({ match }: TrackPageProps) {
   const [title, setTitle] = useState<string>();
   const [mp3, setMp3] = useState<File>();
   const [loading, setLoading] = useState(true);
-  const [DNE, setDNE] = useState(false);
 
   const { id } = match.params;
 
@@ -57,26 +56,20 @@ export default function TrackPage({ match }: TrackPageProps) {
             })
             .catch(() => {});
         })
-        .catch(() => {
-          setLoading(false);
-          setFormattedTitle('404');
-          setDNE(true);
-        });
+        .catch(() => setLoading(false));
     }
   }, [id]);
 
   return (
     <>
-      <Helmet>{title && <title>{title}</title>}</Helmet>
-      {!loading && (
-        <>
-          {DNE && <Page404 />}
-          {!DNE && mp3 && (
-            <Page>
-              <Track mp3={mp3} />
-            </Page>
-          )}
-        </>
+      {!loading && !mp3 && <ErrorPage />}
+      {!loading && mp3 && (
+        <Page>
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+          <Track mp3={mp3} />
+        </Page>
       )}
     </>
   );

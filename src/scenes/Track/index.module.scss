@@ -1,11 +1,9 @@
 @import '../../styles/variables';
 
 #container {
-    margin: 0 $border;
-}
+  margin: 0 $border;
 
-@media (max-width: $mobile) {
-    #container {
-        margin: 0 $sm-border;
-    }
+  @include M {
+    margin: 0 $sm-border;
+  }
 }

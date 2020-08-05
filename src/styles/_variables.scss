@@ -1,16 +1,16 @@
-$base: #2A2C30;
+$base: #2a2c30;
 $hover: #525761;
-$inputDefault: #8D919A;
-$inputFill: #F0F0F0;
-$red: #EF626C;
-$orange: #EFA662;
-$yellow: #EDCF66;
-$green: #71C074;
-$blue: #5DA9D3;
-$purple: #9E79DB;
-$pink: #E06ED5;
-$gray: #53535C;
-$black: #20232A;
+$inputDefault: #8d919a;
+$inputFill: #f0f0f0;
+$red: #ef626c;
+$orange: #efa662;
+$yellow: #edcf66;
+$green: #71c074;
+$blue: #5da9d3;
+$purple: #9e79db;
+$pink: #e06ed5;
+$gray: #53535c;
+$black: #20232a;
 
 $transition: 0.15s ease-in-out;
 
@@ -20,3 +20,15 @@ $xs-border: 1rem;
 
 $tablet: 1024px;
 $mobile: 480px;
+
+@mixin T {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin M {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}

@@ -44,13 +44,8 @@ function Home() {
 
 export default function HomePage() {
   return (
-    <>
-      <Head>
-        <title>wippy</title>
-      </Head>
-      <Page>
-        <Home />
-      </Page>
-    </>
+    <Page>
+      <Home />
+    </Page>
   );
 }

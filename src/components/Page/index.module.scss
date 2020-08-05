@@ -1,40 +1,42 @@
 @import '../../styles/variables';
 
 #header {
-  margin: 0;
-  font-weight: 800;
   font-size: 3rem;
+  font-weight: 800;
   letter-spacing: -0.05em;
+  margin: 0;
+
+  @include M {
+    font-size: 2rem;
+  }
 }
 
 #headerWrapper {
-  margin: $border; 
+  margin: $border;
+
+  @include M {
+    margin: $sm-border;
+  }
 }
 
 #footerWrapper {
-  margin: $border; 
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-shrink: 0;
+  justify-content: center;
+  margin: $border;
+
+  @include M {
+    margin: $sm-border;
+  }
 }
 
 #footerWrapper svg {
   height: 1rem;
-  width: auto;
   margin: 0 0.5rem;
+  width: auto;
 }
 
 #footerWrapper svg path {
   fill: $base;
-}
-
-@media (max-width: $mobile) {
-  #headerWrapper, #footerWrapper {
-    margin: $sm-border;
-  }
-
-  #header {
-    font-size: 2rem;
-  }
 }

@@ -34,7 +34,7 @@ type Props = {
   bgColor: string;
 };
 
-function Track({ mp3, bgColor }: Props) {
+export default function Player({ mp3, bgColor }: Props) {
   const [wavesurfer, setWavesurfer] = useState<WaveSurfer>(undefined as any);
   const [isLoaded, setLoaded] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
@@ -122,5 +122,3 @@ function Track({ mp3, bgColor }: Props) {
     </div>
   );
 }
-
-export default Track;

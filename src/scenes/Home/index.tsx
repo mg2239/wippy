@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Upload from './components/Upload';
 import styles from './index.module.scss';
@@ -22,12 +23,13 @@ function LandingText() {
 function Home() {
   const [uploaded, setUploaded] = useState(false);
   const { setIsNew } = useUpload();
+  const { push } = useHistory();
 
   const handleUpload = () => setUploaded(true);
 
   const handleSuccess = (id: string) => {
     setIsNew(true);
-    router.push(`/${id}`);
+    push(`/${id}`);
   };
 
   return (

@@ -1,5 +1,6 @@
-import Blob from 'node-blob';
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
+import { match as MatchType } from 'react-router-dom';
 
 import Player from './components/Player';
 import styles from './index.module.scss';
@@ -13,7 +14,7 @@ type Props = {
   mp3: File;
 };
 
-export default function Track({ mp3 }: Props) {
+function Track({ mp3 }: Props) {
   const { bgColor } = useTrack();
   const { isNew } = useUpload();
 
@@ -26,14 +27,20 @@ export default function Track({ mp3 }: Props) {
   );
 }
 
-function TrackPage() {
-  const [title, setTitle] = useState('wippy');
-  const [mp3, setMp3] = useState(new Blob());
+type TrackPageProps = {
+  match: MatchType<{ id: string }>;
+};
+
+export default function TrackPage({ match }: TrackPageProps) {
+  const [title, setTitle] = useState<string>();
+  const [mp3, setMp3] = useState<File>();
   const [loading, setLoading] = useState(true);
   const [DNE, setDNE] = useState(false);
-  const router = useRouter();
 
-  const { id } = router.query;
+  const { id } = match.params;
+
+  const setFormattedTitle = (newTitle: string) =>
+    setTitle(`${newTitle} - wippy`);
 
   useEffect(() => {
     if (id) {
@@ -42,17 +49,17 @@ function TrackPage() {
         .getDownloadURL()
         .then((url) => {
           setLoading(false);
-          setTitle('Example Title - wippy');
+          setFormattedTitle('Example Title');
           fetch(url)
             .then((res) => res.blob())
             .then((blob) => {
-              setMp3(blob);
+              setMp3(blob as File);
             })
             .catch(() => {});
         })
         .catch(() => {
           setLoading(false);
-          setTitle('404 - wippy');
+          setFormattedTitle('404');
           setDNE(true);
         });
     }
@@ -60,14 +67,16 @@ function TrackPage() {
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
-      {!loading && DNE && <Page404 />}
-      {!loading && !DNE && (
-        <Page>
-          <Track mp3={mp3} />
-        </Page>
+      <Helmet>{title && <title>{title}</title>}</Helmet>
+      {!loading && (
+        <>
+          {DNE && <Page404 />}
+          {!DNE && mp3 && (
+            <Page>
+              <Track mp3={mp3} />
+            </Page>
+          )}
+        </>
       )}
     </>
   );

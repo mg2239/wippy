@@ -1,6 +1,8 @@
 @import '../../../../styles/variables';
 
 $btnSize: 5.5rem;
+$btnSizeT: 4.5rem;
+$btnSizeM: 3.5rem;
 
 #track {
   align-items: center;
@@ -94,6 +96,16 @@ $btnSize: 5.5rem;
   outline: none;
   transition: $transition;
   width: $btnSize;
+
+  @include T {
+    height: $btnSizeT;
+    width: $btnSizeT;
+  }
+
+  @include M {
+    height: $btnSizeM;
+    width: $btnSizeM;
+  }
 }
 
 #playButton:hover {
@@ -107,6 +119,14 @@ $btnSize: 5.5rem;
 
 #icon {
   height: $btnSize * 0.8;
+
+  @include T {
+    height: $btnSizeT * 0.8;
+  }
+
+  @include M {
+    height: $btnSizeM * 0.8;
+  }
 }
 
 .trackRHS {
@@ -133,30 +153,4 @@ $btnSize: 5.5rem;
 
 .volumeSlider {
   margin: 0;
-}
-
-@include T {
-  $btnSize: 4.5rem;
-
-  #playButton {
-    height: $btnSize;
-    width: $btnSize;
-  }
-
-  #icon {
-    height: $btnSize * 0.8;
-  }
-}
-
-@include M {
-  $btnSize: 3.5rem;
-
-  #playButton {
-    height: $btnSize;
-    width: $btnSize;
-  }
-
-  #icon {
-    height: $btnSize * 0.8;
-  }
 }

@@ -11,7 +11,7 @@ import ErrorPage from 'src/scenes/404';
 import { storage } from 'src/util/initFirebase';
 
 type Props = {
-  mp3: File;
+  mp3: File | undefined;
 };
 
 function Track({ mp3 }: Props) {
@@ -35,6 +35,7 @@ export default function TrackPage({ match }: TrackPageProps) {
   const [title, setTitle] = useState<string>();
   const [mp3, setMp3] = useState<File>();
   const [loading, setLoading] = useState(true);
+  const [DNE, setDNE] = useState(false);
 
   const { id } = match.params;
 
@@ -54,16 +55,19 @@ export default function TrackPage({ match }: TrackPageProps) {
             .then((blob) => {
               setMp3(blob as File);
             })
-            .catch(() => {});
+            .catch((err) => console.log(err));
         })
-        .catch(() => setLoading(false));
+        .catch(() => {
+          setDNE(true);
+          setLoading(false);
+        });
     }
   }, [id]);
 
   return (
     <>
-      {!loading && !mp3 && <ErrorPage />}
-      {!loading && mp3 && (
+      {!loading && DNE && <ErrorPage />}
+      {!loading && !DNE && (
         <Page>
           <Helmet>
             <title>{title}</title>

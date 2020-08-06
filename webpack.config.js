@@ -59,7 +59,9 @@ const config = {
     },
   },
   devServer: {
-    contentBase: './dist',
+    port: 3000,
+    open: true,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

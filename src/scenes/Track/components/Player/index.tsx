@@ -30,7 +30,7 @@ function Progress({ currentTime }: ProgressProps) {
 }
 
 type Props = {
-  mp3: Blob;
+  mp3: File | undefined;
   bgColor: string;
 };
 
@@ -74,7 +74,7 @@ export default function Player({ mp3, bgColor }: Props) {
   }, [isLoaded, breakpoint]);
 
   useEffect(() => {
-    if (mp3.size !== 0) {
+    if (mp3) {
       const wave = WaveSurfer.create({
         container: '#waveform',
         waveColor: '#FFFFFFBB',

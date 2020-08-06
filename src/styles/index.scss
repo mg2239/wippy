@@ -17,9 +17,9 @@ a,
 p,
 div,
 button {
+  color: $base;
   font-family: 'Inter', sans-serif;
   margin: 0;
-  color: $base;
 }
 
 h1,
@@ -34,8 +34,8 @@ p {
 }
 
 a {
-  transition: $transition;
   text-decoration: none;
+  transition: $transition;
 }
 
 a:hover {
@@ -43,7 +43,7 @@ a:hover {
   transition: $transition;
 }
 
-#__next {
+#root {
   display: flex;
   flex-direction: column;
   height: 100%;

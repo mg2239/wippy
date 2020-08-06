@@ -1,7 +1,6 @@
-/* eslint-disable no-shadow */
 import React, { useContext, createContext, useState } from 'react';
 
-import { Time, getTimeFromNow } from 'src/util/date';
+import { Time, getTimeFromNow } from 'src/util/time';
 
 type Color =
   | 'red'
@@ -53,10 +52,16 @@ export function TrackProvider({ children }: ProviderProps) {
   const [expireDate, setExpireDate] = useState(initialState.expireDate);
 
   const saveInfo = (info: TrackInfo) => {
-    const { title, bgColor, expireDuration, expireUnit } = info;
-    setTitle(title);
-    setBgColor(bgColor);
-    setExpireDate(getTimeFromNow(expireDuration, expireUnit));
+    const {
+      title: newTitle,
+      bgColor: newBgColor,
+      expireDuration,
+      expireUnit,
+    } = info;
+    setTitle(newTitle);
+    setBgColor(newBgColor);
+    const newExpireDate = getTimeFromNow(expireDuration, expireUnit);
+    setExpireDate(newExpireDate);
   };
 
   const retrieveInfo = (id: string) => console.log(id);

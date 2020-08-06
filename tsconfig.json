@@ -1,39 +1,21 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "allowJs": true,
+    "allowJs": false,
     "baseUrl": ".",
     "alwaysStrict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "lib": [
       "dom",
       "es2017"
     ],
     "module": "esnext",
     "moduleResolution": "node",
-    "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "paths": {
-      "@components/*": [
-        "components/*"
-      ],
-      "@context/*": [
-        "context/*"
-      ],
-      "@styles/*": [
-        "styles/*"
-      ],
-      "@scenes/*": [
-        "scenes/*"
-      ],
-      "@util/*": [
-        "util/*"
-      ]
-    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,

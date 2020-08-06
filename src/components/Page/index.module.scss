@@ -1,0 +1,42 @@
+@import '../../styles/variables';
+
+#header {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  margin: 0;
+
+  @include M {
+    font-size: 2rem;
+  }
+}
+
+#headerWrapper {
+  margin: $border;
+
+  @include M {
+    margin: $sm-border;
+  }
+}
+
+#footerWrapper {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  margin: $border;
+
+  @include M {
+    margin: $sm-border;
+  }
+}
+
+#footerWrapper svg {
+  height: 1rem;
+  margin: 0 0.5rem;
+  width: auto;
+}
+
+#footerWrapper svg path {
+  fill: $base;
+}

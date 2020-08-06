@@ -1,0 +1,156 @@
+@import '../../../../styles/variables';
+
+$btnSize: 5.5rem;
+$btnSizeT: 4.5rem;
+$btnSizeM: 3.5rem;
+
+#track {
+  align-items: center;
+  display: flex;
+  height: 140px;
+  margin: 0 (-$border);
+  padding: 1rem $border;
+
+  @include T {
+    height: 120px;
+  }
+
+  @include M {
+    height: 100px;
+    margin: 0 (-$sm-border);
+    padding: $sm-border $sm-border;
+  }
+}
+
+.red {
+  background-color: $red;
+}
+
+.orange {
+  background-color: $orange;
+}
+
+.yellow {
+  background-color: $yellow;
+}
+
+.green {
+  background-color: $green;
+}
+
+.blue {
+  background-color: $blue;
+}
+
+.purple {
+  background-color: $purple;
+}
+
+.pink {
+  background-color: $pink;
+}
+
+.gray {
+  background-color: $gray;
+}
+
+.black {
+  background-color: $black;
+}
+
+#loadingText {
+  color: white;
+  font-weight: bold;
+  margin: 0;
+}
+
+#waveformWrapper {
+  flex-grow: 1;
+}
+
+.waveform {
+  text-align: center;
+}
+
+.trackLHS {
+  margin-right: $border;
+
+  @include T {
+    margin-right: $sm-border;
+  }
+
+  @include M {
+    margin-right: $xs-border;
+  }
+}
+
+#playButton {
+  align-items: center;
+  background: none;
+  border: white solid 2px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: $btnSize;
+  justify-content: center;
+  outline: none;
+  transition: $transition;
+  width: $btnSize;
+
+  @include T {
+    height: $btnSizeT;
+    width: $btnSizeT;
+  }
+
+  @include M {
+    height: $btnSizeM;
+    width: $btnSizeM;
+  }
+}
+
+#playButton:hover {
+  transform: scale(1.05);
+  transition: $transition;
+
+  @include T {
+    transform: none;
+  }
+}
+
+#icon {
+  height: $btnSize * 0.8;
+
+  @include T {
+    height: $btnSizeT * 0.8;
+  }
+
+  @include M {
+    height: $btnSizeM * 0.8;
+  }
+}
+
+.trackRHS {
+  align-items: center;
+  display: flex;
+  margin-left: $border;
+  width: 2.5rem;
+
+  @include T {
+    margin-left: $sm-border;
+  }
+
+  @include M {
+    margin-left: $xs-border;
+  }
+}
+
+#progressTime {
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.volumeSlider {
+  margin: 0;
+}

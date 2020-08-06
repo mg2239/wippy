@@ -16,7 +16,7 @@ export default function Content({ mp3 }: ContentProps) {
   const { isNew } = useUpload();
 
   return (
-    <div id={styles.container}>
+    <div className={styles.container}>
       {isNew && <TrackEdit />}
       <Player mp3={mp3} bgColor={bgColor} />
       <TrackInfo />

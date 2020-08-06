@@ -1,6 +1,6 @@
 @import '../../styles/variables';
 
-#container {
+.container {
   flex: 1 0 auto;
   margin: 0 $border;
   min-height: auto;
@@ -10,7 +10,7 @@
   }
 }
 
-#inner {
+.inner {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -18,12 +18,12 @@
   justify-content: center;
 }
 
-#textWrapper {
+.textWrapper {
   margin-bottom: 4rem;
   text-align: center;
 }
 
-#mainText {
+.mainText {
   font-size: 2rem;
 
   @include T {
@@ -35,7 +35,7 @@
   }
 }
 
-#subText {
+.subText {
   font-size: 1.5rem;
   margin: 0;
 

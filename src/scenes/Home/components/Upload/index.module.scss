@@ -1,6 +1,6 @@
 @import '../../../../styles/variables';
 
-#infoWrapper {
+.infoWrapper {
   border: 0.25rem solid $base;
   border-radius: 1rem;
   box-sizing: border-box;
@@ -14,23 +14,23 @@
   }
 }
 
-#infoWrapper:hover {
+.infoWrapper:hover {
   transform: scale(1.02);
   transition: $transition;
 }
 
-#uploadWrapper {
+.uploadWrapper {
   border: 0.25rem solid $base;
   border-radius: 1rem;
   box-sizing: border-box;
   padding: 2rem 4rem;
 }
 
-#textWrapper {
+.textWrapper {
   text-align: center;
 }
 
-#mainText {
+.mainText {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
@@ -40,7 +40,7 @@
   }
 }
 
-#subText {
+.subText {
   font-size: 1rem;
 
   @include T {
@@ -48,7 +48,7 @@
   }
 }
 
-#fileLimits {
+.fileLimits {
   color: $inputDefault;
   font-size: 1rem;
   margin: 0;

@@ -5,8 +5,8 @@ import Head from 'src/components/Head';
 
 function Header() {
   return (
-    <div id={styles.headerWrapper}>
-      <a href="/" id={styles.header}>
+    <div className={styles.headerWrapper}>
+      <a href="/" className={styles.header}>
         wippy
       </a>
     </div>
@@ -14,7 +14,7 @@ function Header() {
 }
 
 function Footer() {
-  return <div id={styles.footerWrapper} />;
+  return <div className={styles.footerWrapper} />;
 }
 
 type Props = {

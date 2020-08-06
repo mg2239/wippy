@@ -8,11 +8,11 @@ import { useUpload } from 'src/context/upload';
 
 function LandingText() {
   return (
-    <div id={styles.textWrapper}>
-      <p id={styles.mainText}>
+    <div className={styles.textWrapper}>
+      <p className={styles.mainText}>
         keep your unreleased and unfinished songs <b>safe</b>
       </p>
-      <p id={styles.subText}>
+      <p className={styles.subText}>
         <b>upload</b> and <b>share</b> audio quickly and securely with expiring
         links
       </p>
@@ -34,8 +34,8 @@ export default function HomePage() {
 
   return (
     <Page>
-      <div id={styles.container}>
-        <div id={styles.inner}>
+      <div className={styles.container}>
+        <div className={styles.inner}>
           {!uploaded && <LandingText />}
           <Upload onUpload={onUpload} onSuccess={onSuccess} />
         </div>

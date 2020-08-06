@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React, { useState, useEffect } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import WaveSurfer from 'wavesurfer.js';
@@ -14,9 +15,11 @@ type PlayButtonProps = {
 
 function PlayButton({ onClick, isPlaying }: PlayButtonProps) {
   return (
-    <button type="button" id={styles.playButton} onClick={onClick}>
-      {!isPlaying && <img id={styles.icon} alt="Play Icon" src={play} />}
-      {isPlaying && <img id={styles.icon} alt="Pause Icon" src={pause} />}
+    <button type="button" className={styles.playButton} onClick={onClick}>
+      {!isPlaying && <img className={styles.icon} alt="Play Icon" src={play} />}
+      {isPlaying && (
+        <img className={styles.icon} alt="Pause Icon" src={pause} />
+      )}
     </button>
   );
 }
@@ -26,7 +29,7 @@ type ProgressProps = {
 };
 
 function Progress({ currentTime }: ProgressProps) {
-  return <p id={styles.progressTime}>{currentTime}</p>;
+  return <p className={styles.progressTime}>{currentTime}</p>;
 }
 
 type PlayerProps = {
@@ -99,15 +102,15 @@ export default function Player({ mp3, bgColor }: PlayerProps) {
   }, [mp3]);
 
   return (
-    <div id={styles.track} className={styles[bgColor]}>
+    <div className={cn(styles.track, styles[bgColor])}>
       {isLoaded && (
-        <div className={styles.trackLHS} id={styles.playWrapper}>
+        <div className={cn(styles.trackLHS, styles.playWrapper)}>
           <PlayButton onClick={playPause} isPlaying={isPlaying} />
         </div>
       )}
-      <div id={styles.waveformWrapper}>
+      <div className={styles.waveformWrapper}>
         <div id="waveform" className={styles.waveform}>
-          {!isLoaded && <p id={styles.loadingText}>loading...</p>}
+          {!isLoaded && <p className={styles.loadingText}>loading...</p>}
         </div>
       </div>
       {isLoaded && (

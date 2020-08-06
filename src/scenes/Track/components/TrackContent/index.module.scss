@@ -1,6 +1,6 @@
 @import '../../../../styles/variables';
 
-#container {
+.container {
   margin: 0 $border;
 
   @include M {

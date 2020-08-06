@@ -1,6 +1,6 @@
 @import '../../styles/variables';
 
-#header {
+.header {
   font-size: 3rem;
   font-weight: 800;
   letter-spacing: -0.05em;
@@ -11,7 +11,7 @@
   }
 }
 
-#headerWrapper {
+.headerWrapper {
   margin: $border;
 
   @include M {
@@ -19,7 +19,7 @@
   }
 }
 
-#footerWrapper {
+.footerWrapper {
   align-items: center;
   display: flex;
   flex-shrink: 0;
@@ -31,12 +31,12 @@
   }
 }
 
-#footerWrapper svg {
+.footerWrapper svg {
   height: 1rem;
   margin: 0 0.5rem;
   width: auto;
 }
 
-#footerWrapper svg path {
+.footerWrapper svg path {
   fill: $base;
 }

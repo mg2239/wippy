@@ -1,4 +1,7 @@
+/* eslint-disable no-shadow */
 import React, { useContext, createContext, useState } from 'react';
+
+import { Time, getTimeFromNow } from 'src/util/date';
 
 type Color =
   | 'red'
@@ -13,27 +16,25 @@ type Color =
 
 type TrackInfo = {
   title: string;
-  desc: string;
   bgColor: Color;
-  expireTime: number;
-  expireType: 'minutes' | 'hours' | 'days';
-};
-
-const initialInfo: TrackInfo = {
-  title: '',
-  desc: '',
-  bgColor: 'red',
-  expireTime: 60,
-  expireType: 'minutes',
+  expireDuration: number; // The numerical part of the time
+  expireUnit: Time; // The unit of time (day, hour, minute)
 };
 
 type TrackState = {
-  setInfo: (info: TrackInfo) => void;
-} & TrackInfo;
+  title: string;
+  bgColor: Color;
+  expireDate: string;
+  saveInfo: (info: TrackInfo) => void;
+  retrieveInfo: (id: string) => void;
+};
 
 const initialState: TrackState = {
-  ...initialInfo,
-  setInfo: () => {},
+  title: '',
+  bgColor: 'red',
+  expireDate: '',
+  saveInfo: () => {},
+  retrieveInfo: () => {},
 };
 
 const TrackContext = createContext(initialState);
@@ -47,10 +48,23 @@ type ProviderProps = {
 };
 
 export function TrackProvider({ children }: ProviderProps) {
-  const [info, setInfo] = useState(initialInfo);
+  const [title, setTitle] = useState(initialState.title);
+  const [bgColor, setBgColor] = useState(initialState.bgColor);
+  const [expireDate, setExpireDate] = useState(initialState.expireDate);
+
+  const saveInfo = (info: TrackInfo) => {
+    const { title, bgColor, expireDuration, expireUnit } = info;
+    setTitle(title);
+    setBgColor(bgColor);
+    setExpireDate(getTimeFromNow(expireDuration, expireUnit));
+  };
+
+  const retrieveInfo = (id: string) => console.log(id);
 
   return (
-    <TrackContext.Provider value={{ ...info, setInfo }}>
+    <TrackContext.Provider
+      value={{ title, bgColor, expireDate, saveInfo, retrieveInfo }}
+    >
       {children}
     </TrackContext.Provider>
   );

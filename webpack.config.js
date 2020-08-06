@@ -12,7 +12,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js(x)?$/,
         use: 'babel-loader',
         exclude: /node_modules/,
       },
@@ -65,6 +65,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      favicon: path.resolve(__dirname, 'public', 'favicon.ico'),
       template: path.resolve(__dirname, 'public', 'index.html'),
     }),
     new MiniCssExtractPlugin(),

@@ -3,11 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
-const config = {
+module.exports = (env, argv) => ({
   entry: ['react-hot-loader/patch', './src/index.tsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js',
+    filename: argv.hot ? '[name].[hash].js' : '[name].[contenthash].js',
   },
   module: {
     rules: [
@@ -35,7 +35,12 @@ const config = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              modules: true,
+              modules: {
+                localIdentName:
+                  argv.mode === 'development'
+                    ? '[folder]__[local]--[hash:base64:5]'
+                    : '[hash:base64]',
+              },
             },
           },
           'sass-loader',
@@ -83,13 +88,4 @@ const config = {
       },
     },
   },
-};
-
-module.exports = (env, argv) => {
-  if (argv.hot) {
-    // Cannot use 'contenthash' when hot reloading is enabled.
-    config.output.filename = '[name].[hash].js';
-  }
-
-  return config;
-};
+});

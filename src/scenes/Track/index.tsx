@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { match as MatchType } from 'react-router-dom';
 
-import Content from './components/Content';
+import Content from './components/TrackContent';
 import Page from 'src/components/Page';
 import ErrorPage from 'src/scenes/404';
 import { storage } from 'src/util/firebase';

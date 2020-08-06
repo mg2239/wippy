@@ -16,11 +16,11 @@ function InfoText() {
   );
 }
 
-type UploadProps = {
+type UploadTextProps = {
   progress: number;
 };
 
-function UploadText({ progress }: UploadProps) {
+function UploadText({ progress }: UploadTextProps) {
   return (
     <div id={styles.textWrapper}>
       <p id={styles.mainText}>uploading...</p>
@@ -29,12 +29,12 @@ function UploadText({ progress }: UploadProps) {
   );
 }
 
-type Props = {
+type UploadProps = {
   onUpload: () => void;
   onSuccess: (id: string) => void;
 };
 
-export default function Upload({ onUpload, onSuccess }: Props) {
+export default function Upload({ onUpload, onSuccess }: UploadProps) {
   const [accepted, setAccepted] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -47,9 +47,8 @@ export default function Upload({ onUpload, onSuccess }: Props) {
     const uploadTask = storage.ref().child(`${id}.mp3`).put(mp3);
 
     const whileUpload = (snapshot: firebase.storage.UploadTaskSnapshot) => {
-      const newProgress = Math.floor(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
-      );
+      const { bytesTransferred, totalBytes } = snapshot;
+      const newProgress = Math.floor((bytesTransferred / totalBytes) * 100);
       setProgress(newProgress);
     };
 

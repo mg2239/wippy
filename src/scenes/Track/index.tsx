@@ -2,32 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { match as MatchType } from 'react-router-dom';
 
-import Player from './components/Player';
-import TrackEdit from './components/TrackEdit';
-import TrackInfo from './components/TrackInfo';
-import styles from './index.module.scss';
-import { useTrack } from './index.state';
+import Content from './components/Content';
 import Page from 'src/components/Page';
-import { useUpload } from 'src/context/upload';
 import ErrorPage from 'src/scenes/404';
 import { storage } from 'src/util/firebase';
-
-type Props = {
-  mp3: File | undefined;
-};
-
-function Track({ mp3 }: Props) {
-  const { bgColor } = useTrack();
-  const { isNew } = useUpload();
-
-  return (
-    <div id={styles.container}>
-      {isNew && <TrackEdit />}
-      <Player mp3={mp3} bgColor={bgColor} />
-      <TrackInfo />
-    </div>
-  );
-}
 
 type TrackPageProps = {
   match: MatchType<{ id: string }>;
@@ -76,7 +54,7 @@ export default function TrackPage({ match }: TrackPageProps) {
           <Helmet>
             <title>{title}</title>
           </Helmet>
-          <Track mp3={mp3} />
+          <Content mp3={mp3} />
         </Page>
       )}
     </>

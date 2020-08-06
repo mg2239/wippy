@@ -7,12 +7,12 @@ import pause from './pause.svg';
 import play from './play.svg';
 import { useScreen } from 'src/context/screen';
 
-type PlayProps = {
+type PlayButtonProps = {
   onClick: () => void;
   isPlaying: boolean;
 };
 
-function PlayButton({ onClick, isPlaying }: PlayProps) {
+function PlayButton({ onClick, isPlaying }: PlayButtonProps) {
   return (
     <button type="button" id={styles.playButton} onClick={onClick}>
       {!isPlaying && <img id={styles.icon} alt="Play Icon" src={play} />}
@@ -29,12 +29,12 @@ function Progress({ currentTime }: ProgressProps) {
   return <p id={styles.progressTime}>{currentTime}</p>;
 }
 
-type Props = {
+type PlayerProps = {
   mp3: File | undefined;
   bgColor: string;
 };
 
-export default function Player({ mp3, bgColor }: Props) {
+export default function Player({ mp3, bgColor }: PlayerProps) {
   const [wavesurfer, setWavesurfer] = useState<WaveSurfer>(undefined as any);
   const [isLoaded, setLoaded] = useState(false);
   const [isPlaying, setPlaying] = useState(false);

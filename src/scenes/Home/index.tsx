@@ -25,9 +25,9 @@ export default function HomePage() {
   const { setIsNew } = useUpload();
   const { push } = useHistory();
 
-  const handleUpload = () => setUploaded(true);
+  const onUpload = () => setUploaded(true);
 
-  const handleSuccess = (id: string) => {
+  const onSuccess = (id: string) => {
     setIsNew(true);
     push(`/${id}`);
   };
@@ -37,7 +37,7 @@ export default function HomePage() {
       <div id={styles.container}>
         <div id={styles.inner}>
           {!uploaded && <LandingText />}
-          <Upload onUpload={handleUpload} onSuccess={handleSuccess} />
+          <Upload onUpload={onUpload} onSuccess={onSuccess} />
         </div>
       </div>
     </Page>

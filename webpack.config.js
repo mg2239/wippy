@@ -45,6 +45,10 @@ const config = {
         test: /\.svg$/,
         use: 'file-loader',
       },
+      {
+        test: /\.html$/,
+        loader: 'html-loader',
+      },
     ],
   },
   resolve: {
@@ -59,8 +63,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      appMountId: 'root',
-      filename: 'index.html',
+      template: path.resolve(__dirname, 'public', 'index.html'),
     }),
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),

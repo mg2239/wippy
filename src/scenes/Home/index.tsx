@@ -20,7 +20,7 @@ function LandingText() {
   );
 }
 
-function Home() {
+export default function HomePage() {
   const [uploaded, setUploaded] = useState(false);
   const { setIsNew } = useUpload();
   const { push } = useHistory();
@@ -33,19 +33,13 @@ function Home() {
   };
 
   return (
-    <div id={styles.container}>
-      <div id={styles.inner}>
-        {!uploaded && <LandingText />}
-        <Upload onUpload={handleUpload} onSuccess={handleSuccess} />
-      </div>
-    </div>
-  );
-}
-
-export default function HomePage() {
-  return (
     <Page>
-      <Home />
+      <div id={styles.container}>
+        <div id={styles.inner}>
+          {!uploaded && <LandingText />}
+          <Upload onUpload={handleUpload} onSuccess={handleSuccess} />
+        </div>
+      </div>
     </Page>
   );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styles from './index.module.scss';
-import Head from 'src/components/Head';
 
 function Header() {
   return (
@@ -24,7 +23,6 @@ type Props = {
 export default function Page({ children }: Props) {
   return (
     <>
-      <Head />
       <Header />
       {children}
       <Footer />

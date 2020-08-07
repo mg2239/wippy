@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import Upload from './components/Upload';
 import styles from './index.module.scss';
 import Page from 'src/components/Page';
-import { useMP3 } from 'src/context/mp3';
 
 function LandingText() {
   return (
@@ -22,15 +21,11 @@ function LandingText() {
 
 export default function HomePage() {
   const [uploaded, setUploaded] = useState(false);
-  const { setIsNew } = useMP3();
   const { push } = useHistory();
 
   const onUpload = () => setUploaded(true);
 
-  const onSuccess = (id: string) => {
-    setIsNew(true);
-    push(`/${id}`);
-  };
+  const onSuccess = (id: string) => push(`/${id}`);
 
   return (
     <Page>

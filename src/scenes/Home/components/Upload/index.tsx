@@ -4,6 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import { v4 as uuid } from 'uuid';
 
 import styles from './index.module.scss';
+import { useMP3 } from 'src/context/mp3';
 import { storage } from 'src/util/firebase';
 
 function InfoText() {
@@ -37,6 +38,7 @@ type UploadProps = {
 export default function Upload({ onUpload, onSuccess }: UploadProps) {
   const [accepted, setAccepted] = useState(false);
   const [progress, setProgress] = useState(0);
+  const { setMP3, setIsNew } = useMP3();
 
   const onDropAccepted = (files: File[]) => {
     onUpload();
@@ -44,6 +46,10 @@ export default function Upload({ onUpload, onSuccess }: UploadProps) {
 
     const mp3 = files[0]; // only one file allowed
     const id = uuid();
+
+    setMP3(mp3);
+    setIsNew(true);
+
     const uploadTask = storage.ref().child(`${id}.mp3`).put(mp3);
 
     const whileUpload = (snapshot: firebase.storage.UploadTaskSnapshot) => {

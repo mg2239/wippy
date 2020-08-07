@@ -5,6 +5,7 @@ import { match as MatchType } from 'react-router-dom';
 import TrackContent from './components/TrackContent';
 import { TrackProvider } from './index.state';
 import Page from 'src/components/Page';
+import { useMP3 } from 'src/context/mp3/index';
 import ErrorPage from 'src/scenes/404';
 import { storage } from 'src/util/firebase';
 
@@ -14,16 +15,16 @@ type TrackPageProps = {
 
 export default function TrackPage({ match }: TrackPageProps) {
   const [title, setTitle] = useState<string>();
-  const [mp3, setMp3] = useState<File>();
   const [loading, setLoading] = useState(true);
   const [DNE, setDNE] = useState(false);
+  const { mp3, setMP3 } = useMP3();
 
   const { id } = match.params;
 
   const setFormattedTitle = (newTitle: string) =>
     setTitle(`${newTitle} - wippy`);
 
-  const getMp3 = () => {
+  const getMP3 = () => {
     storage
       .ref(`${id}.mp3`)
       .getDownloadURL()
@@ -32,7 +33,7 @@ export default function TrackPage({ match }: TrackPageProps) {
         setLoading(false);
         fetch(url)
           .then((res) => res.blob())
-          .then((blob) => setMp3(blob as File))
+          .then((blob) => setMP3(blob as File))
           .catch((err) => console.log(err));
       })
       .catch(() => {
@@ -41,7 +42,9 @@ export default function TrackPage({ match }: TrackPageProps) {
       });
   };
 
-  useEffect(() => getMp3(), []);
+  useEffect(() => {
+    if (!mp3) getMP3();
+  }, []);
 
   return (
     <>
@@ -52,7 +55,7 @@ export default function TrackPage({ match }: TrackPageProps) {
             <title>{title}</title>
           </Helmet>
           <TrackProvider>
-            <TrackContent mp3={mp3} />
+            <TrackContent />
           </TrackProvider>
         </Page>
       )}

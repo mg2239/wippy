@@ -4,7 +4,8 @@
   "scripts": {
     "clean": "rm dist/bundle.js",
     "build": "webpack -p --mode production",
-    "start": "webpack-dev-server --hot --mode development"
+    "start": "webpack-dev-server --hot --mode development",
+    "deploy": "yarn build && firebase deploy"
   },
   "dependencies": {
     "classnames": "^2.2.6",

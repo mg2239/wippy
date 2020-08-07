@@ -23,7 +23,7 @@ type ProviderProps = {
 };
 
 export function ScreenProvider({ children }: ProviderProps) {
-  const [breakpoint, setBreakpoint] = useState<Breakpoint>('D');
+  const [breakpoint, setBreakpoint] = useState(initialState.breakpoint);
 
   const isWindow = (width: Breakpoint) => breakpoint === width;
 

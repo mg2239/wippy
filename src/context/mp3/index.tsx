@@ -8,7 +8,7 @@ type MP3State = {
 };
 
 const initialState: MP3State = {
-  isNew: false,
+  isNew: true,
   setIsNew: () => {},
   setMP3: () => {},
 };
@@ -24,8 +24,8 @@ type ProviderProps = {
 };
 
 export function MP3Provider({ children }: ProviderProps) {
-  const [mp3, setMP3] = useState<File>(undefined as any);
-  const [isNew, setIsNew] = useState(false);
+  const [mp3, setMP3] = useState(initialState.mp3);
+  const [isNew, setIsNew] = useState(initialState.isNew);
   return (
     <MP3Context.Provider value={{ isNew, setIsNew, mp3, setMP3 }}>
       {children}

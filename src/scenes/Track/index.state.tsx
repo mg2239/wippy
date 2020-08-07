@@ -6,19 +6,23 @@ import { firestore } from 'src/util/firebase';
 import { getTimeFromNow, nowString } from 'src/util/time';
 
 type TrackState = {
+  id: string;
   title: string;
   theme: Color;
   expiresAt: string;
+  setId: (id: string) => void;
   setTitle: (title: string) => void;
   setTheme: (theme: Color) => void;
-  saveInfo: (id: string, expireDuration: number, expireUnit: Time) => void;
+  saveInfo: (expireDuration: number, expireUnit: Time) => void;
   retrieveInfo: (id: string) => void;
 };
 
 const initialState: TrackState = {
+  id: '',
   title: 'untitled',
-  theme: Color.RED,
+  theme: 'red',
   expiresAt: '',
+  setId: () => {},
   setTitle: () => {},
   setTheme: () => {},
   saveInfo: () => {},
@@ -36,12 +40,14 @@ type ProviderProps = {
 };
 
 export function TrackProvider({ children }: ProviderProps) {
+  const [id, setId] = useState('');
   const [title, setTitle] = useState(initialState.title);
-  const [theme, setTheme] = useState(Color.RED);
+  const [theme, setTheme] = useState(initialState.theme);
   const [expiresAt, setExpiresAt] = useState(initialState.expiresAt);
+
   const tracksRef = firestore.collection('tracks');
 
-  const saveInfo = (id: string, expireDuration: number, expireUnit: Time) => {
+  const saveInfo = (expireDuration: number, expireUnit: Time) => {
     const date = getTimeFromNow(expireDuration, expireUnit);
     setExpiresAt(date);
     tracksRef.doc(id).set({
@@ -52,7 +58,7 @@ export function TrackProvider({ children }: ProviderProps) {
     });
   };
 
-  const retrieveInfo = (id: string) =>
+  const retrieveInfo = () =>
     tracksRef
       .doc(id)
       .get()
@@ -62,9 +68,11 @@ export function TrackProvider({ children }: ProviderProps) {
   return (
     <TrackContext.Provider
       value={{
+        id,
         title,
         theme,
         expiresAt,
+        setId,
         setTitle,
         setTheme,
         saveInfo,

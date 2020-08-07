@@ -7,15 +7,13 @@ import TrackInfo from '../TrackInfo';
 import styles from './index.module.scss';
 import { useMP3 } from 'src/context/mp3';
 
-export default function Content() {
+export default function TrackContent() {
   const { theme } = useTrack();
   const { isNew } = useMP3();
 
-  console.log(isNew);
-
   return (
     <div className={styles.container}>
-      <TrackEdit />
+      {isNew && <TrackEdit />}
       <Player theme={theme} />
       <TrackInfo />
     </div>

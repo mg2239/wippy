@@ -1,23 +1,14 @@
-// Common enums or types.
+// Common types or enums.
 
-export enum Color {
-  RED = 'red',
-  ORANGE = 'orange',
-  YELLOW = 'yellow',
-  GREEN = 'green',
-  BLUE = 'blue',
-  PURPLE = 'purple',
-  PINK = 'pink',
-  GRAY = 'gray',
-  BLACK = 'black',
-}
+export type Color =
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'blue'
+  | 'purple'
+  | 'pink'
+  | 'gray'
+  | 'black';
 
-export const toColor = (color: string): Color => (Color as any)[color];
-
-export enum Time {
-  MINUTE = 'minute',
-  HOUR = 'hour',
-  DAY = 'day',
-}
-
-export const toTime = (time: string): Time => (Time as any)[time];
+export type Time = 'minute' | 'hour' | 'day';

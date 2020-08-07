@@ -3,23 +3,22 @@ import { Helmet } from 'react-helmet';
 import { match as MatchType } from 'react-router-dom';
 
 import TrackContent from './components/TrackContent';
-import { TrackProvider } from './index.state';
+import { TrackProvider, useTrack } from './index.state';
 import Page from 'src/components/Page';
 import { useMP3 } from 'src/context/mp3/index';
 import ErrorPage from 'src/scenes/404';
 import { storage } from 'src/util/firebase';
 
 type TrackPageProps = {
-  match: MatchType<{ id: string }>;
+  id: string;
 };
 
-export default function TrackPage({ match }: TrackPageProps) {
-  const [title, setTitle] = useState<string>();
+function TrackPage({ id }: TrackPageProps) {
+  const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
   const [exists, setExists] = useState(true);
   const { mp3, setMP3 } = useMP3();
-
-  const { id } = match.params;
+  const { setId } = useTrack();
 
   const setFormattedTitle = (newTitle: string) =>
     setTitle(`${newTitle} - wippy`);
@@ -30,19 +29,17 @@ export default function TrackPage({ match }: TrackPageProps) {
       .getDownloadURL()
       .then((url) => {
         setFormattedTitle('untitled');
-        setLoading(false);
         fetch(url)
           .then((res) => res.blob())
           .then((blob) => setMP3(blob as File))
           .catch((err) => console.log(err));
       })
-      .catch(() => {
-        setExists(false);
-        setLoading(false);
-      });
+      .catch(() => setExists(false))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
+    setId(id);
     if (!mp3) getMP3();
     else setLoading(false);
   }, []);
@@ -55,11 +52,19 @@ export default function TrackPage({ match }: TrackPageProps) {
           <Helmet>
             <title>{title}</title>
           </Helmet>
-          <TrackProvider>
-            <TrackContent />
-          </TrackProvider>
+          <TrackContent />
         </Page>
       )}
     </>
   );
 }
+
+type TrackPageWrapperProps = {
+  match: MatchType<{ id: string }>;
+};
+
+export default ({ match }: TrackPageWrapperProps) => (
+  <TrackProvider>
+    <TrackPage id={match.params.id} />
+  </TrackProvider>
+);

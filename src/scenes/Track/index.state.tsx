@@ -1,17 +1,7 @@
 import React, { useContext, createContext, useState } from 'react';
 
-import { Time, getTimeFromNow } from 'src/util/time';
-
-type Color =
-  | 'red'
-  | 'orange'
-  | 'yellow'
-  | 'green'
-  | 'blue'
-  | 'purple'
-  | 'pink'
-  | 'gray'
-  | 'black';
+import { Color, Time } from 'src/types';
+import { getTimeFromNow } from 'src/util/time';
 
 type TrackInfo = {
   title: string;
@@ -30,7 +20,7 @@ type TrackState = {
 
 const initialState: TrackState = {
   title: '',
-  bgColor: 'red',
+  bgColor: Color.RED,
   expireDate: '',
   saveInfo: () => {},
   retrieveInfo: () => {},

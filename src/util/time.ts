@@ -2,10 +2,10 @@ import dayjs from 'dayjs';
 import durationPlugin from 'dayjs/plugin/duration';
 import relativeTimePlugin from 'dayjs/plugin/relativeTime';
 
+import { Time } from 'src/types';
+
 dayjs.extend(durationPlugin);
 dayjs.extend(relativeTimePlugin);
-
-export type Time = 'day' | 'hour' | 'minute';
 
 const now = () => dayjs();
 

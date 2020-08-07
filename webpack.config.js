@@ -6,8 +6,9 @@ const path = require('path');
 module.exports = (env, argv) => ({
   entry: ['react-hot-loader/patch', './src/index.tsx'],
   output: {
-    path: path.resolve(__dirname, 'dist'),
     filename: argv.hot ? '[name].[hash].js' : '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   module: {
     rules: [

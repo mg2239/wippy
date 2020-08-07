@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { ScreenProvider } from './context/screen';
-import { UploadProvider } from './context/upload';
+import { MP3Provider } from './context/mp3';
 import Home from './scenes/Home';
 import Track from './scenes/Track';
 
 export default function App() {
   return (
-    <UploadProvider>
+    <MP3Provider>
       <ScreenProvider>
         <Router>
           <Switch>
@@ -17,6 +17,6 @@ export default function App() {
           </Switch>
         </Router>
       </ScreenProvider>
-    </UploadProvider>
+    </MP3Provider>
   );
 }

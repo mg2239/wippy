@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { match as MatchType } from 'react-router-dom';
 
-import Content from './components/TrackContent';
+import TrackContent from './components/TrackContent';
+import { TrackProvider } from './index.state';
 import Page from 'src/components/Page';
 import ErrorPage from 'src/scenes/404';
 import { storage } from 'src/util/firebase';
@@ -40,11 +41,7 @@ export default function TrackPage({ match }: TrackPageProps) {
       });
   };
 
-  useEffect(() => {
-    if (id) {
-      getMp3();
-    }
-  }, [id]);
+  useEffect(() => getMp3(), []);
 
   return (
     <>
@@ -54,7 +51,9 @@ export default function TrackPage({ match }: TrackPageProps) {
           <Helmet>
             <title>{title}</title>
           </Helmet>
-          <Content mp3={mp3} />
+          <TrackProvider>
+            <TrackContent mp3={mp3} />
+          </TrackProvider>
         </Page>
       )}
     </>

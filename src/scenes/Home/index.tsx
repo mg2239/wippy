@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Upload from './components/Upload';
 import styles from './index.module.scss';
 import Page from 'src/components/Page';
-import { useUpload } from 'src/context/upload';
+import { useMP3 } from 'src/context/mp3';
 
 function LandingText() {
   return (
@@ -22,7 +22,7 @@ function LandingText() {
 
 export default function HomePage() {
   const [uploaded, setUploaded] = useState(false);
-  const { setIsNew } = useUpload();
+  const { setIsNew } = useMP3();
   const { push } = useHistory();
 
   const onUpload = () => setUploaded(true);

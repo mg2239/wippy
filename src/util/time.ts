@@ -9,6 +9,8 @@ dayjs.extend(relativeTimePlugin);
 
 const now = () => dayjs();
 
+export const nowString = () => now().toISOString();
+
 // For displaying time until expire
 export const getDifference = (time1: string, time2: string) =>
   dayjs.duration(dayjs(time1).diff(time2)).humanize(false);

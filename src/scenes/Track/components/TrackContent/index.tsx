@@ -5,7 +5,7 @@ import Player from '../Player';
 import TrackEdit from '../TrackEdit';
 import TrackInfo from '../TrackInfo';
 import styles from './index.module.scss';
-import { useUpload } from 'src/context/upload';
+import { useMP3 } from 'src/context/mp3';
 
 type ContentProps = {
   mp3: File | undefined;
@@ -13,7 +13,7 @@ type ContentProps = {
 
 export default function Content({ mp3 }: ContentProps) {
   const { bgColor } = useTrack();
-  const { isNew } = useUpload();
+  const { isNew } = useMP3();
 
   return (
     <div className={styles.container}>

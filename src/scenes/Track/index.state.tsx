@@ -1,9 +1,12 @@
+/* eslint-disable no-shadow */
 import React, { useContext, createContext, useState } from 'react';
 
 import { Color, Time } from 'src/types';
-import { getTimeFromNow } from 'src/util/time';
+import { firestore } from 'src/util/firebase';
+import { getTimeFromNow, nowString } from 'src/util/time';
 
 type TrackInfo = {
+  id: string;
   title: string;
   bgColor: Color;
   expireDuration: number; // The numerical part of the time
@@ -40,21 +43,28 @@ export function TrackProvider({ children }: ProviderProps) {
   const [title, setTitle] = useState(initialState.title);
   const [bgColor, setBgColor] = useState(initialState.bgColor);
   const [expireDate, setExpireDate] = useState(initialState.expireDate);
+  const tracksRef = firestore.collection('tracks');
 
   const saveInfo = (info: TrackInfo) => {
-    const {
-      title: newTitle,
-      bgColor: newBgColor,
-      expireDuration,
-      expireUnit,
-    } = info;
-    setTitle(newTitle);
-    setBgColor(newBgColor);
+    const { id, title, bgColor, expireDuration, expireUnit } = info;
+    setTitle(title);
+    setBgColor(bgColor);
     const newExpireDate = getTimeFromNow(expireDuration, expireUnit);
     setExpireDate(newExpireDate);
+    tracksRef.doc(id).set({
+      title,
+      created: nowString(),
+      expires: newExpireDate,
+      theme: bgColor,
+    });
   };
 
-  const retrieveInfo = (id: string) => console.log(id);
+  const retrieveInfo = (id: string) =>
+    tracksRef
+      .doc(id)
+      .get()
+      .then((snapshot) => console.log(snapshot.data()))
+      .catch((err) => console.log(err));
 
   return (
     <TrackContext.Provider

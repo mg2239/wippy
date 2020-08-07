@@ -1,21 +1,23 @@
 import React from 'react';
 
+import styles from './index.module.scss';
 import { Color, Time } from 'src/types';
+import { timeToPlural } from 'src/util/time';
 
 export default function TrackEdit() {
-  const times = Object.values(Time);
+  const times = Object.values(Time).map((t) => timeToPlural(t));
   const colors = Object.values(Color);
 
   const createOptions = (options: string[]) =>
     options.map((o) => <option>{o}</option>);
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>upload complete!</h2>
-      <input placeholder="add a title" />
+      <input type="text" placeholder="add a title" />
       <div>
         <p>expires:</p>
-        <input placeholder="60" />
+        <input type="text" />
         <select>{createOptions(times)}</select>
       </div>
       <div>

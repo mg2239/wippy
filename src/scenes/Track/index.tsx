@@ -16,7 +16,7 @@ type TrackPageProps = {
 export default function TrackPage({ match }: TrackPageProps) {
   const [title, setTitle] = useState<string>();
   const [loading, setLoading] = useState(true);
-  const [DNE, setDNE] = useState(false);
+  const [exists, setExists] = useState(true);
   const { mp3, setMP3 } = useMP3();
 
   const { id } = match.params;
@@ -37,19 +37,20 @@ export default function TrackPage({ match }: TrackPageProps) {
           .catch((err) => console.log(err));
       })
       .catch(() => {
-        setDNE(true);
+        setExists(false);
         setLoading(false);
       });
   };
 
   useEffect(() => {
     if (!mp3) getMP3();
+    else setLoading(false);
   }, []);
 
   return (
     <>
-      {!loading && DNE && <ErrorPage />}
-      {!loading && !DNE && (
+      {!loading && !exists && <ErrorPage />}
+      {!loading && exists && (
         <Page>
           <Helmet>
             <title>{title}</title>

@@ -15,7 +15,7 @@ export enum Color {
 }
 
 export enum Time {
-  DAY = 'day',
-  HOUR = 'hour',
   MINUTE = 'minute',
+  HOUR = 'hour',
+  DAY = 'day',
 }

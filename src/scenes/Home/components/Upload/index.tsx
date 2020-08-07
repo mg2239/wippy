@@ -9,7 +9,7 @@ import { storage } from 'src/util/firebase';
 
 function InfoText() {
   return (
-    <div className={styles.textWrapper}>
+    <div className={styles.textContainer}>
       <p className={styles.mainText}>click to upload audio</p>
       <p className={styles.subText}>or drag and drop your file here</p>
       <p className={styles.fileLimits}>mp3 only, limit 15MB</p>
@@ -23,7 +23,7 @@ type UploadTextProps = {
 
 function UploadText({ progress }: UploadTextProps) {
   return (
-    <div className={styles.textWrapper}>
+    <div className={styles.textContainer}>
       <p className={styles.mainText}>uploading...</p>
       <Line percent={progress} strokeWidth={4} strokeColor="#2A2C30" />
     </div>
@@ -77,7 +77,7 @@ export default function Upload({ onUpload, onSuccess }: UploadProps) {
       {!accepted && (
         <div
           {...getRootProps({
-            className: styles.infoWrapper,
+            className: styles.infoContainer,
           })}
         >
           <input {...getInputProps()} />
@@ -85,7 +85,7 @@ export default function Upload({ onUpload, onSuccess }: UploadProps) {
         </div>
       )}
       {accepted && (
-        <div className={styles.uploadWrapper}>
+        <div className={styles.uploadContainer}>
           <UploadText progress={progress} />
         </div>
       )}

@@ -2,10 +2,8 @@
   "name": "wippy",
   "version": "1.0.0",
   "scripts": {
-    "clean": "rm dist/bundle.js",
     "build": "webpack -p --mode production",
-    "start": "webpack-dev-server --hot --mode development",
-    "deploy": "yarn build && firebase deploy"
+    "start": "webpack-dev-server --hot --mode development"
   },
   "dependencies": {
     "classnames": "^2.2.6",

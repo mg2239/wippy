@@ -2,7 +2,6 @@
   "name": "wippy",
   "version": "1.0.0",
   "scripts": {
-    "clean": "rm dist/bundle.js",
     "build": "webpack -p --mode production",
     "start": "webpack-dev-server --hot --mode development"
   },
@@ -19,7 +18,6 @@
     "react-dom": "^16.12.0",
     "react-dropzone": "^11.0.1",
     "react-helmet": "^6.1.0",
-    "react-hot-loader": "^4.12.21",
     "react-keyboard-event-handler": "^1.5.4",
     "react-router-dom": "^5.2.0",
     "sass": "^1.26.5",
@@ -30,7 +28,6 @@
     "@babel/core": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
-    "@hot-loader/react-dom": "^16.13.0",
     "@types/classnames": "^2.2.10",
     "@types/node": "^12.12.21",
     "@types/rc-slider": "^8.6.6",

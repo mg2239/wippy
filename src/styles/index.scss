@@ -16,7 +16,9 @@ h3,
 a,
 p,
 div,
-button {
+button,
+input,
+select {
   color: $base;
   font-family: 'Inter', sans-serif;
   margin: 0;
@@ -47,4 +49,16 @@ a:hover {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+#modal-bg {
+  background-color: black;
+  height: 100vh;
+  left: 0;
+  opacity: 0.2;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1000;
 }

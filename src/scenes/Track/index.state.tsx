@@ -5,26 +5,22 @@ import { Color, Time } from 'src/types';
 import { firestore } from 'src/util/firebase';
 import { getTimeFromNow, nowString } from 'src/util/time';
 
-type TrackInfo = {
-  id: string;
-  title: string;
-  bgColor: Color;
-  expireDuration: number; // The numerical part of the time
-  expireUnit: Time; // The unit of time (day, hour, minute)
-};
-
 type TrackState = {
   title: string;
-  bgColor: Color;
-  expireDate: string;
-  saveInfo: (info: TrackInfo) => void;
+  theme: Color;
+  expiresAt: string;
+  setTitle: (title: string) => void;
+  setTheme: (theme: Color) => void;
+  saveInfo: (id: string, expireDuration: number, expireUnit: Time) => void;
   retrieveInfo: (id: string) => void;
 };
 
 const initialState: TrackState = {
-  title: '',
-  bgColor: Color.RED,
-  expireDate: '',
+  title: 'untitled',
+  theme: Color.RED,
+  expiresAt: '',
+  setTitle: () => {},
+  setTheme: () => {},
   saveInfo: () => {},
   retrieveInfo: () => {},
 };
@@ -41,21 +37,18 @@ type ProviderProps = {
 
 export function TrackProvider({ children }: ProviderProps) {
   const [title, setTitle] = useState(initialState.title);
-  const [bgColor, setBgColor] = useState(initialState.bgColor);
-  const [expireDate, setExpireDate] = useState(initialState.expireDate);
+  const [theme, setTheme] = useState(Color.RED);
+  const [expiresAt, setExpiresAt] = useState(initialState.expiresAt);
   const tracksRef = firestore.collection('tracks');
 
-  const saveInfo = (info: TrackInfo) => {
-    const { id, title, bgColor, expireDuration, expireUnit } = info;
-    setTitle(title);
-    setBgColor(bgColor);
-    const newExpireDate = getTimeFromNow(expireDuration, expireUnit);
-    setExpireDate(newExpireDate);
+  const saveInfo = (id: string, expireDuration: number, expireUnit: Time) => {
+    const date = getTimeFromNow(expireDuration, expireUnit);
+    setExpiresAt(date);
     tracksRef.doc(id).set({
       title,
-      created: nowString(),
-      expires: newExpireDate,
-      theme: bgColor,
+      createdAt: nowString(),
+      expiresAt: date,
+      theme,
     });
   };
 
@@ -68,7 +61,15 @@ export function TrackProvider({ children }: ProviderProps) {
 
   return (
     <TrackContext.Provider
-      value={{ title, bgColor, expireDate, saveInfo, retrieveInfo }}
+      value={{
+        title,
+        theme,
+        expiresAt,
+        setTitle,
+        setTheme,
+        saveInfo,
+        retrieveInfo,
+      }}
     >
       {children}
     </TrackContext.Provider>

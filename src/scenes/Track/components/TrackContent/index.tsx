@@ -8,7 +8,7 @@ import styles from './index.module.scss';
 import { useMP3 } from 'src/context/mp3';
 
 export default function Content() {
-  const { bgColor } = useTrack();
+  const { theme } = useTrack();
   const { isNew } = useMP3();
 
   console.log(isNew);
@@ -16,7 +16,7 @@ export default function Content() {
   return (
     <div className={styles.container}>
       <TrackEdit />
-      <Player bgColor={bgColor} />
+      <Player theme={theme} />
       <TrackInfo />
     </div>
   );

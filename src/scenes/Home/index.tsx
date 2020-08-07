@@ -7,7 +7,7 @@ import Page from 'src/components/Page';
 
 function LandingText() {
   return (
-    <div className={styles.textWrapper}>
+    <div className={styles.textContainer}>
       <p className={styles.mainText}>
         keep your unreleased and unfinished songs <b>safe</b>
       </p>

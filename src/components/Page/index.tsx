@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 
 function Header() {
   return (
-    <div className={styles.headerWrapper}>
+    <div className={styles.headerContainer}>
       <a href="/" className={styles.header}>
         wippy
       </a>
@@ -13,7 +13,7 @@ function Header() {
 }
 
 function Footer() {
-  return <div className={styles.footerWrapper} />;
+  return <div className={styles.footerContainer} />;
 }
 
 type Props = {

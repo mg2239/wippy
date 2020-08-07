@@ -29,7 +29,7 @@ export default function TrackPage({ match }: TrackPageProps) {
       .ref(`${id}.mp3`)
       .getDownloadURL()
       .then((url) => {
-        setFormattedTitle('Example Title');
+        setFormattedTitle('untitled');
         setLoading(false);
         fetch(url)
           .then((res) => res.blob())

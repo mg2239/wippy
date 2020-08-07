@@ -34,10 +34,10 @@ function Progress({ currentTime }: ProgressProps) {
 }
 
 type PlayerProps = {
-  bgColor: string;
+  theme: string;
 };
 
-export default function Player({ bgColor }: PlayerProps) {
+export default function Player({ theme }: PlayerProps) {
   const [wavesurfer, setWavesurfer] = useState<WaveSurfer>(undefined as any);
   const [isLoaded, setLoaded] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
@@ -103,13 +103,13 @@ export default function Player({ bgColor }: PlayerProps) {
   }, [mp3]);
 
   return (
-    <div className={cn(styles.track, styles[bgColor])}>
+    <div className={cn(styles.track, styles[theme])}>
       {isLoaded && (
-        <div className={cn(styles.trackLHS, styles.playWrapper)}>
+        <div className={cn(styles.trackLHS, styles.playContainer)}>
           <PlayButton onClick={playPause} isPlaying={isPlaying} />
         </div>
       )}
-      <div className={styles.waveformWrapper}>
+      <div className={styles.waveformContainer}>
         <div id="waveform" className={styles.waveform}>
           {!isLoaded && <p className={styles.loadingText}>loading...</p>}
         </div>

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { match as MatchType } from 'react-router-dom';
 
-import TrackContent from './components/TrackContent';
+import Player from './components/Player';
+import TrackEdit from './components/TrackEdit';
+import TrackInfo from './components/TrackInfo';
+import styles from './index.module.scss';
 import { TrackProvider, useTrack } from './index.state';
 import Page from 'src/components/Page';
-import { useMP3 } from 'src/context/mp3/index';
+import { useMP3 } from 'src/context/mp3';
 import ErrorPage from 'src/scenes/404';
 import { storage } from 'src/util/firebase';
 
@@ -14,21 +17,18 @@ type TrackPageProps = {
 };
 
 function TrackPage({ id }: TrackPageProps) {
-  const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
   const [exists, setExists] = useState(true);
-  const { mp3, setMP3 } = useMP3();
-  const { setId } = useTrack();
+  const { mp3, isNew, setMP3 } = useMP3();
+  const { title, theme, setId } = useTrack();
 
-  const setFormattedTitle = (newTitle: string) =>
-    setTitle(`${newTitle} - wippy`);
+  const pageTitle = title.length ? `${title} - wippy` : 'wippy';
 
   const getMP3 = () => {
     storage
       .ref(`${id}.mp3`)
       .getDownloadURL()
       .then((url) => {
-        setFormattedTitle('untitled');
         fetch(url)
           .then((res) => res.blob())
           .then((blob) => setMP3(blob as File))
@@ -50,9 +50,13 @@ function TrackPage({ id }: TrackPageProps) {
       {!loading && exists && (
         <Page>
           <Helmet>
-            <title>{title}</title>
+            <title>{pageTitle}</title>
           </Helmet>
-          <TrackContent />
+          <div className={styles.container}>
+            {isNew && <TrackEdit />}
+            <Player theme={theme} />
+            <TrackInfo />
+          </div>
         </Page>
       )}
     </>

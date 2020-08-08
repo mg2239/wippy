@@ -1,5 +1,4 @@
-/* eslint-disable no-shadow */
-import React, { useContext, createContext, useState } from 'react';
+import React, { useContext, createContext, useState, useEffect } from 'react';
 
 import { getTimeFromNow, nowString } from './index.util';
 import { Color, Time } from 'src/types';
@@ -15,7 +14,6 @@ type TrackState = {
   setTheme: (theme: Color) => void;
   setExpiresAt: (expiresAt: string) => void;
   saveInfo: (expireDuration: number, expireUnit: Time) => void;
-  retrieveInfo: (id: string) => void;
 };
 
 const initialState: TrackState = {
@@ -28,7 +26,6 @@ const initialState: TrackState = {
   setTheme: () => {},
   setExpiresAt: () => {},
   saveInfo: () => {},
-  retrieveInfo: () => {},
 };
 
 const TrackContext = createContext(initialState);
@@ -67,6 +64,10 @@ export function TrackProvider({ children }: ProviderProps) {
       .then((snapshot) => console.log(snapshot.data()))
       .catch((err) => console.log(err));
 
+  useEffect(() => {
+    if (id.length) retrieveInfo();
+  }, []);
+
   return (
     <TrackContext.Provider
       value={{
@@ -79,7 +80,6 @@ export function TrackProvider({ children }: ProviderProps) {
         setTheme,
         setExpiresAt,
         saveInfo,
-        retrieveInfo,
       }}
     >
       {children}

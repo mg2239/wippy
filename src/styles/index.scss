@@ -27,12 +27,22 @@ select {
 h1,
 h2,
 h3 {
+  letter-spacing: -0.03em;
   margin-bottom: 0.5rem;
 }
 
 a,
 p {
   margin-bottom: 1rem;
+}
+
+a,
+p,
+div,
+button,
+input,
+select {
+  letter-spacing: -0.01em;
 }
 
 a {

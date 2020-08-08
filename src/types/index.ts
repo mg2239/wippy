@@ -9,6 +9,7 @@ export type Color =
   | 'purple'
   | 'pink'
   | 'gray'
-  | 'black';
+  | 'black'
+  | 'white';
 
 export type Time = 'minute' | 'hour' | 'day';

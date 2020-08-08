@@ -4,6 +4,12 @@ import { getTimeFromNow, nowString } from './index.util';
 import { Color, Time } from 'src/types';
 import { firestore } from 'src/util/firebase';
 
+type TrackData = {
+  title: string;
+  theme: Color;
+  expiresAt: string;
+};
+
 type TrackState = {
   id: string;
   title: string;
@@ -61,12 +67,22 @@ export function TrackProvider({ children }: ProviderProps) {
     tracksRef
       .doc(id)
       .get()
-      .then((snapshot) => console.log(snapshot.data()))
+      .then((snapshot) => {
+        const data: TrackData = snapshot.data() as any;
+        const {
+          title: newTitle,
+          theme: newTheme,
+          expiresAt: newExpiresAt,
+        } = data;
+        setTitle(newTitle);
+        setTheme(newTheme);
+        setExpiresAt(newExpiresAt);
+      })
       .catch((err) => console.log(err));
 
   useEffect(() => {
     if (id.length) retrieveInfo();
-  }, []);
+  }, [id]);
 
   return (
     <TrackContext.Provider

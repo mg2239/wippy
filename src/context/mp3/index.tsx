@@ -8,7 +8,7 @@ type MP3State = {
 };
 
 const initialState: MP3State = {
-  isNew: true,
+  isNew: false,
   setIsNew: () => {},
   setMP3: () => {},
 };

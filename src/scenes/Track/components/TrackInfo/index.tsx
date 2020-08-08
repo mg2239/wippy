@@ -12,7 +12,7 @@ export default function TrackInfo() {
     <div className={styles.container}>
       <h1 className={styles.title}>{title}</h1>
       {expiresAt !== '' && (
-        <p className={styles.expires}>{`expires in ${expiresIn}`}</p>
+        <p className={styles.expires}>{`expires ${expiresIn}`}</p>
       )}
     </div>
   );

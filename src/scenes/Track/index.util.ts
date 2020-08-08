@@ -18,7 +18,7 @@ export const nowString = () => now().toISOString();
 
 // For displaying time until expire
 export const getDifferenceFromNow = (time: string) =>
-  dayjs.duration(now().diff(time)).humanize(false);
+  dayjs.duration(dayjs(time).diff(now())).humanize(true);
 
 // For calculating what date a track expires
 export const getTimeFromNow = (duration: number, unit: Time) =>

@@ -2,16 +2,23 @@ import dayjs from 'dayjs';
 import durationPlugin from 'dayjs/plugin/duration';
 import relativeTimePlugin from 'dayjs/plugin/relativeTime';
 
+import { Time } from 'src/types';
+
 dayjs.extend(durationPlugin);
 dayjs.extend(relativeTimePlugin);
 
-export type Time = 'day' | 'hour' | 'minute';
-
 const now = () => dayjs();
 
+/**
+ * Time functions
+ */
+
+// For getting current time in UTC
+export const nowString = () => now().toISOString();
+
 // For displaying time until expire
-export const getDifference = (time1: string, time2: string) =>
-  dayjs.duration(dayjs(time1).diff(time2)).humanize(false);
+export const getDifferenceFromNow = (time: string) =>
+  dayjs.duration(dayjs(time).diff(now())).humanize(true);
 
 // For calculating what date a track expires
 export const getTimeFromNow = (duration: number, unit: Time) =>

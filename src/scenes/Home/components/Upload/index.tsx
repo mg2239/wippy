@@ -4,11 +4,12 @@ import { useDropzone } from 'react-dropzone';
 import { v4 as uuid } from 'uuid';
 
 import styles from './index.module.scss';
+import { useMP3 } from 'src/context/mp3';
 import { storage } from 'src/util/firebase';
 
 function InfoText() {
   return (
-    <div className={styles.textWrapper}>
+    <div className={styles.textContainer}>
       <p className={styles.mainText}>click to upload audio</p>
       <p className={styles.subText}>or drag and drop your file here</p>
       <p className={styles.fileLimits}>mp3 only, limit 15MB</p>
@@ -22,7 +23,7 @@ type UploadTextProps = {
 
 function UploadText({ progress }: UploadTextProps) {
   return (
-    <div className={styles.textWrapper}>
+    <div className={styles.textContainer}>
       <p className={styles.mainText}>uploading...</p>
       <Line percent={progress} strokeWidth={4} strokeColor="#2A2C30" />
     </div>
@@ -37,6 +38,7 @@ type UploadProps = {
 export default function Upload({ onUpload, onSuccess }: UploadProps) {
   const [accepted, setAccepted] = useState(false);
   const [progress, setProgress] = useState(0);
+  const { setMP3, setIsNew } = useMP3();
 
   const onDropAccepted = (files: File[]) => {
     onUpload();
@@ -44,6 +46,10 @@ export default function Upload({ onUpload, onSuccess }: UploadProps) {
 
     const mp3 = files[0]; // only one file allowed
     const id = uuid();
+
+    setMP3(mp3);
+    setIsNew(true);
+
     const uploadTask = storage.ref().child(`${id}.mp3`).put(mp3);
 
     const whileUpload = (snapshot: firebase.storage.UploadTaskSnapshot) => {
@@ -71,7 +77,7 @@ export default function Upload({ onUpload, onSuccess }: UploadProps) {
       {!accepted && (
         <div
           {...getRootProps({
-            className: styles.infoWrapper,
+            className: styles.infoContainer,
           })}
         >
           <input {...getInputProps()} />
@@ -79,7 +85,7 @@ export default function Upload({ onUpload, onSuccess }: UploadProps) {
         </div>
       )}
       {accepted && (
-        <div className={styles.uploadWrapper}>
+        <div className={styles.uploadContainer}>
           <UploadText progress={progress} />
         </div>
       )}

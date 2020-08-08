@@ -2,61 +2,73 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { match as MatchType } from 'react-router-dom';
 
-import Content from './components/TrackContent';
+import Player from './components/Player';
+import TrackEdit from './components/TrackEdit';
+import TrackInfo from './components/TrackInfo';
+import styles from './index.module.scss';
+import { TrackProvider, useTrack } from './index.state';
 import Page from 'src/components/Page';
+import { useMP3 } from 'src/context/mp3';
 import ErrorPage from 'src/scenes/404';
 import { storage } from 'src/util/firebase';
 
 type TrackPageProps = {
-  match: MatchType<{ id: string }>;
+  id: string;
 };
 
-export default function TrackPage({ match }: TrackPageProps) {
-  const [title, setTitle] = useState<string>();
-  const [mp3, setMp3] = useState<File>();
+function TrackPage({ id }: TrackPageProps) {
   const [loading, setLoading] = useState(true);
-  const [DNE, setDNE] = useState(false);
+  const [exists, setExists] = useState(true);
+  const { mp3, isNew, setMP3 } = useMP3();
+  const { title, theme, setId } = useTrack();
 
-  const { id } = match.params;
+  const pageTitle = title.length ? `${title} - wippy` : 'wippy';
 
-  const setFormattedTitle = (newTitle: string) =>
-    setTitle(`${newTitle} - wippy`);
-
-  const getMp3 = () => {
+  const getMP3 = () => {
     storage
       .ref(`${id}.mp3`)
       .getDownloadURL()
       .then((url) => {
-        setFormattedTitle('Example Title');
-        setLoading(false);
         fetch(url)
           .then((res) => res.blob())
-          .then((blob) => setMp3(blob as File))
+          .then((blob) => setMP3(blob as File))
           .catch((err) => console.log(err));
       })
-      .catch(() => {
-        setDNE(true);
-        setLoading(false);
-      });
+      .catch(() => setExists(false))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    if (id) {
-      getMp3();
-    }
-  }, [id]);
+    setId(id);
+    if (!mp3) getMP3();
+    else setLoading(false);
+  }, []);
 
   return (
     <>
-      {!loading && DNE && <ErrorPage />}
-      {!loading && !DNE && (
+      {!loading && !exists && <ErrorPage />}
+      {!loading && exists && (
         <Page>
           <Helmet>
-            <title>{title}</title>
+            <title>{pageTitle}</title>
           </Helmet>
-          <Content mp3={mp3} />
+          <div className={styles.container}>
+            {isNew && <TrackEdit />}
+            <Player theme={theme} />
+            <TrackInfo />
+          </div>
         </Page>
       )}
     </>
   );
 }
+
+type TrackPageWrapperProps = {
+  match: MatchType<{ id: string }>;
+};
+
+export default ({ match }: TrackPageWrapperProps) => (
+  <TrackProvider>
+    <TrackPage id={match.params.id} />
+  </TrackProvider>
+);

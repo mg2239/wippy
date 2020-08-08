@@ -1,39 +1,37 @@
-import React, { useContext, createContext, useState } from 'react';
+import React, { useContext, createContext, useState, useEffect } from 'react';
 
-import { Time, getTimeFromNow } from 'src/util/time';
+import { getTimeFromNow, nowString } from './index.util';
+import { Color, Time } from 'src/types';
+import { firestore } from 'src/util/firebase';
 
-type Color =
-  | 'red'
-  | 'orange'
-  | 'yellow'
-  | 'green'
-  | 'blue'
-  | 'purple'
-  | 'pink'
-  | 'gray'
-  | 'black';
-
-type TrackInfo = {
+type TrackData = {
   title: string;
-  bgColor: Color;
-  expireDuration: number; // The numerical part of the time
-  expireUnit: Time; // The unit of time (day, hour, minute)
+  theme: Color;
+  expiresAt: string;
 };
 
 type TrackState = {
+  id: string;
   title: string;
-  bgColor: Color;
-  expireDate: string;
-  saveInfo: (info: TrackInfo) => void;
-  retrieveInfo: (id: string) => void;
+  theme: Color;
+  expiresAt: string;
+  setId: (id: string) => void;
+  setTitle: (title: string) => void;
+  setTheme: (theme: Color) => void;
+  setExpiresAt: (expiresAt: string) => void;
+  saveInfo: (expireDuration: number, expireUnit: Time) => void;
 };
 
 const initialState: TrackState = {
-  title: '',
-  bgColor: 'red',
-  expireDate: '',
+  id: '',
+  title: 'untitled',
+  theme: 'red',
+  expiresAt: '',
+  setId: () => {},
+  setTitle: () => {},
+  setTheme: () => {},
+  setExpiresAt: () => {},
   saveInfo: () => {},
-  retrieveInfo: () => {},
 };
 
 const TrackContext = createContext(initialState);
@@ -47,28 +45,58 @@ type ProviderProps = {
 };
 
 export function TrackProvider({ children }: ProviderProps) {
+  const [id, setId] = useState('');
   const [title, setTitle] = useState(initialState.title);
-  const [bgColor, setBgColor] = useState(initialState.bgColor);
-  const [expireDate, setExpireDate] = useState(initialState.expireDate);
+  const [theme, setTheme] = useState(initialState.theme);
+  const [expiresAt, setExpiresAt] = useState(initialState.expiresAt);
 
-  const saveInfo = (info: TrackInfo) => {
-    const {
-      title: newTitle,
-      bgColor: newBgColor,
-      expireDuration,
-      expireUnit,
-    } = info;
-    setTitle(newTitle);
-    setBgColor(newBgColor);
-    const newExpireDate = getTimeFromNow(expireDuration, expireUnit);
-    setExpireDate(newExpireDate);
+  const tracksRef = firestore.collection('tracks');
+
+  const saveInfo = (expireDuration: number, expireUnit: Time) => {
+    const date = getTimeFromNow(expireDuration, expireUnit);
+    setExpiresAt(date);
+    tracksRef.doc(id).set({
+      title,
+      createdAt: nowString(),
+      expiresAt: date,
+      theme,
+    });
   };
 
-  const retrieveInfo = (id: string) => console.log(id);
+  const retrieveInfo = () =>
+    tracksRef
+      .doc(id)
+      .get()
+      .then((snapshot) => {
+        const data: TrackData = snapshot.data() as any;
+        const {
+          title: newTitle,
+          theme: newTheme,
+          expiresAt: newExpiresAt,
+        } = data;
+        setTitle(newTitle);
+        setTheme(newTheme);
+        setExpiresAt(newExpiresAt);
+      })
+      .catch((err) => console.log(err));
+
+  useEffect(() => {
+    if (id.length) retrieveInfo();
+  }, [id]);
 
   return (
     <TrackContext.Provider
-      value={{ title, bgColor, expireDate, saveInfo, retrieveInfo }}
+      value={{
+        id,
+        title,
+        theme,
+        expiresAt,
+        setId,
+        setTitle,
+        setTheme,
+        setExpiresAt,
+        saveInfo,
+      }}
     >
       {children}
     </TrackContext.Provider>

@@ -6,7 +6,7 @@ const path = require('path');
 module.exports = (env, argv) => ({
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
   output: {
-    filename: '[name].[contenthash].js',
+    filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },

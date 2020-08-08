@@ -11,7 +11,7 @@
   }
 }
 
-.headerWrapper {
+.headerContainer {
   margin: $border;
 
   @include M {
@@ -19,7 +19,7 @@
   }
 }
 
-.footerWrapper {
+.footerContainer {
   align-items: center;
   display: flex;
   flex-shrink: 0;
@@ -31,12 +31,12 @@
   }
 }
 
-.footerWrapper svg {
+.footerContainer svg {
   height: 1rem;
   margin: 0 0.5rem;
   width: auto;
 }
 
-.footerWrapper svg path {
+.footerContainer svg path {
   fill: $base;
 }

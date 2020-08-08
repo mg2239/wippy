@@ -6,6 +6,7 @@ import WaveSurfer from 'wavesurfer.js';
 import styles from './index.module.scss';
 import pause from './pause.svg';
 import play from './play.svg';
+import { useMP3 } from 'src/context/mp3/index';
 import { useScreen } from 'src/context/screen';
 
 type PlayButtonProps = {
@@ -33,16 +34,16 @@ function Progress({ currentTime }: ProgressProps) {
 }
 
 type PlayerProps = {
-  mp3: File | undefined;
-  bgColor: string;
+  theme: string;
 };
 
-export default function Player({ mp3, bgColor }: PlayerProps) {
+export default function Player({ theme }: PlayerProps) {
   const [wavesurfer, setWavesurfer] = useState<WaveSurfer>(undefined as any);
   const [isLoaded, setLoaded] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
   const { breakpoint, isWindow } = useScreen();
+  const { mp3 } = useMP3();
 
   const MOBILE_HEIGHT = 100;
   const TABLET_HEIGHT = 120;
@@ -102,13 +103,13 @@ export default function Player({ mp3, bgColor }: PlayerProps) {
   }, [mp3]);
 
   return (
-    <div className={cn(styles.track, styles[bgColor])}>
+    <div className={cn(styles.track, styles[theme])}>
       {isLoaded && (
-        <div className={cn(styles.trackLHS, styles.playWrapper)}>
+        <div className={cn(styles.trackLHS, styles.playContainer)}>
           <PlayButton onClick={playPause} isPlaying={isPlaying} />
         </div>
       )}
-      <div className={styles.waveformWrapper}>
+      <div className={styles.waveformContainer}>
         <div id="waveform" className={styles.waveform}>
           {!isLoaded && <p className={styles.loadingText}>loading...</p>}
         </div>

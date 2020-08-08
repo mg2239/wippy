@@ -58,13 +58,17 @@ $btnSizeM: 3.5rem;
   background-color: $black;
 }
 
+.white {
+  background-color: white;
+}
+
 .loadingText {
   color: white;
   font-weight: bold;
   margin: 0;
 }
 
-.waveformWrapper {
+.waveformContainer {
   flex-grow: 1;
 }
 

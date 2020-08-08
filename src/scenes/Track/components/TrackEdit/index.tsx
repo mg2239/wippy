@@ -6,12 +6,14 @@ import { useTrack } from '../../index.state';
 import { timeToPlural } from '../../index.util';
 import styles from './index.module.scss';
 import Button from 'src/components/Button/index';
+import { useMP3 } from 'src/context/mp3/index';
 import { Color, Time } from 'src/types';
 
 function Modal() {
   const [expireDuration, setExpireDuration] = useState(1);
   const [expireUnit, setExpireUnit] = useState<Time>('minute');
   const { setTitle, setTheme, saveInfo } = useTrack();
+  const { setIsNew } = useMP3();
 
   const times = (['minute', 'hour', 'day'] as Time[]).map((time) => (
     <option key={time} value={time.toString()}>
@@ -35,7 +37,10 @@ function Modal() {
   ));
 
   const validateAndSave = () => {
-    saveInfo(expireDuration, expireUnit);
+    if (expireDuration > 0) {
+      saveInfo(expireDuration, expireUnit);
+      setIsNew(false);
+    }
   };
 
   return (
@@ -51,6 +56,7 @@ function Modal() {
         <p className={styles.label}>expires:</p>
         <input
           type="number"
+          min="1"
           className={cn(styles.input, styles.expireInput)}
           onChange={(e) => setExpireDuration(Number(e.target.value))}
         />

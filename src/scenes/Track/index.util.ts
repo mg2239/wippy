@@ -9,11 +9,16 @@ dayjs.extend(relativeTimePlugin);
 
 const now = () => dayjs();
 
+/**
+ * Time functions
+ */
+
+// For getting current time in UTC
 export const nowString = () => now().toISOString();
 
 // For displaying time until expire
-export const getDifference = (time1: string, time2: string) =>
-  dayjs.duration(dayjs(time1).diff(time2)).humanize(false);
+export const getDifferenceFromNow = (time: string) =>
+  dayjs.duration(now().diff(time)).humanize(false);
 
 // For calculating what date a track expires
 export const getTimeFromNow = (duration: number, unit: Time) =>

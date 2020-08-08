@@ -13,6 +13,7 @@ type TrackState = {
   setId: (id: string) => void;
   setTitle: (title: string) => void;
   setTheme: (theme: Color) => void;
+  setExpiresAt: (expiresAt: string) => void;
   saveInfo: (expireDuration: number, expireUnit: Time) => void;
   retrieveInfo: (id: string) => void;
 };
@@ -25,6 +26,7 @@ const initialState: TrackState = {
   setId: () => {},
   setTitle: () => {},
   setTheme: () => {},
+  setExpiresAt: () => {},
   saveInfo: () => {},
   retrieveInfo: () => {},
 };
@@ -75,6 +77,7 @@ export function TrackProvider({ children }: ProviderProps) {
         setId,
         setTitle,
         setTheme,
+        setExpiresAt,
         saveInfo,
         retrieveInfo,
       }}

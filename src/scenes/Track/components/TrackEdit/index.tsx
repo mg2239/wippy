@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { useTrack } from '../../index.state';
+import { timeToPlural } from '../../index.util';
 import styles from './index.module.scss';
 import Button from 'src/components/Button/index';
 import { Color, Time } from 'src/types';
-import { timeToPlural } from 'src/util/time';
 
 function Modal() {
   const [expireDuration, setExpireDuration] = useState(1);

@@ -1,9 +1,9 @@
 /* eslint-disable no-shadow */
 import React, { useContext, createContext, useState } from 'react';
 
+import { getTimeFromNow, nowString } from './index.util';
 import { Color, Time } from 'src/types';
 import { firestore } from 'src/util/firebase';
-import { getTimeFromNow, nowString } from 'src/util/time';
 
 type TrackState = {
   id: string;

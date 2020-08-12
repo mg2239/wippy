@@ -54,7 +54,7 @@ export function TrackProvider({ children }: ProviderProps) {
   const [expiresAt, setExpiresAt] = useState(initialState.expiresAt);
   const [loading, setLoading] = useState(initialState.loading);
   const [exists, setExists] = useState(initialState.exists);
-  const { mp3, setMP3 } = useMP3();
+  const { mp3, isNew, setMP3 } = useMP3();
 
   const tracksRef = firestore.collection('tracks');
 
@@ -102,11 +102,13 @@ export function TrackProvider({ children }: ProviderProps) {
       .catch((err) => console.log(err));
 
   useEffect(() => {
-    if (id.length) {
-      retrieveInfo().then(() => {
-        if (exists && !mp3) getMP3();
-        setLoading(false);
-      });
+    if (id) {
+      if (!isNew) {
+        retrieveInfo().then(() => {
+          if (exists && !mp3) getMP3();
+          setLoading(false);
+        });
+      } else setLoading(false);
     }
   }, [id]);
 

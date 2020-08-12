@@ -99,7 +99,7 @@ export function TrackProvider({ children }: ProviderProps) {
           setExpiresAt(newExpiresAt);
         }
       })
-      .catch((err) => console.log(err));
+      .catch(() => setExists(false));
 
   useEffect(() => {
     if (id) {

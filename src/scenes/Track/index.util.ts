@@ -24,8 +24,8 @@ export const getDifferenceFromNow = (time: string) =>
 export const getTimeFromNow = (duration: number, unit: Time) =>
   now().add(duration, unit).toISOString();
 
-// For determining if a track has expired
-export const isBeforeNow = (time: string) => dayjs(time).isBefore(now());
+// For determining if a track's expiration date is after now.
+export const isAfterNow = (time: string) => dayjs(time).isAfter(now());
 
 // For displaying time unit choices when inputting information
 export const timeToPlural = (time: Time) => `${time}s`;

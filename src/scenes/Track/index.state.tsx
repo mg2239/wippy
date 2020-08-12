@@ -1,8 +1,9 @@
 import React, { useContext, createContext, useState, useEffect } from 'react';
 
-import { getTimeFromNow, nowString } from './index.util';
+import { getTimeFromNow, nowString, isAfterNow } from './index.util';
+import { useMP3 } from 'src/context/mp3/index';
 import { Color, Time } from 'src/types';
-import { firestore } from 'src/util/firebase';
+import { firestore, storage } from 'src/util/firebase';
 
 type TrackData = {
   title: string;
@@ -15,10 +16,11 @@ type TrackState = {
   title: string;
   theme: Color;
   expiresAt: string;
+  loading: boolean;
+  exists: boolean;
   setId: (id: string) => void;
   setTitle: (title: string) => void;
   setTheme: (theme: Color) => void;
-  setExpiresAt: (expiresAt: string) => void;
   saveInfo: (expireDuration: number, expireUnit: Time) => void;
 };
 
@@ -27,10 +29,11 @@ const initialState: TrackState = {
   title: 'untitled',
   theme: 'red',
   expiresAt: '',
+  loading: true,
+  exists: true,
   setId: () => {},
   setTitle: () => {},
   setTheme: () => {},
-  setExpiresAt: () => {},
   saveInfo: () => {},
 };
 
@@ -45,12 +48,27 @@ type ProviderProps = {
 };
 
 export function TrackProvider({ children }: ProviderProps) {
-  const [id, setId] = useState('');
+  const [id, setId] = useState(initialState.id);
   const [title, setTitle] = useState(initialState.title);
   const [theme, setTheme] = useState(initialState.theme);
   const [expiresAt, setExpiresAt] = useState(initialState.expiresAt);
+  const [loading, setLoading] = useState(initialState.loading);
+  const [exists, setExists] = useState(initialState.exists);
+  const { mp3, setMP3 } = useMP3();
 
   const tracksRef = firestore.collection('tracks');
+
+  const getMP3 = () =>
+    storage
+      .ref(`${id}.mp3`)
+      .getDownloadURL()
+      .then((url) => {
+        fetch(url)
+          .then((res) => res.blob())
+          .then((blob) => setMP3(blob as File))
+          .catch((err) => console.log(err));
+      })
+      .catch(() => setExists(false));
 
   const saveInfo = (expireDuration: number, expireUnit: Time) => {
     const date = getTimeFromNow(expireDuration, expireUnit);
@@ -74,14 +92,22 @@ export function TrackProvider({ children }: ProviderProps) {
           theme: newTheme,
           expiresAt: newExpiresAt,
         } = data;
-        setTitle(newTitle);
-        setTheme(newTheme);
-        setExpiresAt(newExpiresAt);
+        setExists(isAfterNow(newExpiresAt));
+        if (exists) {
+          setTitle(newTitle);
+          setTheme(newTheme);
+          setExpiresAt(newExpiresAt);
+        }
       })
       .catch((err) => console.log(err));
 
   useEffect(() => {
-    if (id.length) retrieveInfo();
+    if (id.length) {
+      retrieveInfo().then(() => {
+        if (exists && !mp3) getMP3();
+        setLoading(false);
+      });
+    }
   }, [id]);
 
   return (
@@ -91,10 +117,11 @@ export function TrackProvider({ children }: ProviderProps) {
         title,
         theme,
         expiresAt,
+        loading,
+        exists,
         setId,
         setTitle,
         setTheme,
-        setExpiresAt,
         saveInfo,
       }}
     >

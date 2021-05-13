@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router-dom';
 
 import styles from './404.module.scss';
-import Button from 'src/components/Button/index';
+import Button from 'src/components/Button/Button';
 
 export default function ErrorPage() {
   const { push } = useHistory();

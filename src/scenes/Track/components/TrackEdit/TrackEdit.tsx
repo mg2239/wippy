@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import { useTrack } from '../../track.state';
 import { timeToPlural } from '../../track.util';
 import styles from './trackedit.module.scss';
-import Button from 'src/components/Button/index';
+import Button from 'src/components/Button/Button';
 import { useMP3 } from 'src/context/mp3';
 import { Color, Time } from 'src/types';
 

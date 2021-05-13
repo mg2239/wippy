@@ -7,7 +7,7 @@ import TrackEdit from './components/TrackEdit/TrackEdit';
 import TrackInfo from './components/TrackInfo/TrackInfo';
 import styles from './track.module.scss';
 import { TrackProvider, useTrack } from './track.state';
-import Page from 'src/components/Page';
+import Page from 'src/components/Page/Page';
 import { useMP3 } from 'src/context/mp3';
 import ErrorPage from 'src/scenes/404/404';
 

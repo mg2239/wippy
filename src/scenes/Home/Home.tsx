@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import Upload from './components/Upload/Upload';
 import styles from './home.module.scss';
-import Page from 'src/components/Page';
+import Page from 'src/components/Page/Page';
 
 function LandingText() {
   return (

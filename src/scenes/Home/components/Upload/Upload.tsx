@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { v4 as uuid } from 'uuid';
 
-import styles from './index.module.scss';
+import styles from './upload.module.scss';
 import { useMP3 } from 'src/context/mp3';
 import { storage } from 'src/util/firebase';
 
@@ -58,11 +58,9 @@ export default function Upload({ onUpload, onSuccess }: UploadProps) {
       setProgress(newProgress);
     };
 
-    const onError = (err: Error) => console.log(err);
-
     const onComplete = () => onSuccess(id);
 
-    uploadTask.on('state_changed', whileUpload, onError, onComplete);
+    uploadTask.on('state_changed', whileUpload, console.error, onComplete);
   };
 
   const { getRootProps, getInputProps } = useDropzone({

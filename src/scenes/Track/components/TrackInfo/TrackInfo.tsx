@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useTrack } from '../../index.state';
-import { getDifferenceFromNow } from '../../index.util';
-import styles from './index.module.scss';
+import { useTrack } from '../../track.state';
+import { getDifferenceFromNow } from '../../track.util';
+import styles from './trackinfo.module.scss';
 
 export default function TrackInfo() {
   const { title, expiresAt } = useTrack();

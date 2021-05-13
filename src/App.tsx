@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { ScreenProvider } from './context/screen';
 import { MP3Provider } from './context/mp3';
-import Home from './scenes/Home';
-import Track from './scenes/Track';
+import { ScreenProvider } from './context/screen';
+import Home from './scenes/Home/Home';
+import Track from './scenes/Track/Track';
 
 export default function App() {
   return (

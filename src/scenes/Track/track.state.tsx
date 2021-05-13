@@ -1,7 +1,7 @@
 import React, { useContext, createContext, useState, useEffect } from 'react';
 
-import { getTimeFromNow, nowString, isAfterNow } from './index.util';
-import { useMP3 } from 'src/context/mp3/index';
+import { getTimeFromNow, nowString, isAfterNow } from './track.util';
+import { useMP3 } from 'src/context/mp3';
 import { Color, Time } from 'src/types';
 import { firestore, storage } from 'src/util/firebase';
 
@@ -54,11 +54,11 @@ export function TrackProvider({ children }: ProviderProps) {
   const [expiresAt, setExpiresAt] = useState(initialState.expiresAt);
   const [loading, setLoading] = useState(initialState.loading);
   const [exists, setExists] = useState(initialState.exists);
-  const { mp3, isNew, setMP3 } = useMP3();
+  const { isNew, setMP3 } = useMP3();
 
   const tracksRef = firestore.collection('tracks');
 
-  const getMP3 = () =>
+  const getMP3 = () => {
     storage
       .ref(`${id}.mp3`)
       .getDownloadURL()
@@ -66,9 +66,10 @@ export function TrackProvider({ children }: ProviderProps) {
         fetch(url)
           .then((res) => res.blob())
           .then((blob) => setMP3(blob as File))
-          .catch((err) => console.log(err));
+          .catch(console.error);
       })
       .catch(() => setExists(false));
+  };
 
   const saveInfo = (expireDuration: number, expireUnit: Time) => {
     const date = getTimeFromNow(expireDuration, expireUnit);
@@ -81,34 +82,47 @@ export function TrackProvider({ children }: ProviderProps) {
     });
   };
 
-  const retrieveInfo = () =>
+  const deleteTrack = () => {
     tracksRef
       .doc(id)
-      .get()
-      .then((snapshot) => {
-        const data: TrackData = snapshot.data() as any;
-        const {
-          title: newTitle,
-          theme: newTheme,
-          expiresAt: newExpiresAt,
-        } = data;
-        setExists(isAfterNow(newExpiresAt));
-        if (exists) {
-          setTitle(newTitle);
-          setTheme(newTheme);
-          setExpiresAt(newExpiresAt);
-        }
+      .delete()
+      .then(() => {
+        storage.ref(`${id}.mp3`).delete().catch(console.error);
       })
-      .catch(() => setExists(false));
+      .catch(console.error);
+  };
 
   useEffect(() => {
     if (id) {
       if (!isNew) {
-        retrieveInfo().then(() => {
-          if (exists && !mp3) getMP3();
-          setLoading(false);
-        });
-      } else setLoading(false);
+        tracksRef
+          .doc(id)
+          .get()
+          .then((snapshot) => {
+            const {
+              title: newTitle,
+              theme: newTheme,
+              expiresAt: newExpiresAt,
+            }: TrackData = snapshot.data() as any;
+            const trackExists = isAfterNow(newExpiresAt);
+            setExists(trackExists);
+            if (trackExists) {
+              setTitle(newTitle);
+              setTheme(newTheme);
+              setExpiresAt(newExpiresAt);
+              getMP3();
+            } else {
+              deleteTrack();
+            }
+            setLoading(false);
+          })
+          .catch(() => {
+            setExists(false);
+            setLoading(false);
+          });
+      } else {
+        setLoading(false);
+      }
     }
   }, [id]);
 

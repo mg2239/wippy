@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router-dom';
 
-import styles from './index.module.scss';
+import styles from './404.module.scss';
 import Button from 'src/components/Button/index';
 
 export default function ErrorPage() {

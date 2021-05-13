@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import WaveSurfer from 'wavesurfer.js';
 
-import styles from './index.module.scss';
 import pause from './pause.svg';
 import play from './play.svg';
-import { useMP3 } from 'src/context/mp3/index';
+import styles from './player.module.scss';
+import { useMP3 } from 'src/context/mp3';
 import { useScreen } from 'src/context/screen';
 
 type PlayButtonProps = {

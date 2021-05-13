@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { match as MatchType } from 'react-router-dom';
 
-import Player from './components/Player';
-import TrackEdit from './components/TrackEdit';
-import TrackInfo from './components/TrackInfo';
-import styles from './index.module.scss';
-import { TrackProvider, useTrack } from './index.state';
+import Player from './components/Player/Player';
+import TrackEdit from './components/TrackEdit/TrackEdit';
+import TrackInfo from './components/TrackInfo/TrackInfo';
+import styles from './track.module.scss';
+import { TrackProvider, useTrack } from './track.state';
 import Page from 'src/components/Page';
 import { useMP3 } from 'src/context/mp3';
-import ErrorPage from 'src/scenes/404';
+import ErrorPage from 'src/scenes/404/404';
 
 type TrackPageProps = {
   id: string;

@@ -2,11 +2,11 @@ import cn from 'classnames';
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { useTrack } from '../../index.state';
-import { timeToPlural } from '../../index.util';
-import styles from './index.module.scss';
+import { useTrack } from '../../track.state';
+import { timeToPlural } from '../../track.util';
+import styles from './trackedit.module.scss';
 import Button from 'src/components/Button/index';
-import { useMP3 } from 'src/context/mp3/index';
+import { useMP3 } from 'src/context/mp3';
 import { Color, Time } from 'src/types';
 
 function Modal() {

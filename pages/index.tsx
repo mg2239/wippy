@@ -1,4 +1,3 @@
-import React from 'react';
 import { Head } from '../components/Head';
 import { Page } from '../components/Page';
 import { Upload } from '../components/Upload';

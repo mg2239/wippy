@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { ref, uploadBytesResumable } from 'firebase/storage';
 import { nanoid } from 'nanoid';
-import { ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
+import React, { useState } from 'react';
 import { storage } from '../util/firebase';
 
 type UploadContextType = {
@@ -18,16 +18,11 @@ export const UploadProvider = ({ children }: React.PropsWithChildren<{}>) => {
 
   const onUpload = (file: File[]) => {
     setUploading(true);
-
     const [audio] = file;
     const id = nanoid();
-
     const [_, ext] = audio.name.split('.');
-
     const audioRef = ref(storage, `${id}.${ext}`);
-
     const uploadTask = uploadBytesResumable(audioRef, audio);
-
     uploadTask.on(
       'state_changed',
       // uploading

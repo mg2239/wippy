@@ -1,10 +1,24 @@
-import { PlusIcon } from '@heroicons/react/20/solid';
+import { useContext } from 'react';
+import { UploadContext } from '../../context/UploadContext';
+import { useUpload } from '../../hooks/useUpload';
 
 export const Upload = () => {
+  const { onUpload } = useContext(UploadContext);
+  const { getRootProps, getInputProps } = useUpload({
+    onDrop: onUpload,
+    noDrag: true,
+  });
+
   return (
-    <input className="mb-2 flex items-center rounded-lg bg-black px-4 py-2 text-white transition-colors hover:bg-gray-700">
-      <PlusIcon className="mr-1 h-6 w-6" />
-      <p className="mr-1">Upload file</p>
-    </input>
+    <div className="mb-2 text-xl">
+      Drag and drop or{' '}
+      <div
+        {...getRootProps()}
+        className="inline cursor-pointer font-medium text-rose-500 hover:underline"
+      >
+        <input {...getInputProps()} />
+        click to upload
+      </div>
+    </div>
   );
 };

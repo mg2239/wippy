@@ -1,16 +1,19 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Navbar = () => {
   return (
     <div className="w-100 flex items-center p-8">
-      <Image
-        className="mr-2"
-        src="/wippy.svg"
-        alt="Wippy Logo"
-        height={36}
-        width={24}
-      />
+      <Link href="/">
+        <Image
+          className="mr-2"
+          src="/wippy.svg"
+          alt="Wippy Logo"
+          height={36}
+          width={24}
+        />
+      </Link>
     </div>
   );
 };

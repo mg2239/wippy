@@ -22,7 +22,7 @@ export const Upload = () => {
           </p>
         </div>
       </div>
-      <p className="text-center text-sm font-light text-gray-500 md:text-base">
+      <p className="text-center text-sm font-light text-gray-400 md:text-base">
         mp3, wav, flac accepted; 20 MB max
       </p>
     </>

@@ -4,11 +4,9 @@ import { Head } from '../components/Head';
 import { Page } from '../components/Page';
 import { Upload } from '../components/Upload';
 import { UploadContext } from '../context/UploadContext';
-import { useScreenWidth } from '../hooks/useScreenWidth';
 
 const LandingPage = () => {
   const { uploading, progress } = useContext(UploadContext);
-  const width = useScreenWidth();
 
   return (
     <Page>
@@ -18,7 +16,7 @@ const LandingPage = () => {
           Upload and share tracks easily and securely.
         </p>
 
-        <div className="rounded-md border-2 border-dashed border-gray-300 p-10 transition-all">
+        <div className="rounded-md border-2 border-dashed border-gray-400 p-10 transition-all">
           {!uploading ? (
             <Upload />
           ) : (

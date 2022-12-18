@@ -2,7 +2,6 @@ import { doc, getDoc } from 'firebase/firestore';
 import { getDownloadURL, ref } from 'firebase/storage';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
 import { Head } from '../components/Head';
 import { Page } from '../components/Page';
 import { Track } from '../types';
@@ -20,13 +19,11 @@ type Props = {
   track: Track;
 };
 
-const TrackPage = ({ id, track: _track }: Props) => {
-  const [track, setTrack] = useState(_track);
-
+const TrackPage = ({ id, track }: Props) => {
   return (
     <Page>
       <Head title={track.title} />
-      <h1 className="mb-4 text-2xl font-semibold">{track.title}</h1>
+      <h1 className="mb-4 text-4xl font-semibold">{track.title}</h1>
       <Player url={track.url} />
     </Page>
   );

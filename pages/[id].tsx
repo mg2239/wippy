@@ -1,56 +1,60 @@
 import { doc, getDoc } from 'firebase/firestore';
-import { useContext, useState } from 'react';
+import { getDownloadURL, ref } from 'firebase/storage';
+import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import { Head } from '../components/Head';
 import { Page } from '../components/Page';
-import { UploadContext } from '../context/UploadContext';
 import { Track } from '../types';
-import { db } from '../util/firebase';
+import { db, storage } from '../util/firebase';
+
+const Player = dynamic(
+  () => import('../components/Player').then((mod) => mod.Player),
+  {
+    ssr: false,
+  }
+);
 
 type Props = {
   id: string;
-  track?: Track;
+  track: Track;
 };
 
 const TrackPage = ({ id, track: _track }: Props) => {
-  const context = useContext(UploadContext);
   const [track, setTrack] = useState(_track);
-
-  const file = track?.file || context.file!;
-
-  const getFilename = () => {
-    const [name] = file.name.split('.');
-    return name;
-  };
 
   return (
     <Page>
-      <Head title={track ? track.title : getFilename()} />
-      <audio controls src={URL.createObjectURL(file)} />
+      <Head title={track.title} />
+      <h1 className="mb-4 text-2xl font-semibold">{track.title}</h1>
+      <Player url={track.url} />
     </Page>
   );
 };
 
-export const getServerSideProps = async ({
-  query,
-}: {
-  query: Record<string, any>;
-}) => {
+export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
   const { id, uploaded } = query;
 
-  if (uploaded) {
-    return { props: { id } };
+  const trackDoc = await getDoc(doc(db, 'tracks', id as string));
+
+  if (!trackDoc.exists()) {
+    return { notFound: true };
   }
 
-  const docRef = doc(db, 'tracks', id);
-  const trackDoc = await getDoc(docRef);
+  const track = trackDoc.data();
+  const url = !uploaded
+    ? await getDownloadURL(ref(storage, `${id}.${track.fileExt}`))
+    : undefined;
 
-  let track = null;
-
-  if (trackDoc.exists()) {
-    track = trackDoc.data();
-  }
-
-  return { props: { id, track } };
+  return {
+    props: {
+      id,
+      track: {
+        ...track,
+        url,
+      },
+    },
+  };
 };
 
 export default TrackPage;

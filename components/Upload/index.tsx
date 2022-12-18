@@ -14,13 +14,12 @@ export const Upload = () => {
   return (
     <>
       <div className="mb-2 text-center text-xl">
-        <div className="hidden lg:inline">Drag and drop, or </div>{' '}
-        <div
-          {...getRootProps()}
-          className="inline cursor-pointer font-medium text-rose-500 hover:underline"
-        >
+        <p className="hidden lg:inline">Drag and drop, or </p>{' '}
+        <div {...getRootProps()} className="inline">
           <input {...getInputProps()} />
-          {width < ScreenSizes.lg ? 'Click to upload' : 'click to upload'}
+          <p className="inline cursor-pointer font-medium text-rose-500 hover:underline">
+            {width < ScreenSizes.lg ? 'Click to upload' : 'click to upload'}
+          </p>
         </div>
       </div>
       <p className="text-center text-sm font-light text-gray-500 md:text-base">

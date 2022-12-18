@@ -1,8 +1,10 @@
+import { doc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytesResumable } from 'firebase/storage';
 import { nanoid } from 'nanoid';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { storage } from '../util/firebase';
+import React, { useEffect, useState } from 'react';
+import spacetime from 'spacetime';
+import { db, storage } from '../util/firebase';
 
 type UploadContextType = {
   uploading: boolean;
@@ -23,10 +25,16 @@ export const UploadProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const [file, setFile] = useState<File>();
   const router = useRouter();
 
+  useEffect(() => {
+    return () => setUploading(false);
+  }, []);
+
   const onUpload = (file: File[]) => {
     const [audio] = file;
     const id = nanoid();
-    const [_, ext] = audio.name.split('.');
+    const sepIndex = audio.name.lastIndexOf('.');
+    const title = audio.name.slice(0, sepIndex);
+    const ext = audio.name.slice(sepIndex + 1);
     const audioRef = ref(storage, `${id}.${ext}`);
 
     setUploading(true);
@@ -41,16 +49,20 @@ export const UploadProvider = ({ children }: React.PropsWithChildren<{}>) => {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(progress);
         setProgress(progress);
       },
       // error
       console.log,
       // complete
       () => {
-        const pathname = `/${id}`;
-        router.push({ pathname, query: { uploaded: true } }, pathname);
-        setUploading(false);
+        setDoc(doc(db, 'tracks', id), {
+          title,
+          createdAt: spacetime.now().iso(),
+          fileExt: ext,
+        }).then(() => {
+          const pathname = `/${id}`;
+          router.push({ pathname, query: { uploaded: true } }, pathname);
+        });
       }
     );
   };

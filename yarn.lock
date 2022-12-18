@@ -567,6 +567,11 @@
   dependencies:
     tslib "^2.4.0"
 
+"@types/debounce@*":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@types/debounce/-/debounce-1.2.1.tgz#79b65710bc8b6d44094d286aecf38e44f9627852"
+  integrity sha512-epMsEE85fi4lfmJUH/89/iV/LI+F5CvNIvmgs5g5jYFPfhO2S/ae8WSsLOKWdwtoaZw9Q2IhJ4tQ5tFCcS/4HA==
+
 "@types/long@^4.0.1":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.2.tgz#b74129719fc8d11c01868010082d483b7545591a"
@@ -607,6 +612,13 @@
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
+
+"@types/wavesurfer.js@^6.0.3":
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-6.0.3.tgz#92c26804700475d9273e91ee683a2ba17c50ac2d"
+  integrity sha512-5Sb5s3pEkOmDosaaP1DWp1Unnx8HhVorm5608TIVdT5jCMvJ6eqM19UD8n7DEbJ7rzreS9RqHmzR8TlcdQBvbA==
+  dependencies:
+    "@types/debounce" "*"
 
 acorn-node@^1.8.2:
   version "1.8.2"
@@ -1338,6 +1350,11 @@ source-map-js@^1.0.2:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
+spacetime@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/spacetime/-/spacetime-7.3.0.tgz#bd14d09cc65a07ef62d203c00f9e7cede8a5a013"
+  integrity sha512-ZBrOHhW8Kxb6YfikJ92TSVuiZLBjKT3raFAj+xG4dfU4ijqWKSQsNzZRH17Mbx2S2QAJKSTp90BcnjoVwtbt1w==
+
 string-width@^4.1.0, string-width@^4.2.0:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
@@ -1429,6 +1446,11 @@ util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+wavesurfer.js@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-6.4.0.tgz#cda4eb93fe945e3b69fbf0b7ea5c45c3f1abac5c"
+  integrity sha512-+i9GkYdMTm998goOWvycWqCgxfbolnuGTPgrdGss7ZbQDuu+n6AHdnJwYnqxW8RZo5A2ck6ztzXbrXGuCi0m5g==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"

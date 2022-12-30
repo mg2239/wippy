@@ -93,30 +93,32 @@ export const Player = ({ url }: Props) => {
           loading={!wavesurfer}
         />
       </div>
-      <div className="flex items-center gap-3">
-        <Button
-          icon={isPlaying ? 'PauseIcon' : 'PlayIcon'}
-          onClick={togglePlay}
-        />
-        <div
-          className="flex gap-3"
-          onMouseEnter={() => setShowVolume(true)}
-          onMouseLeave={() => setShowVolume(false)}
-        >
+      <div className="flex items-center justify-between">
+        <div className="flex gap-3">
           <Button
-            icon={isMuted ? 'SpeakerXMarkIcon' : 'SpeakerWaveIcon'}
-            onClick={toggleMute}
+            icon={isPlaying ? 'PauseIcon' : 'PlayIcon'}
+            onClick={togglePlay}
           />
-          {showVolume && (
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.01}
-              value={isMuted ? 0 : volume}
-              onChange={(e) => changeVolume(Number(e.target.value))}
+          <div
+            className="flex gap-3"
+            onMouseEnter={() => setShowVolume(true)}
+            onMouseLeave={() => setShowVolume(false)}
+          >
+            <Button
+              icon={isMuted ? 'SpeakerXMarkIcon' : 'SpeakerWaveIcon'}
+              onClick={toggleMute}
             />
-          )}
+            {showVolume && (
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={isMuted ? 0 : volume}
+                onChange={(e) => changeVolume(Number(e.target.value))}
+              />
+            )}
+          </div>
         </div>
         {currentTime && (
           <p className="font-medium">

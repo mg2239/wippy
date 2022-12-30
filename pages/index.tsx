@@ -1,5 +1,6 @@
 import { Line } from 'rc-progress';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import unmuteAudio from 'unmute-ios-audio';
 import { Head } from '../components/Head';
 import { Page } from '../components/Page';
 import { Upload } from '../components/Upload';
@@ -7,6 +8,10 @@ import { UploadContext } from '../context/UploadContext';
 
 const LandingPage = () => {
   const { uploading, progress } = useContext(UploadContext);
+
+  useEffect(() => {
+    unmuteAudio();
+  }, []);
 
   return (
     <Page>

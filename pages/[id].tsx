@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { Head } from '../components/Head';
 import { Page } from '../components/Page';
+import { TrackInfo } from '../components/TrackInfo';
 import { Track } from '../types';
 import { db, storage } from '../util/firebase';
 
@@ -15,15 +16,14 @@ const Player = dynamic(
 );
 
 type Props = {
-  id: string;
   track: Track;
 };
 
-const TrackPage = ({ id, track }: Props) => {
+const TrackPage = ({ track }: Props) => {
   return (
     <Page>
-      <Head title={track.title} />
-      <h1 className="mb-4 text-4xl font-semibold">{track.title}</h1>
+      <Head title={track.title} noIndex />
+      <TrackInfo track={track} />
       <Player url={track.url} />
     </Page>
   );
@@ -45,7 +45,6 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
 
   return {
     props: {
-      id,
       track: {
         ...track,
         url,

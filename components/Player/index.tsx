@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { ScaleLoader } from 'react-spinners';
 import { throttle } from 'throttle-debounce';
 import WaveSurfer from 'wavesurfer.js';
@@ -85,7 +86,8 @@ export const Player = ({ url }: Props) => {
   }, []);
 
   return (
-    <div>
+    <>
+      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={togglePlay} />
       <div id="waveform" className="relative mb-2">
         <ScaleLoader
           color="#F43F5E"
@@ -126,6 +128,6 @@ export const Player = ({ url }: Props) => {
           </p>
         )}
       </div>
-    </div>
+    </>
   );
 };

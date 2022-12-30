@@ -1,9 +1,9 @@
-import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ScaleLoader } from 'react-spinners';
 import { throttle } from 'throttle-debounce';
 import WaveSurfer from 'wavesurfer.js';
 import { UploadContext } from '../../context/UploadContext';
+import { Button } from '../Button';
 
 type Props = {
   url?: string;
@@ -13,6 +13,9 @@ export const Player = ({ url }: Props) => {
   const { file } = useContext(UploadContext);
   const [wavesurfer, setWavesurfer] = useState<WaveSurfer>();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [showVolume, setShowVolume] = useState(false);
+  const [volume, setVolume] = useState(1);
   const [currentTime, setCurrentTime] = useState('');
   const totalTime = useRef('0:00');
   const firstRender = useRef(false);
@@ -21,6 +24,23 @@ export const Player = ({ url }: Props) => {
     if (wavesurfer) {
       wavesurfer.playPause();
       setIsPlaying((prev) => !prev);
+    }
+  };
+
+  const toggleMute = () => {
+    if (wavesurfer) {
+      wavesurfer.toggleMute();
+      setIsMuted((prev) => !prev);
+    }
+  };
+
+  const changeVolume = (value: number) => {
+    if (wavesurfer) {
+      if (isMuted || !value) {
+        toggleMute();
+      }
+      wavesurfer.setVolume(value);
+      setVolume(value);
     }
   };
 
@@ -74,16 +94,30 @@ export const Player = ({ url }: Props) => {
         />
       </div>
       <div className="flex items-center gap-3">
-        <button
+        <Button
+          icon={isPlaying ? 'PauseIcon' : 'PlayIcon'}
           onClick={togglePlay}
-          className="p-1 text-rose-500 transition-colors hover:bg-slate-700"
+        />
+        <div
+          className="flex gap-3"
+          onMouseEnter={() => setShowVolume(true)}
+          onMouseLeave={() => setShowVolume(false)}
         >
-          {isPlaying ? (
-            <PauseIcon className="h-6 w-6" />
-          ) : (
-            <PlayIcon className="h-6 w-6" />
+          <Button
+            icon={isMuted ? 'SpeakerXMarkIcon' : 'SpeakerWaveIcon'}
+            onClick={toggleMute}
+          />
+          {showVolume && (
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={isMuted ? 0 : volume}
+              onChange={(e) => changeVolume(Number(e.target.value))}
+            />
           )}
-        </button>
+        </div>
         {currentTime && (
           <p className="font-medium">
             {currentTime} / {totalTime.current}

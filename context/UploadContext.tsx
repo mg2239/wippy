@@ -61,7 +61,6 @@ export const UploadProvider = ({ children }: React.PropsWithChildren<{}>) => {
             return setDoc(doc(db, 'tracks', id), {
               title,
               createdAt: now.toNativeDate(),
-              fileExt: ext,
               expiresAt: now.add(10, 'minutes').toNativeDate(),
               url: downloadURL,
             });

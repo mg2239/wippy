@@ -1,6 +1,8 @@
 export type Track = {
   id: string;
   title: string;
-  createdAt: string;
+  fileExt: string;
+  createdAt: number;
+  expiresAt: number;
   url?: string;
 };

@@ -1,12 +1,12 @@
-import { doc, getDoc } from 'firebase/firestore';
-import { getDownloadURL, ref } from 'firebase/storage';
+import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
+import spacetime from 'spacetime';
 import { Head } from '../components/Head';
 import { Page } from '../components/Page';
 import { TrackInfo } from '../components/TrackInfo';
 import { Track } from '../types';
-import { db, storage } from '../util/firebase';
+import { db } from '../util/firebase';
 
 const Player = dynamic(
   () => import('../components/Player').then((mod) => mod.Player),
@@ -29,6 +29,11 @@ const TrackPage = ({ track }: Props) => {
   );
 };
 
+type TrackData = Omit<Track, 'createdAt' | 'expiresAt'> & {
+  createdAt: Timestamp;
+  expiresAt: Timestamp;
+};
+
 export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
   const { id, uploaded } = query;
 
@@ -38,17 +43,22 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
     return { notFound: true };
   }
 
-  const track = trackDoc.data();
-  const url = !uploaded
-    ? await getDownloadURL(ref(storage, `${id}.${track.fileExt}`))
-    : undefined;
+  const trackData = trackDoc.data() as TrackData;
+
+  if (spacetime.now().isAfter(trackData.expiresAt.toDate())) {
+    return { notFound: true };
+  }
+
+  const track = {
+    ...trackData,
+    ...(uploaded && { url: undefined }),
+    createdAt: trackData.createdAt.toMillis(),
+    expiresAt: trackData.expiresAt.toMillis(),
+  };
 
   return {
     props: {
-      track: {
-        ...track,
-        url,
-      },
+      track,
     },
   };
 };

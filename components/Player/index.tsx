@@ -1,3 +1,4 @@
+import { getCookie, setCookie } from 'cookies-next';
 import { useContext, useEffect, useRef, useState } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { ScaleLoader } from 'react-spinners';
@@ -16,7 +17,13 @@ export const Player = ({ url }: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showVolume, setShowVolume] = useState(false);
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(() => {
+    const cookie = getCookie('volume')?.valueOf();
+    if (cookie) {
+      return Number(cookie);
+    }
+    return 1;
+  });
   const [currentTime, setCurrentTime] = useState('');
   const totalTime = useRef('0:00');
   const firstRender = useRef(false);
@@ -42,6 +49,7 @@ export const Player = ({ url }: Props) => {
       }
       wavesurfer.setVolume(value);
       setVolume(value);
+      setCookie('volume', value);
     }
   };
 
@@ -78,6 +86,7 @@ export const Player = ({ url }: Props) => {
     _wavesurfer.on('ready', () => {
       setWavesurfer(_wavesurfer);
       setCurrentTime('0:00');
+      _wavesurfer.setVolume(volume);
       totalTime.current = formatTrackTime(_wavesurfer.getDuration());
     });
     _wavesurfer.on('audioprocess', updateCurrentTime);
@@ -88,7 +97,7 @@ export const Player = ({ url }: Props) => {
   return (
     <>
       <KeyboardEventHandler handleKeys={['space']} onKeyEvent={togglePlay} />
-      <div id="waveform" className="relative mb-2">
+      <div id="waveform" className="relative mb-4">
         <ScaleLoader
           color="#F43F5E"
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

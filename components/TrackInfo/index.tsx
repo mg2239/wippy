@@ -1,3 +1,4 @@
+import spacetime from 'spacetime';
 import { Track } from '../../types';
 
 type Props = {
@@ -5,10 +6,13 @@ type Props = {
 };
 
 export const TrackInfo = ({ track }: Props) => {
+  const now = spacetime.now();
+  const expiration = now.since(track.expiresAt).rounded;
+
   return (
-    <>
+    <div className="mb-8">
       <h1 className="mb-2 text-4xl font-semibold">{track.title}</h1>
-      <p className="mb-4">expires in 3 days</p>
-    </>
+      <p>expires {expiration}</p>
+    </div>
   );
 };

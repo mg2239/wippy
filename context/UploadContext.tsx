@@ -1,5 +1,5 @@
 import { doc, setDoc } from 'firebase/firestore';
-import { ref, uploadBytesResumable } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { nanoid } from 'nanoid';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -55,14 +55,21 @@ export const UploadProvider = ({ children }: React.PropsWithChildren<{}>) => {
       console.log,
       // complete
       () => {
-        setDoc(doc(db, 'tracks', id), {
-          title,
-          createdAt: spacetime.now().iso(),
-          fileExt: ext,
-        }).then(() => {
-          const pathname = `/${id}`;
-          router.push({ pathname, query: { uploaded: true } }, pathname);
-        });
+        const now = spacetime.now();
+        getDownloadURL(uploadTask.snapshot.ref)
+          .then((downloadURL) => {
+            return setDoc(doc(db, 'tracks', id), {
+              title,
+              createdAt: now.toNativeDate(),
+              fileExt: ext,
+              expiresAt: now.add(10, 'minutes').toNativeDate(),
+              url: downloadURL,
+            });
+          })
+          .then(() => {
+            const pathname = `/${id}`;
+            router.push({ pathname, query: { uploaded: true } }, pathname);
+          });
       }
     );
   };

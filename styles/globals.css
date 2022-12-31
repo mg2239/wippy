@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-900;
+    @apply text-white;
+  }
+
+  /** Range styles **/
+  /*********** Baseline, reset styles ***********/
+  input[type='range'] {
+    @apply w-20;
+    @apply appearance-none;
+    @apply bg-transparent;
+    @apply cursor-pointer;
+
+    -webkit-appearance: none;
+  }
+
+  /* Removes default focus */
+  input[type='range']:focus {
+    @apply outline-none;
+  }
+
+  /******** Chrome, Safari, Opera and Edge Chromium styles ********/
+  /* slider track */
+  input[type='range']::-webkit-slider-runnable-track {
+    @apply bg-rose-500;
+    @apply rounded-full;
+    @apply h-1;
+  }
+
+  /* slider thumb */
+  input[type='range']::-webkit-slider-thumb {
+    @apply appearance-none;
+    @apply bg-white;
+    @apply border-none;
+    @apply rounded-full;
+    @apply h-3;
+    @apply w-3;
+    @apply -mt-1;
+
+    -webkit-appearance: none; /* Override default look */
+  }
+
+  /*********** Firefox styles ***********/
+  /* slider track */
+  input[type='range']::-moz-range-track {
+    @apply bg-rose-500;
+    @apply rounded-full;
+    @apply h-1;
+  }
+
+  /* slider thumb */
+  input[type='range']::-moz-range-thumb {
+    @apply bg-white;
+    @apply border-none;
+    @apply rounded-full;
+    @apply h-3;
+    @apply w-3;
+  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}

@@ -3,5 +3,5 @@ export type Track = {
   title: string;
   createdAt: number;
   expiresAt: number;
-  url?: string;
+  url: string;
 };

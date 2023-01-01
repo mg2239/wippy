@@ -8,7 +8,7 @@ import { UploadContext } from '../../context/UploadContext';
 import { Button } from '../Button';
 
 type Props = {
-  url?: string;
+  url: string;
 };
 
 export const Player = ({ url }: Props) => {
@@ -82,7 +82,7 @@ export const Player = ({ url }: Props) => {
       setCurrentTime(newTime);
     });
 
-    _wavesurfer.load(url || URL.createObjectURL(file!));
+    _wavesurfer.load(file ? URL.createObjectURL(file) : url);
     _wavesurfer.on('ready', () => {
       setWavesurfer(_wavesurfer);
       setCurrentTime('0:00');

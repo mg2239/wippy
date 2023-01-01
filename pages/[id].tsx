@@ -35,7 +35,7 @@ type TrackData = Omit<Track, 'createdAt' | 'expiresAt'> & {
 };
 
 export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
-  const { id, uploaded } = query;
+  const { id } = query;
 
   const trackDoc = await getDoc(doc(db, 'tracks', id as string));
 
@@ -51,7 +51,6 @@ export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
 
   const track = {
     ...trackData,
-    ...(uploaded && { url: undefined }),
     createdAt: trackData.createdAt.toMillis(),
     expiresAt: trackData.expiresAt.toMillis(),
   };

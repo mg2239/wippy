@@ -57,18 +57,15 @@ export const UploadProvider = ({ children }: React.PropsWithChildren<{}>) => {
       () => {
         const now = spacetime.now();
         getDownloadURL(uploadTask.snapshot.ref)
-          .then((downloadURL) => {
-            return setDoc(doc(db, 'tracks', id), {
+          .then((downloadURL) =>
+            setDoc(doc(db, 'tracks', id), {
               title,
               createdAt: now.toNativeDate(),
               expiresAt: now.add(10, 'minutes').toNativeDate(),
               url: downloadURL,
-            });
-          })
-          .then(() => {
-            const pathname = `/${id}`;
-            router.push({ pathname, query: { uploaded: true } }, pathname);
-          });
+            })
+          )
+          .then(() => router.push(`/${id}`));
       }
     );
   };

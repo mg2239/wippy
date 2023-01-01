@@ -5,7 +5,7 @@ type Props = {
   noIndex?: boolean;
 };
 
-export const Head = ({ title = 'home', noIndex }: Props) => {
+export const Head = ({ title, noIndex }: Props) => {
   return (
     <NextHead>
       <title>{title ? `${title} - wippy` : 'wippy'}</title>

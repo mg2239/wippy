@@ -26,6 +26,8 @@ export const Player = ({ url }: Props) => {
   });
   const [currentTime, setCurrentTime] = useState('');
   const totalTime = useRef('0:00');
+  const firstRender = useRef(true);
+  const updateCurrentTimeRef = useRef<throttle<() => void>>();
 
   const togglePlay = () => {
     if (wavesurfer) {
@@ -53,6 +55,11 @@ export const Player = ({ url }: Props) => {
   };
 
   useEffect(() => {
+    if (!firstRender.current) {
+      return;
+    }
+    firstRender.current = false;
+
     const _wavesurfer = WaveSurfer.create({
       container: '#waveform',
       waveColor: '#F43F5Eaa',
@@ -74,9 +81,12 @@ export const Player = ({ url }: Props) => {
     };
 
     const updateCurrentTime = throttle(100, () => {
+      console.log(_wavesurfer);
       const newTime = formatTrackTime(_wavesurfer.getCurrentTime());
       setCurrentTime(newTime);
     });
+
+    updateCurrentTimeRef.current = updateCurrentTime;
 
     _wavesurfer.load(file ? URL.createObjectURL(file) : url);
     _wavesurfer.on('ready', () => {
@@ -88,13 +98,15 @@ export const Player = ({ url }: Props) => {
     _wavesurfer.on('audioprocess', updateCurrentTime);
     _wavesurfer.on('seek', updateCurrentTime);
     _wavesurfer.on('finish', () => setIsPlaying(false));
+  }, []);
 
+  useEffect(() => {
     return () => {
-      updateCurrentTime.cancel();
-      _wavesurfer.unAll();
-      _wavesurfer.destroy();
+      updateCurrentTimeRef.current?.cancel();
+      wavesurfer?.unAll();
+      wavesurfer?.destroy();
     };
-  }, [url, file, volume]);
+  }, [wavesurfer]);
 
   useEffect(() => {
     const unsubscribe = tinykeys(window, {

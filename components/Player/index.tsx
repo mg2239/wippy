@@ -1,8 +1,8 @@
 import { getCookie, setCookie } from 'cookies-next';
 import { useContext, useEffect, useRef, useState } from 'react';
-import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { ScaleLoader } from 'react-spinners';
 import { throttle } from 'throttle-debounce';
+import tinykeys from 'tinykeys';
 import WaveSurfer from 'wavesurfer.js';
 import { UploadContext } from '../../context/UploadContext';
 import { Button } from '../Button';
@@ -26,7 +26,6 @@ export const Player = ({ url }: Props) => {
   });
   const [currentTime, setCurrentTime] = useState('');
   const totalTime = useRef('0:00');
-  const firstRender = useRef(false);
 
   const togglePlay = () => {
     if (wavesurfer) {
@@ -54,9 +53,6 @@ export const Player = ({ url }: Props) => {
   };
 
   useEffect(() => {
-    if (firstRender.current) return;
-    firstRender.current = true;
-
     const _wavesurfer = WaveSurfer.create({
       container: '#waveform',
       waveColor: '#F43F5Eaa',
@@ -92,11 +88,23 @@ export const Player = ({ url }: Props) => {
     _wavesurfer.on('audioprocess', updateCurrentTime);
     _wavesurfer.on('seek', updateCurrentTime);
     _wavesurfer.on('finish', () => setIsPlaying(false));
-  }, []);
+
+    return () => {
+      updateCurrentTime.cancel();
+      _wavesurfer.unAll();
+      _wavesurfer.destroy();
+    };
+  }, [url, file, volume]);
+
+  useEffect(() => {
+    const unsubscribe = tinykeys(window, {
+      Space: togglePlay,
+    });
+    return unsubscribe;
+  }, [wavesurfer]);
 
   return (
     <>
-      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={togglePlay} />
       <div id="waveform" className="relative mb-4">
         <ScaleLoader
           color="#F43F5E"
